@@ -1,24 +1,9 @@
 from lxml import html
 import requests
-
-
-
-class Stuff(object):
-    thing = ""
-    url = ""
-    location = ""
-    #construct it!
-    def __init__(self, thing, url, location):
-        self.thing = thing
-        self.url = url
-        self.location = location
-    
-    def __str__(self):
-        return "what:%s \n where:%s \n link:%s" % (self.thing, self.location, self.url)
-        
-def gather_stuff(thing, url, location):
-    stuff = Stuff(thing, url, location)
-    return stuff
+import re
+from geopy.geocoders import Nominatim
+from stuff import Stuff
+import stuffify
 
 
 #request and scraping
@@ -29,5 +14,14 @@ urls = freetree.xpath('//a[@class="hdrlnk"]/@href')
 locations = freetree.xpath('//span[@class="pnr"]/small/text()')
 
 #the construction of free stuffs
-freestuffs = [gather_stuff(stuffs[x], urls[x], locations[x]) for x in range(0,50)]
+freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x]) for x in range(0,10)]
 
+#test coordinates
+geolocator = Nominatim()
+findit = geolocator.geocode(freestuffs[1].location)
+if findit is not None:    
+    print(findit, findit.latitude, findit.longitude)
+
+coordinates = stuffify.get_coordinates(freestuffs[1].location)
+
+print(str(freestuffs[1]))
