@@ -16,7 +16,7 @@ def get_coordinates(location):
     return coord
 
 def post_map(freestuffs):
-	map_osm = folium.Map([45.5088, -73.5878]) #Montreal
+	map_osm = folium.Map([45.5088, -73.5878], zoom_start=19) #Montreal
 	for freestuff in freestuffs: #sooo will this work? 
 		#holy shit I can't believe it worked
 		place = freestuff.location
@@ -28,11 +28,12 @@ def post_map(freestuffs):
 			coordinates = get_coordinates(freestuff.location)
 			lat = coordinates[0]
 			lon = coordinates[1]
-			print(coordinates)
 		except:
-			print("nope")
+			lat = 45.5088
+			lon = -73.5878
 
-		print(name, url, place)
+		#print(thing, \n, place, lat, lon)
+		print(thing, place)
 		#well, it runs but it doesn't load
 		map_osm.circle_marker(location=[lat, lon], radius=300,
                   popup=name, line_color='#3186cc',
