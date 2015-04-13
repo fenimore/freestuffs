@@ -22,7 +22,8 @@ def post_map(freestuffs):
 		place = freestuff.location
 		thing = freestuff.thing
 		url = freestuff.url
-		name = thing + "<br><h3>{0} [{1}]</h3><a href=" + url + " target='_blank'>view ad</a>"
+		image = "imagessss"
+		name = image + "<br><h3>" + thing + "</h3><a href=" + url + " target='_blank'>view ad</a>"
 		try:
 			coordinates = get_coordinates(freestuff.location)
 			lat = coordinates[0]
