@@ -5,4 +5,4 @@ I like ayota's use of GeoPy to post the free stuff to a website with osm... I do
 <h3>dependencies:</h3>
 requests<br>
 lxml
-
+<br>geopy
