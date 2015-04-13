@@ -16,21 +16,24 @@ def get_coordinates(location):
     return coord
 
 def post_map(freestuffs):
-	map_osm = folium.Map([45.5088, -73.5878], 13) #Montreal
+	map_osm = folium.Map([45.5088, -73.5878]) #Montreal
 	for freestuff in freestuffs: #sooo will this work? 
 		#holy shit I can't believe it worked
 		place = freestuff.location
-		name = freestuff.thing
+		thing = freestuff.thing
 		url = freestuff.url
+		name = thing + "<br><h3>{0} [{1}]</h3><a href=" + url + " target='_blank'>view ad</a>"
 		try:
 			coordinates = get_coordinates(freestuff.location)
+			lat = coordinates[0]
+			lon = coordinates[1]
 			print(coordinates)
 		except:
 			print("nope")
 
 		print(name, url, place)
 		#well, it runs but it doesn't load
-		map_osm.circle_marker(location=coordinates, radius=15,
+		map_osm.circle_marker(location=[lat, lon], radius=300,
                   popup=name, line_color='#3186cc',
                   fill_color='#3186cc', fill_opacity=0.2)
 	map_osm.create_map(path='findit.html') #open this 
