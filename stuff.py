@@ -3,10 +3,10 @@ class Stuff(object):
     url = ""
     location = ""
     coord = [] #mmmh, no luck
-    #construct it!
-    def set_coord(lat, lon): #yearh right htis doesn't work!
-        self.coord = [lat, lon]
-        
+
+    #def set_coord(lat, lon): #yearh right htis doesn't work!
+        #self.coord = [lat, lon]		
+    #constructor the de-structor!!  
     def __init__(self, thing, url, location):
         self.thing = thing
         self.url = 'http://montreal.craigslist.ca' + url

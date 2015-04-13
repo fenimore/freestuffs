@@ -1,9 +1,8 @@
 from lxml import html
-import requests
-import re
+import requests, re, folium
 from geopy.geocoders import Nominatim
 from stuff import Stuff
-import stuffify
+import stuffify #this is a module
 
 
 #request and scraping
@@ -22,6 +21,8 @@ findit = geolocator.geocode(freestuffs[1].location)
 if findit is not None:    
     print(findit, findit.latitude, findit.longitude)
 
+#test the coord calculator
 coordinates = stuffify.get_coordinates(freestuffs[1].location)
-
+print(coordinates)
 print(str(freestuffs[1]))
+stuffify.post_map(freestuffs)

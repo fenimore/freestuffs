@@ -1,30 +1,217 @@
-<!DOCTYPE=html>
-
+<!DOCTYPE html>
 <head>
- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
- <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
 
-<style>
-#map { height: 700px; width: 700px;}
-</style>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+   <link rel="stylesheet" href="//rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css">
+   <script src="//rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js"></script>
+
+
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css">
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+
+   <link rel="stylesheet" href="//birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css">
+
+   
+   
+   
+   
+
+   <style>
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:0;
+        left:0;
+      }
+
+   </style>
 </head>
+
 <body>
-<center>
- <div id="map"></div>
-</center>
 
-<script>
-// create a map in the "map" div, set the view to a given place and zoom
-var map = L.map('map').setView([45.4528, -73.64], 13);
+   <div class="folium-map" id="folium_50d097f560f84e439f90897566319a62" style="width: 13px; height: 500px"></div>
 
-// add an OpenStreetMap tile layer
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+   <script>
 
-// add a marker in the given location, attach some popup content to it and open the popup
-L.marker([45.4528, -73.64]).addTo(map)
-    .bindPopup('Stuff Variable Goes Here. <br> This is Montreal West (Lazy boy chair).')
-    .openPopup();
-</script>
+      
+
+      var base_tile = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          minZoom: 1,
+          attribution: 'Map data (c) <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+      });
+
+      var baseLayer = {
+        "Base Layer": base_tile
+      };
+
+      /*
+      addition of the wms layers
+      */
+
+      
+
+      /*
+      addition of the tile layers
+      */
+      
+
+      /*
+      list of layers to be added
+      */
+      var layer_list = {
+      
+      };
+
+      /*
+      Bounding box.
+      */
+      var southWest = L.latLng(-90, -180),
+          northEast = L.latLng(90, 180),
+          bounds = L.latLngBounds(southWest, northEast);
+
+      /*
+      Creates the map and adds the selected layers
+      */
+      var map = L.map('folium_50d097f560f84e439f90897566319a62', {
+                                       center:[45.5088, -73.5878],
+                                       zoom: 10,
+                                       maxBounds: bounds,
+                                       layers: [base_tile]
+                                     });
+
+      L.control.layers(baseLayer, layer_list).addTo(map);
+
+      //cluster group
+      var clusteredmarkers = L.markerClusterGroup();
+      //section for adding clustered markers
+      
+      //add the clustered markers to the group anyway
+      map.addLayer(clusteredmarkers);
+
+      
+
+      
+      var circle_1 = L.circle([45.4737568, -73.6667808], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_1.bindPopup("Don de v&#233;lo /Free bike");
+      circle_1._popup.options.maxWidth = 300;
+      map.addLayer(circle_1)
+      
+      var circle_2 = L.circle([45.452853, -73.6442548], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_2.bindPopup("ELECTRIC LAZY BOY CHAIR");
+      circle_2._popup.options.maxWidth = 300;
+      map.addLayer(circle_2)
+      
+      var circle_3 = L.circle([45.452853, -73.6442548], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_3.bindPopup("plates + travel mug");
+      circle_3._popup.options.maxWidth = 300;
+      map.addLayer(circle_3)
+      
+      var circle_4 = L.circle([45.4737568, -73.6667808], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_4.bindPopup("black hard hat");
+      circle_4._popup.options.maxWidth = 300;
+      map.addLayer(circle_4)
+      
+      var circle_5 = L.circle([45.5218361, -73.5821731], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_5.bindPopup("scrap wood");
+      circle_5._popup.options.maxWidth = 300;
+      map.addLayer(circle_5)
+      
+      var circle_6 = L.circle([45.4603893, -73.5651925], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_6.bindPopup("7 wine glasses");
+      circle_6._popup.options.maxWidth = 300;
+      map.addLayer(circle_6)
+      
+      var circle_7 = L.circle([45.5274015, -73.608287275], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_7.bindPopup("free vhs movies - Harry Potter + Alice in Wonderland");
+      circle_7._popup.options.maxWidth = 300;
+      map.addLayer(circle_7)
+      
+      var circle_8 = L.circle([45.4822639, -73.5633832], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_8.bindPopup("&#192; donner / Gratuit toner samsung CLP-300");
+      circle_8._popup.options.maxWidth = 300;
+      map.addLayer(circle_8)
+      
+      var circle_9 = L.circle([45.46638755, -73.6323610790807], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_9.bindPopup("Sofa BILTMORE Authentique/Classique Suivre|Partager |Imprimer|Signaler");
+      circle_9._popup.options.maxWidth = 300;
+      map.addLayer(circle_9)
+      
+      var circle_10 = L.circle([45.5115944, -73.6051013], 15, {
+                            color: '#3186cc',
+                            fillColor: '#3186cc',
+                            fillOpacity: 0.2
+                            });
+      circle_10.bindPopup("Space age Trecco bed headboard");
+      circle_10._popup.options.maxWidth = 300;
+      map.addLayer(circle_10)
+      
+
+      
+
+      
+
+      
+
+      
+
+   </script>
+
 </body>
