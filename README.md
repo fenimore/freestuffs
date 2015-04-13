@@ -5,4 +5,6 @@ I like ayota's use of GeoPy to post the free stuff to a website with osm... I do
 <h3>dependencies:</h3>
 requests<br>
 lxml
+<h6>maps</h6>
 <br>geopy
+<br> leaflet.js
