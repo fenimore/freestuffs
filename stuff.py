@@ -2,10 +2,8 @@ class Stuff(object):
     thing = ""
     url = ""
     location = ""
-    coord = [] #mmmh, no luck
-
-    #def set_coord(lat, lon): #yearh right htis doesn't work!
-        #self.coord = [lat, lon]		
+	image = "" #todo
+		
     #constructor the de-structor!!  
     def __init__(self, thing, url, location):
         self.thing = thing
