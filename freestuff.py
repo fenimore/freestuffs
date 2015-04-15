@@ -4,9 +4,7 @@ from geopy.geocoders import Nominatim
 from stuff import Stuff
 import stuffify #this is a module
 import webbrowser
-import http.server
-import time
-
+import stuffserver
 
 #request
 freestuff = requests.get('http://montreal.craigslist.com/search/zip')
@@ -29,16 +27,9 @@ if findit is not None:
 output = str(freestuffs[0])
 print(output)
 
-myServer = BaseHTTPRequestHandler((localhost, 8000), MyServer)
-print(time.asctime(), "Server Starts - %s:%s" % ("localhost","8000"))
-
-try:
-    myServer.serve_forever()
-except KeyboardInterrupt:
-    pass
-
 
 #Make sure http.server is running
 stuffify.post_map(freestuffs)
+stuffserver.launch_server()
 webbrowser.open_new_tab("localhost:8000/findit.html")
 
