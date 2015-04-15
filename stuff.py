@@ -9,7 +9,8 @@ class Stuff(object):
         self.thing = thing
         self.url = 'http://montreal.craigslist.ca' + url
         place = str(location).strip(' ()')
-        self.location = "Montréal, " + place #put 'montreal' so geolocator works
+        self.location = place + ", Montréal"
+        #put 'montreal' so geolocator works
         #add image constructor? self.image = image
     
     def __str__(self):

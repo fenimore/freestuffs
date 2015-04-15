@@ -17,40 +17,47 @@ def get_coordinates(location):
     lon = findit.longitude
     coord = [lat, lon]
     return coord
-    
+
 #Returns the color for map rendering
 def sort_stuff(stuff):
-    furniture_pattern = "r(wood|shelf|table|chair|scrap)"
-    electronics_pattern = "r(tv|sony|écran|speakers)"
-
+    furniture_pattern = "(wood|shelf|table|chair|scrap)"
+    electronics_pattern = "(tv|sony|écran|speakers|books)" #these aren't working
     if re.match(furniture_pattern, stuff, re.I):
         return "#FF0000" #red
     if re.match(electronics_pattern, stuff, re.I):
         return "#3186cc" #blue
     else:
-        return "#FFFF00" #yellow
+        return "#FFFFFF" #white
 
-#def post_listings(freestuffs): #for now, print but then list on html page
-    
+#Refine Craigslist's pitiful location specifications
+def refine_location(place): #this should be a switch!!!
+    if place == "montreal, Montréal":#poster didn't specify where in Montreal
+        refinition = "Montréal, Somewhere"
+    if place == "Montreal, Montréal":#poster didn't specify where in Montreal
+        refinition = "Montréal, Somewhere"
+    else: refinition = place
+    return refinition #slick word, huh?
 
+def post_listings(freestuffs): #for now, print but then list on html page
+    for freestuff in freestuffs:
+        #place = refine_location(freestuff.location)
+        #if place == "montreal, Montréal":
+        #    place = "Montréal, Somewhere"
+        #thing = freestuff.thing
+        #url = freestuff.url
+        output = str(freestuff)
+        print(output)
 
 def post_map(freestuffs):
     map_osm = folium.Map([45.5088, -73.5878], zoom_start=13) #Montreal
+    radi = 700 #this corrects overlapping stuffs
     for freestuff in freestuffs: #loop through stuffs
-        place = freestuff.location
-        if place == "Montréal, Montréal":#poster didn't specify where in Montreal
-            place = "Montréal, Somewhere"
-            randomlat = randit(45.5040, 45.5090)
-            randomlon = randit(-73.5880, -73.5840)
-            lat = randomlat
-            lon= randomlon
-            
-        thing = freestuff.thing
-        url = freestuff.url
+        place = refine_location(freestuff.location) #location
+        thing = freestuff.thing                     #thing
+        url = freestuff.url                         #link
         image = "imagessss" #"<img src="freestuff.image "/>"
-        color = sort_stuff(thing)
-        #plug image url then src it in an img tag
-        # name is the map posting add img src tag
+        color = sort_stuff(thing)                   #map marker color
+        # name is the map posting --- add img src tag
         name = image + "<br><h3>" + thing + "</h3><h4>" + place + "</h4><a href=" + url + " target='_blank'>view ad</a>"
         try:
             coordinates = get_coordinates(freestuff.location)#get coords returns a list (lat = 0 lon = 1)
@@ -59,8 +66,9 @@ def post_map(freestuffs):
         except: #put it on the mountain somewhere if it's "somewhere"
             lat = 45.5088
             lon = -73.5878
-        map_osm.circle_marker(location=[lat, lon], radius=300,
-          popup=name, line_color=color,
+        map_osm.circle_marker(location=[lat, lon], radius=radi,
+          popup=name, line_color='#000000',
           fill_color=color, fill_opacity=0.2)
+        radi -= 60 #decrease the radius to show older postings
 
     map_osm.create_map(path='findit.html') #open this 

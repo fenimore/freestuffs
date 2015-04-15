@@ -11,5 +11,5 @@ lxml
 
 <br><br>
 TODO:<br>
-put http.server in init
-<br>
+put http.server in init... How possible is this?
+<br>Refine_location method needs to be a switch<br>AND it needs to take into account:<br>st. Laurent<br>St. Henri<br>Etc.

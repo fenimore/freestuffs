@@ -12,12 +12,11 @@ class RedirectHandler(BaseHTTPRequestHandler):
     def do_HEAD(s):
         s.send_response(301)
         s.send_header('Content-type', 'text/html')
-        S.end_headers()
+        s.end_headers()
     def do_GET(s):
         s.do_HEAD()
 
 def launch_server():
-    #server_class = BaseHTTPServer.HTTPServer
     httpd = HTTPServer((hostname, portnumber), RedirectHandler)
     print(time.asctime(), "Server starts - %s:%s" % (hostname, portnumber))
     try:

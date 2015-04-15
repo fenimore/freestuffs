@@ -15,21 +15,18 @@ urls = freetree.xpath('//a[@class="hdrlnk"]/@href')
 locations = freetree.xpath('//span[@class="pnr"]/small/text()')
 
 # this is a list combobulator. Python really is beautiful
-freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x]) for x in range(0,10)]
+geocode_freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x]) for x in range(0,10)] #geocoding crashes after ten markers
+freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x]) for x in range(0,20)]
 
 #test geolocator, cool feature
-geolocator = Nominatim()
-findit = geolocator.geocode(freestuffs[0].location)
-if findit is not None:    
-    print(findit)
+#geolocator = Nominatim()
+#findit = geolocator.geocode(freestuffs[0].location)
+#if findit is not None:    
+#    print(findit)
 
-#Print recent stuff
-output = str(freestuffs[0])
-print(output)
-
-
+stuffify.post_listings(freestuffs)
 #Make sure http.server is running
-stuffify.post_map(freestuffs)
-stuffserver.launch_server()
+stuffify.post_map(geocode_freestuffs)
+#stuffserver.launch_server() #This doesn't work
 webbrowser.open_new_tab("localhost:8000/findit.html")
 
