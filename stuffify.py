@@ -1,6 +1,7 @@
 from stuff import Stuff
 from geopy.geocoders import Nominatim
 import folium, sys, re
+from random import randint
 # cool kids import all at once
 
 # stuff constructor
@@ -34,8 +35,12 @@ def post_map(freestuffs):
 	for freestuff in freestuffs: #sooo will this work? 
 		#holy shit I can't believe it worked
 		place = freestuff.location
-		if place == "montreal, Montreal":
-			place = "Montreal, Somewhere" 
+		if place == "Montréal, Montréal":
+			place = "Montréal, Somewhere"
+			randomlat = randit(45.5040, 45.5090)
+			randomlon = randit(-73.5880, -73.5840)
+			lat = randomlat
+			lon= randomlon
 			#poster didn't specify where in Montreal
 		thing = freestuff.thing
 		url = freestuff.url
