@@ -20,11 +20,11 @@ def get_coordinates(location):
 #Refine Craigslist's pitiful location specifications
 def refine_location(place): #this should be a switch!!!
     location = str(place).strip(' ()') #why do i need that space?
-    if re.search("(Montreal)", location, re.I):
+    if re.search("(montreal)", location, re.I):
         refinition = "Montréal, Somewhere"
-    if re.match("st-henri", location, re.I):
+    if re.search("(st-henri)", location, re.I):
         refinition = "Place Saint-Henri, Montréal"
-    if re.match("ndg", location, re.I):
+    if re.search("ndg", location, re.I):
         refinition = "Notre-Dame-de-Grâce, Montréal" #Are if statements a silly way to do this?
     else:
         refinition = location + ", Montréal" #this don't work!

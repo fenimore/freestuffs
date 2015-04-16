@@ -2,7 +2,7 @@ from lxml import html
 import requests, re, folium, webbrowser #cool kids import all at once
 from geopy.geocoders import Nominatim
 from stuff import Stuff
-import stuffify, stuffserver #these are modules
+import stuffify #these are modules
 
 #request
 freestuff = requests.get('http://montreal.craigslist.com/search/zip')
@@ -12,8 +12,7 @@ freetree = html.fromstring(freestuff.text)
 stuffs = freetree.xpath('//a[@class="hdrlnk"]/text()')
 urls = freetree.xpath('//a[@class="hdrlnk"]/@href')
 locations = freetree.xpath('//span[@class="pnr"]/small/text()')
-images = freetree.xpath('//a[@class="hdrlnk"]/@href')#IMAGES??? HOW DO I xpath image url? having trouble is all.
-
+images = freetree.xpath('//a[@class="hdrlnk"]/@href')   #'.//*[@id="searchform"]/div[2]/div[3]/p[4]/a/div[1]/div/div[1]/img')
 # this is a list combobulator. Python really is beautiful
 geocode_freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x], images[x]) for x in range(0,10)] #geocoding crashes after ten markers
 freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x], images[x]) for x in range(0,20)] #the terminal will print a bigger list
