@@ -12,11 +12,11 @@ freetree = html.fromstring(freestuff.text)
 stuffs = freetree.xpath('//a[@class="hdrlnk"]/text()')
 urls = freetree.xpath('//a[@class="hdrlnk"]/@href')
 locations = freetree.xpath('//span[@class="pnr"]/small/text()')
-    #IMAGES??? HOW DO I xpath image url? having trouble is all.
+images = freetree.xpath('//a[@class="hdrlnk"]/@href')#IMAGES??? HOW DO I xpath image url? having trouble is all.
 
 # this is a list combobulator. Python really is beautiful
-geocode_freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x]) for x in range(0,10)] #geocoding crashes after ten markers
-freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x]) for x in range(0,20)] #the terminal will print a bigger list
+geocode_freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x], images[x]) for x in range(0,10)] #geocoding crashes after ten markers
+freestuffs = [stuffify.gather_stuff(stuffs[x], urls[x], locations[x], images[x]) for x in range(0,20)] #the terminal will print a bigger list
 
 #runnnnning
 stuffify.post_listings(freestuffs) #list freestuffs in terminal
