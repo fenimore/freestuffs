@@ -1,6 +1,6 @@
 from stuff import Stuff
 from geopy.geocoders import Nominatim
-import folium, sys, re, random # cool kids import all at once
+import folium, re, random # cool kids import all at once
 
 # stuff constructor
 def gather_stuff(thing, url, location, image):
@@ -18,14 +18,19 @@ def get_coordinates(location):
     return coord
 
 #Refine Craigslist's pitiful location specifications
-def refine_location(place): #this should be a switch!!!
-    location = str(place).strip(' ()') #why do i need that space?
-    if re.search("(montreal)", location, re.I):
-        refinition = "Montréal, Somewhere"
-    if re.search("(st-henri)", location, re.I):
-        refinition = "Place Saint-Henri, Montréal"
-    if re.search("ndg", location, re.I):
-        refinition = "Notre-Dame-de-Grâce, Montréal" #Are if statements a silly way to do this?
+def refine_location(place): #there is no switch in python
+    location = str(place).strip(' ()') #why do i need that space? Do I need that space?
+                                        #this thing barely works
+    if re.match("montreal", location, re.I):
+        refinition = " Montréal, Somewhere"
+    if re.match("(St-Henri)", location, re.I):
+        refinition = " Place Saint-Henri, Montréal"
+    if re.match(" mcgill", location, re.I):
+        refinition = " McGill Univesrity, Montréal"
+    if re.match(" (Saint laurent | Blvd St Laurent)", location, re.I):
+        refinition = "blvd St Laurent, Montréal"
+    if re.match(" ndg", location, re.I):
+        refinition = " Notre-Dame-de-Grâce, Montréal" #Are if statements a silly way to do this?
     else:
         refinition = location + ", Montréal" #this don't work!
     return refinition #slick word, huh?

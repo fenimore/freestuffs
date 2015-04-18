@@ -25,7 +25,8 @@ stuffify.post_map(geocode_freestuffs) #throw freestuffs onto map
 webbrowser.open_new_tab("localhost:8000/findit.html")
 print("never buy again!")
 
-#test geolocator, cool feature
+
+####THIS IS A COOL FEATURE
 #geolocator = Nominatim()
 #findit = geolocator.geocode(freestuffs[0].location)
 #if findit is not None:    
