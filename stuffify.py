@@ -95,5 +95,5 @@ def post_map(freestuffs):
         map_osm.circle_marker(location=[lat, lon], radius=radi,
           popup=name, line_color="#000000",
           fill_color=color, fill_opacity=0.2)
-        radi -= 60 #decrease the radius to show older postings
+        radi -= 60 #decrease the radius to be sure not to cover up older postings
     map_osm.create_map(path='findit.html') #open this 
