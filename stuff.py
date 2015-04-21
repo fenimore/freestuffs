@@ -1,4 +1,9 @@
 #This Object is anything so-called Free
+##MAJOR BUG: When the location node is empty
+##           the object asumes the next stuff's 
+##           location....
+##           this is the same problem for images
+#######################################
 class Stuff(object):
     thing = ""
     url = ""

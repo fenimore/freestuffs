@@ -1,0 +1,7 @@
+#Legend:
+The larger the marker (circle) on the free-stuff map, the more recent the posting, 
+At the present there are two stuff-distinctions: BLUE are electronics (tv, speakers, etc) and RED are furniture (chairs, wood, 
+etc). Circles colored BLACK are the "desired" stuffs (here books or "cool" things). The default color is WHITE. 
+
+##Location Data
+Certain locations are broken: namely, the West Island

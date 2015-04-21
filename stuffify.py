@@ -19,34 +19,48 @@ def get_coordinates(location):
 
 #Refine Craigslist's pitiful location specifications
 def refine_location(place): #there is no switch in python
-    location = str(place).strip(' ()') #why do i need that space? Do I need that space?
+    location = str(place).strip(' ()') #why do i need that space? Do I need that space? Yes.
                                         #this thing barely works
-    if re.match("montreal", location, re.I):
+                                        # TODO: West Island
+    montreal_pattern = "montreal|mtl"
+    henri_pattern = "st-henri"
+    if re.match(montreal_pattern, location, re.I): #why doesn't this work?
         refinition = " Montréal, Somewhere"
-    if re.match("(St-Henri)", location, re.I):
+        return refinition
+    if re.match(henri_pattern, location, re.I): #OHHHH I figuredc it out
         refinition = " Place Saint-Henri, Montréal"
-    if re.match(" mcgill", location, re.I):
+        return refinition
+    if re.match("mcgill", location, re.I):
         refinition = " McGill Univesrity, Montréal"
-    if re.match(" (Saint laurent | Blvd St Laurent)", location, re.I):
+        return refinition
+    if re.match("saint laurent", location, re.I):
         refinition = "blvd St Laurent, Montréal"
-    if re.match(" ndg", location, re.I):
+        return refinition
+    if re.match("plateau", location, re.I):
+        refinition = "Plateau Mont Royal, Montréal"
+        return refinition
+    if re.match("ndg", location, re.I):
         refinition = " Notre-Dame-de-Grâce, Montréal" #Are if statements a silly way to do this?
+        return refinition
+    if re.match("cdn", location, re.I):
+        refinition = " Côte-des-Neiges, Montréal"
+        return refinition 
     else:
         refinition = location + ", Montréal" #this don't work!
-    return refinition #slick word, huh?
+        return refinition #slick word, huh?
 
 #Returns the color for map rendering
 def sort_stuff(stuff):
 
     furniture_pattern = "(wood|shelf|table|chair|scrap)"
     electronics_pattern = "(tv|sony|écran|speakers)" #search NOT match
-    find_pattern = "(book|games|cd|cool)"               #sooo these are what I'm looking for?
+    find_pattern = "(book|games|cool)"               #sooo these are what I'm looking for?
     if re.search(furniture_pattern, stuff, re.I):
         return "#FF0000" #red
     if re.search(electronics_pattern, stuff, re.I):
         return "#3186cc" #blue
     if re.search(find_pattern, stuff, re.I):
-        return "#000000"
+        return "#000000" #black
     else:
         return "#FFFFFF" #white
 
@@ -59,8 +73,8 @@ def post_listings(freestuffs): #for now, print but later i'll list on html page
 #Post listings in map; looks more complicated than it is
 #Everytime this script runs, findit.html gets a new map
 def post_map(freestuffs):
-    hexa = hex(random.randint(0, 16777215))[2:].upper() #maybe these are a waste of breathe
-    random_color = "#{0}".format(hexa)
+    #hexa = hex(random.randint(0, 16777215))[2:].upper() #maybe these are a waste of breathe
+    #random_color = "#{0}".format(hexa)
     map_osm = folium.Map([45.5088, -73.5878], zoom_start=13) #Montreal's Mont Royal
     radi = 700 #this corrects overlapping stuffs
     for freestuff in freestuffs:                    #loop through stuffs
@@ -79,7 +93,7 @@ def post_map(freestuffs):
             lat = 45.5088
             lon = -73.5878
         map_osm.circle_marker(location=[lat, lon], radius=radi,
-          popup=name, line_color=random_color,
+          popup=name, line_color="#000000",
           fill_color=color, fill_opacity=0.2)
         radi -= 60 #decrease the radius to show older postings
     map_osm.create_map(path='findit.html') #open this 
