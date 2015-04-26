@@ -29,7 +29,7 @@ stuffify.post_listings(freestuffs) #list freestuffs in terminal
                                    #Make sure http.server is running
 stuffify.post_map(geocode_freestuffs) #throw freestuffs onto map
          #stuffserver.launch_server() #This doesn't work
-webbrowser.open_new_tab("localhost:8000/findit.html")
+webbrowser.open_new_tab("localhost:8000/webmap/findit.html")
 print("\n", "Never Buy Again!", "\n\n", "see Legend file for details")          
                                       #Print Exit Message
 
