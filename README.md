@@ -23,5 +23,6 @@ This is a bot which scrapes free stuff from craigslist (montrea). It posts the d
       <li>West Island</li>
       <li>and many others</li>
     </ul>
+  <li>Continue experimenting with Tkinter</li>
 </ul>
 
