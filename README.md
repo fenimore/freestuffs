@@ -1,8 +1,8 @@
 # freestuff-bot - or, Never Buy Again!
 This is a bot which scrapes free stuff from craigslist (montrea). It posts the data onto a map/html page. It's written in python 3 but ought to be compatible with 2.7 (once you change the print functions accordingly).
 
-##To run freestuff-bot, run 'python -m http.server'
-<label>The findit.html file is an example of the map output</label>
+##To run freestuff-bot, run <code>python -m http.server</code>
+<b>The findit.html file is an example of the map output</b>
 
 ###Main Dependencies:
 <ul>
