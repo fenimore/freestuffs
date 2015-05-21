@@ -14,6 +14,7 @@ This is a bot which scrapes free stuff from craigslist (montrea). It posts the d
 
 ###So much todo:
 <ul>
+  <li>Woah, daemon sync in the background: https://github.com/serverdensity/python-daemon</li>
   <li>xpath the img src from craigslist....mmm... (this proves difficult, because when the node is empty, the list is dichevelled. This isn't as much of a problem (but it still is a problem) for the location data.</li>
   <li>put <code>python -m http.server</code> in the init... Is this possible?</li>
   <li>Refine_location method:</li>
