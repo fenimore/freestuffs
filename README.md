@@ -1,5 +1,11 @@
 # freestuff-bot - or, Never Buy Again!
 This is a bot which scrapes free stuff from craigslist (montrea). It posts the data onto a map/html page. It's written in python 3 but ought to be compatible with 2.7 (once you change the print functions accordingly).
+I'm trying to get it to work according to the user 
+input, that is, whatsoever city we want free stuff from.
+And I'm switching this to BeautifulSoup, it makes the 
+issue 
+for missing nodes (for images/locations) no longer an 
+issue.
 
 ##To run freestuff-bot, run <code>python -m http.server</code>
 <b>The findit.html file is an example of the map output</b>
