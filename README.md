@@ -20,9 +20,10 @@ My goal is to have an accessible library for craigslist freestuff and eventually
 
 ### So much todo (planned features/broken features):
 <ul>
+  <li>Loading |\//-\ image??</li>
   <li>Woah, daemon sync in the background: https://github.com/serverdensity/python-daemon</li>
   <li>Bot for posting onto pump.io/statusnet</li>
-  <li>~~~xpath the img src from craigslist....mmm... (this proves difficult, because when the node is empty, the list is dichevelled. This isn't as much of a problem (but it still is a problem) for the location data.~~~</li>
+  <li>~~~xpath the img src from craigslist....mmm... (this proves difficult, because when the node is empty, the list is dichevelled. This isn't as much of a problem (but it still is a problem) for the location data.~~~ So Craigslist is deliberatly obscurativating for images. Uh.</li>
   <li>put <code>python -m http.server</code> in the init... Is this possible?</li>
   <li>~~~Refine_location method:~~~</li>
     <ul>

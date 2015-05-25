@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+   <link rel="stylesheet" href="//rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css">
+   <script src="//rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js"></script>
+
+
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css">
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+
+   <link rel="stylesheet" href="//birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css">
+
+   
+   
+   
+   
+
+   <style>
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:0;
+        left:0;
+      }
+
+   </style>
+</head>
+
+<body>
+
+   <div class="folium-map" id="folium_f57ea30df99a48f1ba2635c24aa7bcf9" style="width: 960px; height: 500px"></div>
+
+   <script>
+
+      
+
+      var base_tile = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          minZoom: 1,
+          attribution: 'Map data (c) <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+      });
+
+      var baseLayer = {
+        "Base Layer": base_tile
+      };
+
+      /*
+      addition of the wms layers
+      */
+
+      
+
+      /*
+      addition of the tile layers
+      */
+      
+
+      /*
+      list of layers to be added
+      */
+      var layer_list = {
+      
+      };
+
+      /*
+      Bounding box.
+      */
+      var southWest = L.latLng(-90, -180),
+          northEast = L.latLng(90, 180),
+          bounds = L.latLngBounds(southWest, northEast);
+
+      /*
+      Creates the map and adds the selected layers
+      */
+      var map = L.map('folium_f57ea30df99a48f1ba2635c24aa7bcf9', {
+                                       center:[45.5088, -73.5878],
+                                       zoom: 13,
+                                       maxBounds: bounds,
+                                       layers: [base_tile]
+                                     });
+
+      L.control.layers(baseLayer, layer_list).addTo(map);
+
+      //cluster group
+      var clusteredmarkers = L.markerClusterGroup();
+      //section for adding clustered markers
+      
+      //add the clustered markers to the group anyway
+      map.addLayer(clusteredmarkers);
+
+      
+
+      
+      var circle_1 = L.circle([45.5088, -73.5878], 700, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_1.bindPopup("1<br><h3>CD Tower</h3><h4>montreal, Somewhere</h4><a href=http://montreal.craigslist.ca/zip/5042102571.html target='_blank'>view ad</a>");
+      circle_1._popup.options.maxWidth = 300;
+      map.addLayer(circle_1)
+      
+      var circle_2 = L.circle([45.5088, -73.5878], 640, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_2.bindPopup("2<br><h3>FREE Magazines by the pallet</h3><h4>montreal, Somewhere</h4><a href=http://montreal.craigslist.ca/zip/5041940898.html target='_blank'>view ad</a>");
+      circle_2._popup.options.maxWidth = 300;
+      map.addLayer(circle_2)
+      
+      var circle_3 = L.circle([45.5088, -73.5878], 580, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_3.bindPopup("3<br><h3>Medium sized cabinet</h3><h4>montreal, Somewhere</h4><a href=http://montreal.craigslist.ca/zip/5041919670.html target='_blank'>view ad</a>");
+      circle_3._popup.options.maxWidth = 300;
+      map.addLayer(circle_3)
+      
+      var circle_4 = L.circle([45.4325141, -73.6292667], 520, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_4.bindPopup("4<br><h3>Cross county skis, 3 psirs</h3><h4>Lasalle, montreal</h4><a href=http://montreal.craigslist.ca/zip/5039218410.html target='_blank'>view ad</a>");
+      circle_4._popup.options.maxWidth = 300;
+      map.addLayer(circle_4)
+      
+      var circle_5 = L.circle([45.4603893, -73.5651925], 460, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_5.bindPopup("5<br><h3>THRUSTMASTER T.Flight Hotas X Joystick</h3><h4>Verdun, montreal</h4><a href=http://montreal.craigslist.ca/zip/5041773886.html target='_blank'>view ad</a>");
+      circle_5._popup.options.maxWidth = 300;
+      map.addLayer(circle_5)
+      
+      var circle_6 = L.circle([45.5088, -73.5878], 400, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_6.bindPopup("6<br><h3>Futon</h3><h4>Montre, montreal</h4><a href=http://montreal.craigslist.ca/zip/5041749146.html target='_blank'>view ad</a>");
+      circle_6._popup.options.maxWidth = 300;
+      map.addLayer(circle_6)
+      
+      var circle_7 = L.circle([45.5088, -73.5878], 340, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_7.bindPopup("7<br><h3>Love Seat, Green Leather</h3><h4>montreal, Somewhere</h4><a href=http://montreal.craigslist.ca/zip/5033446307.html target='_blank'>view ad</a>");
+      circle_7._popup.options.maxWidth = 300;
+      map.addLayer(circle_7)
+      
+      var circle_8 = L.circle([45.5088, -73.5878], 280, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_8.bindPopup("8<br><h3>&#192; donner: Cabanon 12pi X 10pi</h3><h4>montreal, Somewhere</h4><a href=http://montreal.craigslist.ca/zip/5041484440.html target='_blank'>view ad</a>");
+      circle_8._popup.options.maxWidth = 300;
+      map.addLayer(circle_8)
+      
+      var circle_9 = L.circle([45.5088, -73.5878], 220, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_9.bindPopup("9<br><h3>/palm tree painting/central vac pieces.</h3><h4>Dorv, montreal</h4><a href=http://montreal.craigslist.ca/zip/5041319988.html target='_blank'>view ad</a>");
+      circle_9._popup.options.maxWidth = 300;
+      map.addLayer(circle_9)
+      
+      var circle_10 = L.circle([45.5201525, -73.6150125], 160, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_10.bindPopup("10<br><h3>Double mattress & low bed frame/Matelas double & cadre bas</h3><h4>Metro Beaubien, montreal</h4><a href=http://montreal.craigslist.ca/zip/5040975614.html target='_blank'>view ad</a>");
+      circle_10._popup.options.maxWidth = 300;
+      map.addLayer(circle_10)
+      
+      var circle_11 = L.circle([45.65654895, -73.5341499894774], 100, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_11.bindPopup("11<br><h3>Propane Tank</h3><h4>St Henri, montreal</h4><a href=http://montreal.craigslist.ca/zip/5040797711.html target='_blank'>view ad</a>");
+      circle_11._popup.options.maxWidth = 300;
+      map.addLayer(circle_11)
+      
+      var circle_12 = L.circle([45.5164979, -73.5780719], 40, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_12.bindPopup("12<br><h3>Nano SIM card for UK</h3><h4>Ville Saint-Laurent, montreal</h4><a href=http://montreal.craigslist.ca/zip/5040748905.html target='_blank'>view ad</a>");
+      circle_12._popup.options.maxWidth = 300;
+      map.addLayer(circle_12)
+      
+      var circle_13 = L.circle([45.5088, -73.5878], -20, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_13.bindPopup("13<br><h3>VERY LARGE MIRROR</h3><h4>montreal, Somewhere</h4><a href=http://montreal.craigslist.ca/zip/5040634799.html target='_blank'>view ad</a>");
+      circle_13._popup.options.maxWidth = 300;
+      map.addLayer(circle_13)
+      
+      var circle_14 = L.circle([45.6180007, -73.5966879], -80, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_14.bindPopup("14<br><h3>Free JVC 32\" television</h3><h4>Anjou, montreal</h4><a href=http://montreal.craigslist.ca/zip/5040487381.html target='_blank'>view ad</a>");
+      circle_14._popup.options.maxWidth = 300;
+      map.addLayer(circle_14)
+      
+      var circle_15 = L.circle([45.5088, -73.5878], -140, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_15.bindPopup("15<br><h3>piano gratuit</h3><h4>montreal, Somewhere</h4><a href=http://montreal.craigslist.ca/zip/5040475382.html target='_blank'>view ad</a>");
+      circle_15._popup.options.maxWidth = 300;
+      map.addLayer(circle_15)
+      
+      var circle_16 = L.circle([45.65654895, -73.5341499894774], -200, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_16.bindPopup("16<br><h3>Queen size Ikea mattress - come get it!</h3><h4>St Henri, montreal</h4><a href=http://montreal.craigslist.ca/zip/5040474594.html target='_blank'>view ad</a>");
+      circle_16._popup.options.maxWidth = 300;
+      map.addLayer(circle_16)
+      
+      var circle_17 = L.circle([45.46638755, -73.6323610790807], -260, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_17.bindPopup("17<br><h3>hiking boots - size 7</h3><h4>NDG, montreal</h4><a href=http://montreal.craigslist.ca/zip/5040418657.html target='_blank'>view ad</a>");
+      circle_17._popup.options.maxWidth = 300;
+      map.addLayer(circle_17)
+      
+      var circle_18 = L.circle([45.5088, -73.5878], -320, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_18.bindPopup("18<br><h3>3 Goodyear \"Assurance\" tires 205/75R15</h3><h4>DDO, montreal</h4><a href=http://montreal.craigslist.ca/zip/5039555254.html target='_blank'>view ad</a>");
+      circle_18._popup.options.maxWidth = 300;
+      map.addLayer(circle_18)
+      
+      var circle_19 = L.circle([45.5084866, -73.5646033], -380, {
+                            color: '#000000',
+                            fillColor: '#FFFFFF',
+                            fillOpacity: 0.2
+                            });
+      circle_19.bindPopup("19<br><h3>FREE Queen size sofa bed with mattress</h3><h4>Saint Hubert, montreal</h4><a href=http://montreal.craigslist.ca/zip/5039488925.html target='_blank'>view ad</a>");
+      circle_19._popup.options.maxWidth = 300;
+      map.addLayer(circle_19)
+      
+      var circle_20 = L.circle([45.5088, -73.5878], -440, {
+                            color: '#000000',
+                            fillColor: '#FF0000',
+                            fillOpacity: 0.2
+                            });
+      circle_20.bindPopup("20<br><h3>Large glass-topped cherry wood cabinet</h3><h4>montreal, Somewhere</h4><a href=http://montreal.craigslist.ca/zip/5039325934.html target='_blank'>view ad</a>");
+      circle_20._popup.options.maxWidth = 300;
+      map.addLayer(circle_20)
+      
+
+      
+
+      
+
+      
+
+      
+
+   </script>
+
+</body>
