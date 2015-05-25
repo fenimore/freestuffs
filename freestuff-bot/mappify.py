@@ -49,4 +49,5 @@ def post_map(freestuffs): # Pass in freestuffs list
           popup=name, line_color="#000000",
           fill_color=color, fill_opacity=0.2)
         radi -= 60 #decrease the radius to be sure not to cover up older postings
-    map_osm.create_map(path='webmap/findit.html') #open this 
+    map_osm.create_map(path='webmap/findit.html') #open this ... but it needs a small server running etc whatevs
+    webbrowser.open_new_tab("localhost:8000/webmap/findit.html") # Does it work?
