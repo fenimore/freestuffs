@@ -39,13 +39,15 @@ class Stuff(object):
     url = ""
     location = ""
     image = ""
+    user_location = ""
 		
     #constructor the de-structor!!  
-    def __init__(self, thing, url, location, image):
+    def __init__(self, thing, url, location, image, user_location):
         self.thing = thing
-        self.url = 'http://montreal.craigslist.ca' + url # TODO: This is wrong Needs to pass in user location
+        self.url = 'http://' + user_location + '.craigslist.ca' + url
         self.location = location
-        self.image = image #this isn't implemented yet
+        self.image = image
+        self.user_location = user_location
 
     #the stringifing printer.... Python is so pretty
     def __str__(self):
@@ -60,12 +62,14 @@ def gather_stuff(place):
     images = stuffify.get_images(soup)  # I can't believe this works..
 
     """Constructor Combobulator"""
-    freestuffs = [Stuff(things[x], urls[x], locs[x], images[x]) for x in range(0,20)] 
+    freestuffs = [Stuff(things[x], urls[x], locs[x], images[x], place) for x in range(0,20)] 
     return freestuffs
 
-def easy_testing(): # for quick testing with ipython
+def test_montreal(): # for quick testing with ipython
     stuffs = gather_stuff("montreal")
     mappify.post_map(stuffs)
-
+def test_newyork(): # for quick testing with ipython
+    stuffs = gather_stuff("newyork")
+    mappify.post_map(stuffs)
 
 

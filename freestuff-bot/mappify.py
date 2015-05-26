@@ -23,29 +23,47 @@ import stuff
 # list of freestuffs AND the location
 # This location would also go into the
 # TODO: get_coordinates method
+# Reverse Geolocator is at nominatim.openstreetmap.org
 
 """Getter for Longitude and Latitude"""
 def get_coordinates(location): # TODO: take in USER LOCATION
-    geolocator = Nominatim()    # Maybe add user location into the Object Stuff?
+    geolocator = Nominatim()
     try:
         findit = geolocator.geocode(location) # Use Geolocator
         lat = findit.latitude                 # to get the long
         lon = findit.longitude                # and lat of the stuff
         coord = [lat, lon]
     except:
-        coord = [45.5088, -73.5878]           # Sometimes it is "None"
+        coord = set_city_center(location) # [45.5088, -73.5878]?
+    return coord
+    
+"""Setter for Starting Longitude Latitude"""
+def set_city_center(location):
+    geolocator = Nominatim()
+    if re.match("montreal", location, re.I):
+        coord = [45.5088, -73.5878] # Montreal Center
+    if re.match("newyork", location, re.I):
+        coord = [40.7127, -74.0058] # New York Center
+    else:
+        try:
+            findit = geolocator.geocode(location) # Use Geolocator
+            lat = findit.latitude                 # to get the long
+            lon = findit.longitude                # and lat of the stuff
+            coord = [lat, lon]
+        except:
+            coord = [0,0] # This is a bit silly
     return coord
 
-"""Rendering the Map pretty Colors"""
+"""Rendering the Map pretty Colors""" # TODO: Read about if statements 
 def sort_stuff(stuff):
     furniture_pattern = "(wood|shelf|table|chair|scrap)"
     electronics_pattern = "(tv|sony|écran|speakers)" #search NOT match
-    find_pattern = "(book|games|cool)"               #sooo these are what I'm looking for?
-    if re.match(furniture_pattern, stuff, re.I):
-        return "#FF0000" #red
-    if re.match(electronics_pattern, stuff, re.I):
-        return "#3186cc" #blue
-    if re.match(find_pattern, stuff, re.I):
+    find_pattern = "(book|games|cool)"  
+    if re.search(furniture_pattern, stuff, re.I):
+        return "#FF0000" #red ##### THIS should set variable and return at
+    if re.search(electronics_pattern, stuff, re.I): #the end all
+        return "#3186cc" #blue at once
+    if re.search(find_pattern, stuff, re.I):
         return "#000000" #black
     else:
         return "#FFFFFF" #white
@@ -56,20 +74,21 @@ def sort_stuff(stuff):
     Everytime this script runs, findit.html gets a new map
     Make sure python -m http.server is running in the directory
 """
-def post_map(freestuffs): # Pass in freestuffs list TODO: Take in User Location
-    map_osm = folium.Map([45.5088, -73.5878], zoom_start=13) #Montreal's Mont Royal But this is Wrong. It should start at the long/lat of user_place
+def post_map(freestuffs): # Pass in freestuffs list
+    user_location = freestuffs[0].user_location
+    start_coord = set_city_center(user_location)
+    center_lat = start_coord[0]
+    center_lon = start_coord[1]
+    map_osm = folium.Map([center_lat, center_lon], zoom_start=13) 
     radi = 700 # Having it start big and get small corrects overlaps
-    for freestuff in freestuffs:  # Loop through the Stuff
-        """
-            This takes in the Freestuffs and puts it onto the map
-        """
+    for freestuff in freestuffs:  
+        # Loop through the Stuff and Post it
         place = freestuff.location  # thing location
         thing = freestuff.thing     # thing Title
         url = freestuff.url         # thing URL
         image = freestuff.image     # It Works! (images)
         color = sort_stuff(thing)   # Map marker's color
-        # Name is the Map Posting, formating all this stuff...
-        # Oooo.... I should use %s .format... 
+        # Name is Map Posting
         name = """
                 <img src='%s' height='auto' width='160px' />
                 <h3>%s</h3>
@@ -77,6 +96,7 @@ def post_map(freestuffs): # Pass in freestuffs list TODO: Take in User Location
                 <a href='%s' target='_blank'>View Posting in New Tab</a>
                """ % (image, thing, place, url)
         coordinates = get_coordinates(freestuff.location) # Get Coordinates Function is Above
+        # TODO: Contigency Plan for 0, 0?
         lat = coordinates[0] # It returns an array 0 = Latitude
         lon = coordinates[1] # and 1 = Longitude
         # This is the Map business with many options
