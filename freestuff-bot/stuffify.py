@@ -1,12 +1,27 @@
-from lxml import html
+###########################################################################
+# Copyright (C) 2015 Fenimore Love <fenimore@polypmer.com>
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+#
+###
+
 import requests, re, folium, webbrowser
 from bs4 import BeautifulSoup
+
+# TODO: No-Image image?
 
 # Setup the Location from User Input
 def setup_place():
     user_place = input("What major city are you near? (or, 'help') ")
     if user_place == "help":
-        print("craigslist serves many major cities, and the peripheral neighborhoods, try something like 'montreal' or 'newyork'\n It's gotta be one word (no spaces) or funny characters, visit the craigslist.org site for your cities 'name'.")
+        print("craigslist serves many major cities, and the peripheral neighborhoods, try something like 'montreal' or 'newyork'\n It's gotta be one word (no spaces) or funny characters, visit the craigslist.org site for your cities 'name'.\nAlso, the mappify module currently only works with montreal")
         user_place = input("What major city are you near? ")
     return user_place 
 
@@ -25,11 +40,11 @@ def get_images(soup):
     free_images = []
     for row in soup.find_all("a", class_="i"):
         try:
-            _img = str(row['data-ids'])
+            _img = str(row['data-ids']) # Take that Craig!
             _img = _img[2:]
-            _img = "https://images.craigslist.org/" + _img + "_300x300.jpg"
+            _img = "https://images.craigslist.org/" + _img + "_300x300.jpg" # Fuck yeah this took me forever
         except:
-            _img = "no image"
+            _img = "no image" # TODO: No-image image?
         free_images.append(_img)
     return free_images
 
