@@ -6,32 +6,33 @@ I'm trying to get it to work according to the user input, that is, whatsoever ci
 My goal is to have an accessible library for craigslist freestuff and eventually use it for a remote hosted map, pump.io-bot, and a GUI)
 
 ## To run freestuff-bot, run <code>python -m http.server</code>
+### Example:
+* <code>stuffs = stuff.gather_stuff("montreal")</code>
+* <code>mappify.post_map(stuffs)</code> 
 <b>The findit.html file is an example of the map output</b>
 
 ### Main Dependencies:
 <ul>
 <li>requests</li>
-<li>geopy #crashes after loading over ten 'stuffs'</li>
+<li>geopy # Crashes after loading over ten 'stuffs'</li>
 <li>folium</li>
-<li>~~~lxml~~~</li>
+<li>~~lxml~~</li>
 <li>BeautifulSoup4</li>
 <li>PyPump (one of these days)</li>
 </ul>
 
 ### So much todo (planned features/broken features):
 <ul>
-  <li>Loading |\//-\ image??</li>
   <li>Woah, daemon sync in the background: https://github.com/serverdensity/python-daemon</li>
   <li>Bot for posting onto pump.io/statusnet</li>
-  <li>~~~xpath the img src from craigslist....mmm... (this proves difficult, because when the node is empty, the list is dichevelled. This isn't as much of a problem (but it still is a problem) for the location data.~~~ So Craigslist is deliberatly obscurativating for images. Uh.</li>
   <li>put <code>python -m http.server</code> in the init... Is this possible?</li>
-  <li>~~~Refine_location method:~~~</li>
+  <li>~~Refine_location method:~~</li>
     <ul>
       <li>st. Laurent</li>
       <li>st hubert</li>
       <li>West Island</li>
       <li>and many others</li>
     </ul>
-  <li>Continue experimenting with Tkinter</li>
+  <li>Continue experimenting with Tkinter/GUI</li>
 </ul>
 

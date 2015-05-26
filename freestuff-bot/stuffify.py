@@ -20,12 +20,17 @@ def setup_page(user_place):
         print("something when wrong")
     return soup
     
-# Image Setup is Broken
+# Setup the Images
 def get_images(soup):
     free_images = []
     for row in soup.find_all("a", class_="i"):
-        _url = row['href']
-        free_urls.append(_url)
+        try:
+            _img = str(row['data-ids'])
+            _img = _img[2:]
+            _img = "https://images.craigslist.org/" + _img + "_300x300.jpg"
+        except:
+            _img = "no image"
+        free_images.append(_img)
     return free_images
 
 # Setup the Thing Titles
