@@ -26,7 +26,7 @@ import stuff
 
 """Getter for Longitude and Latitude"""
 def get_coordinates(location): # TODO: take in USER LOCATION
-    geolocator = Nominatim()
+    geolocator = Nominatim()    # Maybe add user location into the Object Stuff?
     try:
         findit = geolocator.geocode(location) # Use Geolocator
         lat = findit.latitude                 # to get the long

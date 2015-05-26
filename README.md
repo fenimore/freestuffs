@@ -25,6 +25,9 @@ My goal is to have an accessible library for craigslist freestuff and eventually
 ### So much todo (planned features & broken features):
 <ul>
   <li>Woah, daemon sync in the background: https://github.com/serverdensity/python-daemon</li>
+  <li>Package it?</li>
+  <li>Pass UserLocation into map starting location</li>
+  <li>Create a webapplication!?</li>
   <li>Bot for posting onto pump.io/statusnet</li>
   <li>Post Images onto pret-ty website?</li>
   <li>put <code>python -m http.server</code> in the init... Is this possible?</li>

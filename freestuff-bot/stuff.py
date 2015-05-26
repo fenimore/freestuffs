@@ -63,7 +63,7 @@ def gather_stuff(place):
     freestuffs = [Stuff(things[x], urls[x], locs[x], images[x]) for x in range(0,20)] 
     return freestuffs
 
-def easy_testing():
+def easy_testing(): # for quick testing with ipython
     stuffs = gather_stuff("montreal")
     mappify.post_map(stuffs)
 
