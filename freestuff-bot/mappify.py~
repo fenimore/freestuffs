@@ -23,6 +23,7 @@ import stuff
 # list of freestuffs AND the location
 # This location would also go into the
 # TODO: get_coordinates method
+# TODO: No-Image image?
 
 """Getter for Longitude and Latitude"""
 def get_coordinates(location): # TODO: take in USER LOCATION
