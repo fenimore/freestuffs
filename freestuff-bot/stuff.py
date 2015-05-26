@@ -43,7 +43,7 @@ class Stuff(object):
     #constructor the de-structor!!  
     def __init__(self, thing, url, location, image):
         self.thing = thing
-        self.url = 'http://montreal.craigslist.ca' + url
+        self.url = 'http://montreal.craigslist.ca' + url # TODO: This is wrong Needs to pass in user location
         self.location = location
         self.image = image #this isn't implemented yet
 
