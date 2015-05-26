@@ -39,10 +39,10 @@ def get_images(soup):
     for row in soup.find_all("a", class_="i"):
         try:
             _img = str(row['data-ids']) # Take that Craig!
-            _img = _img[2:]
+            _img = _img[2:19] # eats up the first image ID
             _img = "https://images.craigslist.org/" + _img + "_300x300.jpg" # Fuck yeah this took me forever
         except:
-            _img = "http://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png" # No-image image
+            _img = "http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg" # No-image image
         free_images.append(_img)
     return free_images
 

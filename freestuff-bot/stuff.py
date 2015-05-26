@@ -28,7 +28,7 @@
 
 import requests, re, folium, webbrowser
 from bs4 import BeautifulSoup
-import stuffify
+import stuffify, mappify # Internal Modules
 
 # TODO: add __init__ ?
 #       as in, have this module be main
@@ -63,6 +63,9 @@ def gather_stuff(place):
     freestuffs = [Stuff(things[x], urls[x], locs[x], images[x]) for x in range(0,20)] 
     return freestuffs
 
+def easy_testing():
+    stuffs = gather_stuff("montreal")
+    mappify.post_map(stuffs)
 
 
 

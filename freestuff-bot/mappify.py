@@ -63,23 +63,23 @@ def post_map(freestuffs): # Pass in freestuffs list TODO: Take in User Location
         """
             This takes in the Freestuffs and puts it onto the map
         """
-        place = freestuff.location                  # thing location
-        thing = freestuff.thing                     # thing Title
-        url = freestuff.url                         # thing URL
-        image = "<img src=" + freestuff.image + "/>"# It Works! (images)
-        color = sort_stuff(thing)                   #map marker's color
+        place = freestuff.location  # thing location
+        thing = freestuff.thing     # thing Title
+        url = freestuff.url         # thing URL
+        image = freestuff.image     # It Works! (images)
+        color = sort_stuff(thing)   # Map marker's color
         # Name is the Map Posting, formating all this stuff...
         # Oooo.... I should use %s .format... 
         name = """
-                %s <br><h3>%s</h3>
+                <img src='%s' height='auto' width='160px' />
+                <h3>%s</h3>
                 <h4>%s</h4>
-                <a href=%s target='_blank'>View Posting in New Tab</a>
-               """ % (image, thing, place, url) # is this how this works?
-        #name = image + "<br><h3>" + thing + "</h3><h4>" + place + "</h4><a href=" + url + " target='_blank'>View Posting in New Tab</a>"
+                <a href='%s' target='_blank'>View Posting in New Tab</a>
+               """ % (image, thing, place, url)
         coordinates = get_coordinates(freestuff.location) # Get Coordinates Function is Above
         lat = coordinates[0] # It returns an array 0 = Latitude
         lon = coordinates[1] # and 1 = Longitude
-        # This is the Map business
+        # This is the Map business with many options
         map_osm.circle_marker(location=[lat, lon], radius=radi,
           popup=name, line_color="#000000",
           fill_color=color, fill_opacity=0.2)
