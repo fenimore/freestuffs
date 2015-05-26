@@ -32,7 +32,7 @@ import stuffify
 
 # TODO: add __init__ ?
 #       as in, have this module be main
-# TODO: Take argv params?... whatevs that means anwyay.
+# TODO: Take argv params?
 
 class Stuff(object):
     thing = ""

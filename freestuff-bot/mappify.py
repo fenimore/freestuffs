@@ -70,8 +70,13 @@ def post_map(freestuffs): # Pass in freestuffs list TODO: Take in User Location
         image = "<img src=" + freestuff.image + "/>"# It Works! (images)
         color = sort_stuff(thing)                   #map marker's color
         # Name is the Map Posting, formating all this stuff...
-        # Oooo.... I should use %s .format... ? No?
-        name = image + "<br><h3>" + thing + "</h3><h4>" + place + "</h4><a href=" + url + " target='_blank'>View Posting in New Tab</a>"
+        # Oooo.... I should use %s .format... 
+        name = """
+                %s <br><h3>%s</h3>
+                <h4>%s</h4>
+                <a href=%s target='_blank'>View Posting in New Tab</a>
+               """ % (image, thing, place, url) # is this how this works?
+        #name = image + "<br><h3>" + thing + "</h3><h4>" + place + "</h4><a href=" + url + " target='_blank'>View Posting in New Tab</a>"
         coordinates = get_coordinates(freestuff.location) # Get Coordinates Function is Above
         lat = coordinates[0] # It returns an array 0 = Latitude
         lon = coordinates[1] # and 1 = Longitude
