@@ -55,6 +55,7 @@ def get_things(soup):
     return free_things
     
 # Setup the Stuff Locations
+# This needs to be redone
 def get_locations(user_place, soup):
     free_locations = []
     for span in soup.find_all("span", class_="pnr"):
@@ -67,7 +68,7 @@ def get_locations(user_place, soup):
         #print(_loc)#
         free_locations.append(_loc)
     return free_locations
-    
+
 # Setup the Stuff URLs
 def get_urls(soup):
     free_urls = []

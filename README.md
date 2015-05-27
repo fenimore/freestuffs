@@ -26,6 +26,7 @@ It's pretty wonky right now.
 ### So much todo (planned features & broken features):
 <ul>
   <li>Woah, daemon sync in the background: https://github.com/serverdensity/python-daemon</li>
+  <li>Add contact info?</li>
   <li>Package it?</li>
   <li>Pass UserLocation into map starting location</li>
   <li>Bot for posting onto pump.io/statusnet</li>
