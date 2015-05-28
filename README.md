@@ -5,7 +5,7 @@ I'm trying to get it to work according to the user input, that is, whatsoever ci
 
 My goal is to have an accessible library for craigslist freestuff and eventually use it for a remote hosted map, pump.io-bot, and a GUI). I have another repository wherein I try to use these modules to make a web application.
 
-### To run freestuff-bot, run <code>python -m http.server</code>
+### To run freestuff-bot and use the mappify module, first run <code>python -m http.server</code>
 ### Example:
 * <code>stuffs = stuff.gather_stuff("montreal")</code>
 * <code>mappify.post_map(stuffs)</code> 
@@ -25,13 +25,13 @@ It's pretty wonky right now.
 
 ### So much todo (planned features & broken features):
 <ul>
+  <li>Use Flask to make an application? Cherrypy?</li>
   <li>Woah, daemon sync in the background: https://github.com/serverdensity/python-daemon</li>
-  <li>Add contact info?</li>
+  <li>Add contact info? [This is harder than it seems...]</li>
   <li>Package it?</li>
-  <li>Pass UserLocation into map starting location</li>
+  <li>Continue to refine location methods/folium tricksss</li>
   <li>Bot for posting onto pump.io/statusnet</li>
   <li>put <code>python -m http.server</code> in the init... Is this possible?</li>
-  <li> Refine_location method: Something ought to be done about the crappy location data</li>
-  <li>Continue experimenting with Tkinter/GUI</li>
+  <li>Continue experimenting with Tkinter/GUI (or is this too silly)</li>
 </ul>
 
