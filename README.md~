@@ -7,7 +7,7 @@ My goal is to have an accessible library for craigslist freestuff and eventually
 
 ### To run freestuff-bot and use the mappify module, first run <code>python -m http.server</code>
 ### Example:
-* <code>stuffs = stuff.gather_stuff("montreal", 10)</code>
+* <code>stuffs = stuff.gather_stuff("montreal")</code>
 * <code>mappify.post_map(stuffs)</code> 
 
 <b>The findit.html file is an example of the map output</b>
