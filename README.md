@@ -1,18 +1,14 @@
 # Treasure Finder! Never Buy Again!
 This is a bot which scrapes free stuff from craigslist (montreal). At the moment, it posts the data onto a map/html page but I hope to add other features one-of-these-days. It's written in python 3.x but ought to be compatible with 2.x (once you change the print/input functions accordingly).
 
-I'm trying to get it to work according to the user input, that is, whatsoever city we want free stuff from. And I'm switching this to BeautifulSoup, it makes the issue for missing nodes (for images/locations) no longer an issue. Although it still is apparently...
-
-My goal is to have an accessible library for craigslist freestuff and eventually use it for a remote hosted map, pump.io-bot, and a GUI). I have another repository wherein I try to use these modules to make a web application.
+Basically, using the first two scripts, Stuff  and Stuffify, one can gather together the most recent freestuffs off craigslist, meaning the Title, Location, Image, and URL. into a a list of stuff, stuffs[ ]. 
 
 ### To run freestuff-bot and use the mappify module, first run <code>python -m http.server</code>
 ### Example:
 * <code>stuffs = stuff.gather_stuff("montreal", 10)</code>
 * <code>mappify.post_map(stuffs)</code> 
 
-<b>The findit.html file is an example of the map output</b>
-
-It's pretty wonky right now.
+<b>The findit.html file is an example of the map output.</b> It can be nicely embedded in a Jinja2 app. See my  [treasure-map](https://github.com/polypmer/treasure-map).
 
 ### Main Dependencies:
 <ul>
@@ -25,7 +21,6 @@ It's pretty wonky right now.
 
 ### So much todo (planned features & broken features):
 <ul>
-  <li>Use Flask to make an application? Cherrypy?</li>
   <li>Woah, daemon sync in the background: https://github.com/serverdensity/python-daemon</li>
   <li>Add contact info? [This is harder than it seems...]</li>
   <li>Package it?</li>
