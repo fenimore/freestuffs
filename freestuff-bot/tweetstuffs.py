@@ -31,7 +31,7 @@ logfile_username = bot_username + ".log"
 # ==============================================================
 
 
-def check_length(tweet, stuff):
+def check_length(tweet, post):
     # if length is more than 144 char
     if len(tweet) < 145: # tweet is good
         return tweet
@@ -62,13 +62,15 @@ def tweet(new_stuffs_set):
     auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
     api = tweepy.API(auth)
     stuffs = map(dict, new_stuffs_set)
+    print(len(new_stuffs_set))
     if len(list(new_stuffs_set)) is not 0: # if there exists new items
         for stuff in stuffs: # TODO: https://pyformat.info/
             # WRITE LISTING
             tweet = create_tweet(stuff)
             print("\nwrote listing")
             try:
-                api.update_status(tweet)
+                #api.update_status(tweet)
+                print("should I be doing this:?")
                 log("\n\nPosting\n" + str(datetime.now()) 
                 + "\n" + str(len(list(new_stuffs_set))) 
                 + " new item(s) printed. \n")
@@ -95,17 +97,28 @@ def mainLoop(_location):
                           'url':stuff.url, 'image':stuff.image}
             stuffs.append(stuff_dict)
         fresh_set = set() # A set, Fresh out the oven
+        for s in fresh_set:
+            print(str(s))
+        print("\nand now for printing the fresh set\n")
         for stuff in stuffs:
             tup = tuple(sorted(stuff.items()))
             fresh_set.add(tup)
+        for s in fresh_set:
+            print(str(s))
+        print("\nand now for printing the ready set\n")
         ready_set = fresh_set - stale_set # Get the difference
+        for s in ready_set:
+            print(str(s))
         stale_set = fresh_set
-        tweet(fresh_set) 
+        print("\nand now for printing the stale set\n")
+        for s in stale_set:
+            print(str(s))
+        tweet(ready_set) 
         print("\n New Stuffs: " , len(list(ready_set)))
         print("\n Todays Stuffs: ", len(list(stale_set)))
         # Finished Post
         print("\n\nSleep Now")
-        time.sleep(700) # 3600 Seconds = Hour
+        time.sleep(4) # 3600 Seconds = Hour
             
 
 if __name__ == "__main__":
