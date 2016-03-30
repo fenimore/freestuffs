@@ -22,3 +22,5 @@ var/
 secrets.py
 
 *~
+
+*.log

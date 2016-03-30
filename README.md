@@ -3,6 +3,9 @@ This is a bot which scrapes free stuff from craigslist (montreal). At the moment
 
 Basically, using the first two scripts, Stuff  and Stuffify, one can gather together the most recent freestuffs off craigslist, meaning the Title, Location, Image, and URL. into a a list of stuff, stuffs[ ]. 
 
+## The "Twitter" Branch is for posting freestuffs onto twitter. 
+Horay! New York will be the pilot project.
+
 ### To run freestuff-bot and use the mappify module, first run <code>python -m http.server</code>
 ### Example:
 * <code>stuffs = stuff.gather_stuff("montreal", 10)</code>
@@ -16,7 +19,6 @@ Basically, using the first two scripts, Stuff  and Stuffify, one can gather toge
 <li>geopy</li>
 <li>folium</li>
 <li>BeautifulSoup4</li>
-<li>PyPump (one of these days)</li>
 </ul>
 
 ### So much todo (planned features & broken features):
@@ -25,8 +27,6 @@ Basically, using the first two scripts, Stuff  and Stuffify, one can gather toge
   <li>Add contact info? [This is harder than it seems...]</li>
   <li>Package it?</li>
   <li>Continue to refine location methods/folium tricksss</li>
-  <li>Bot for posting onto pump.io/statusnet</li>
-  <li>put <code>python -m http.server</code> in the init... Is this possible?</li>
-  <li>Continue experimenting with Tkinter/GUI (or is this too silly)</li>
+  <li>put <code>python -m http.server</code> in the init... Is this possible? Or as a map feature?</li>
 </ul>
 
