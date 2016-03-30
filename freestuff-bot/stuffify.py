@@ -63,7 +63,7 @@ def get_things(soup):
 """Refine the Location for two word cities """
 def refine_city_name(location):
     if location == 'newyork': # does this have to capitalized
-        loc = '#FreeStuffNewYork'
+        loc = '#FreeNY'
     elif location == 'washingtondc':
         loc = 'Washington D.C.'
     elif location == 'sanfrancisco':
@@ -80,7 +80,7 @@ def get_locations(user_place, soup):
     for span in soup.find_all("span", class_="pnr"):
         loc_node = str(span.find('small')) 
         if loc_node == "None": # Some places have no where
-            _loc = location +", Somewhere"
+            _loc = location + ", NY" # +", Somewhere"
         else:
             _loc = loc_node.strip('<small ()</small>')
             _loc = unidecode(_loc)# Unicode!

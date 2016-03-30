@@ -44,7 +44,7 @@ def create_tweet(stuff):
             "loc" : stuff['location'], 
             "url" : make_tiny(stuff['url'])} 
     # create the tweet
-    _text = "#FreeStuff #"+ post["loc"] + "\n" + post["title"] +" " + post["url"]          
+    _text = " "+ post["loc"] + "\n#FreeStuff " + post["title"] +" " + post["url"]          
     _text = check_length(_text, post)
     log(_text)
     return _text
@@ -89,7 +89,7 @@ def mainLoop(_location):
     """ Tweet Loop, put in Main = __name__ or something"""
     while True:
         stuffs = [] # a list of dicts
-        for stuff in Stuff.gather_stuff(_location, 5): # convert stuff
+        for stuff in Stuff.gather_stuff(_location, 15): # convert stuff
             stuff_dict = {'title':stuff.thing,      # object into dict
                           'location':stuff.location, 
                           'url':stuff.url, 'image':stuff.image}
@@ -105,7 +105,7 @@ def mainLoop(_location):
         print("\n Todays Stuffs: ", len(list(stale_set)))
         # Finished Post
         print("\n\nSleep Now")
-        time.sleep(1000) # 3600 Seconds = Hour
+        time.sleep(700) # 3600 Seconds = Hour
             
 
 if __name__ == "__main__":
