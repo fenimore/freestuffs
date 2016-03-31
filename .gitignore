@@ -19,4 +19,8 @@ var/
 .installed.cfg
 *.egg
 
+secrets.py
 
+*~
+
+*.log

@@ -1,5 +1,5 @@
 ###########################################################################
-# Copyright (C) 2015 Fenimore Love <fenimore@polypmer.com>
+# Copyright (C) 2015 Fenimore Love 
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -40,6 +40,7 @@ class Stuff(object):
     location = ""
     image = ""
     user_location = ""
+    # add coordinates
 		
     #constructor the de-structor!!  
     def __init__(self, thing, url, location, image, user_location):
@@ -55,6 +56,7 @@ class Stuff(object):
 
 def gather_stuff(place, quantity): # TODO test in param quantity
     soup = stuffify.setup_page(place)   # soup, needs the user place for request
+    _quantity = int(quantity)
     """Construction"""
     locs = stuffify.get_locations(place, soup) # locations, needs user place for fine tuning
     urls = stuffify.get_urls(soup)      # urls of stuff

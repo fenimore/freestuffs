@@ -1,5 +1,5 @@
 ###########################################################################
-# Copyright (C) 2015 Fenimore Love <fenimore@polypmer.com>
+# Copyright (C) 2015 Fenimore Love
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,8 +14,10 @@
 
 import requests, re, folium, webbrowser
 from bs4 import BeautifulSoup
+from unidecode import unidecode
 
 # Setup the Location from User Input
+# Basically just for kicks
 def setup_place():
     user_place = input("What major city are you near? (or, 'help') ")
     if user_place == "help":
@@ -23,17 +25,18 @@ def setup_place():
         user_place = input("What major city are you near? ")
     return user_place 
 
-# Setup up the Soup
+""" Setup up the Soup """ 
+# This has to Change for Europe, it's all jumbled there.
 def setup_page(user_place):
     free_url = 'http://' + user_place +'.craigslist.com/search/zip'
     try:
         free_page = requests.get(free_url)
-        soup = BeautifulSoup(free_page.text)
+        soup = BeautifulSoup(free_page.text, "html.parser")
     except:
-        print("something when wrong")
+        soup = "something when wrong" # Something informative
     return soup
     
-# Setup the Images
+""" Setup the Images """
 def get_images(soup):
     free_images = []
     for row in soup.find_all("a", class_="i"):
@@ -54,19 +57,34 @@ def get_things(soup):
         _thing = node.get_text() # Get content from within the Node
         free_things.append(_thing)
     return free_things
-    
+
+# Setup the Stuff Locations
+# This needs to be redone # FOR TWITTER IT HAS BEEN MODIFIED
+"""Refine the Location for two word cities """
+def refine_city_name(location):
+    if location == 'newyork': # does this have to capitalized
+        loc = '#FreeStuffNY'
+    elif location == 'washingtondc':
+        loc = 'Washington D.C.'
+    elif location == 'sanfrancisco':
+        loc = 'San Francisco, USA'
+    else:
+        loc = location
+    return loc
+
 # Setup the Stuff Locations
 # This needs to be redone
 def get_locations(user_place, soup):
     free_locations = []
+    location = refine_city_name(user_place)
     for span in soup.find_all("span", class_="pnr"):
         loc_node = str(span.find('small')) 
         if loc_node == "None": # Some places have no where
-            _loc = user_place +", Somewhere"
+            _loc = location + ", NY" # +", Somewhere"
         else:
             _loc = loc_node.strip('<small ()</small>')
-            _loc = _loc + ", " + user_place
-        #print(_loc)#
+            _loc = unidecode(_loc)# Unicode!
+            _loc = _loc + ", " + location
         free_locations.append(_loc)
     return free_locations
 
