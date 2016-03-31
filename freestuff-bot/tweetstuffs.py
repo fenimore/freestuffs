@@ -53,7 +53,7 @@ def create_tweet(stuff):
             "loc" : stuff['location'], 
             "url" : make_tiny(stuff['url'])} 
     # create the tweet
-    _text = " "+ post["loc"] + "\n" + post["title"] +" " + post["url"]          
+    _text = post["loc"] + "\n" + post["title"] +" " + post["url"]          
     _text = check_length(_text, post)
     return _text
     
@@ -66,32 +66,37 @@ def log(message):
         f.write("\n" + t + " " + message)
     
 def tweet(new_stuffs_set):
-    isImage = False 
     """ Tweepy set Up """
     auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
     auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
     api = tweepy.API(auth)
     """ Unpack Tweets and Tweet """
     stuffs = map(dict, new_stuffs_set)
-    print(str(len(new_stuffs_set)) + " new stuffs")
     if len(list(new_stuffs_set)) is not 0: # if there exists new items
         for stuff in stuffs:
             tweet = create_tweet(stuff)
             print(stuff['image'])
-            if stuff['image'] is not NO_IMAGE:
-                isImage = True # There is an Image for this picture!
+            print(NO_IMAGE)
+            if str(stuff['image']) == NO_IMAGE:
+                isImage = False # 
+                print(str(isImage)+ " There is no image")
+            else:
+                isImage = True
+                print(str(isImage)+ " There is indeed an image")
                 urllib.request.urlretrieve(stuff['image'], FILE)
             try:
                 if isImage:
-                    api.update_with_media(FILE, status=tweet)
+                    log("\n\n Posting\n " + tweet + "\n")
+                    print(str(isImage) + " upload to media")
+                    #api.update_with_media(FILE, status=tweet)
                 else: 
-                    api.update_status(tweet)
-                log("\n\nPosting\n" + str(len(list(new_stuffs_set))) 
-                + " new item(s). \n")
+                    #api.update_status(tweet)
+                    log("\n\n Posting\n " + tweet + "\n")
+                    print(str(isImage)+ " no media")
             except tweepy.error.TweepError as e: # Woops
                 log(e.message)
     else:
-        log("\n\nScan returned nothing new\n\nZero posted. ")
+        print("\n ----\n")
 
 # main loop
 def mainLoop(_location):
@@ -100,7 +105,7 @@ def mainLoop(_location):
     """ Tweet Loop, put in Main = __name__ or something"""
     while True:
         stuffs = [] # a list of dicts
-        for stuff in Stuff.gather_stuff(_location,15): # convert stuff
+        for stuff in Stuff.gather_stuff(_location, 15): # convert stuff
             stuff_dict = {'title':stuff.thing,      # object into dict
                           'location':stuff.location, 
                           'url':stuff.url, 'image':stuff.image}
@@ -109,15 +114,16 @@ def mainLoop(_location):
         for stuff in stuffs:
             tup = tuple(sorted(stuff.items()))
             fresh_set.add(tup)
+        """ Evaluates if there have been new posts: """
         ready_set = fresh_set - stale_set # Get the difference
         stale_set = fresh_set
         # Stop it from flooding twitter when I boot up
         if len(list(ready_set)) is not 15:
             tweet(ready_set) 
-        log("\n New Stuffs: " + str(len(list(ready_set)))+
-            "\n Todays Stuffs: "+ str(len(list(stale_set)))+
-            "\n\nSleep Now")
-        sleep(4) # 3600 Seconds = Hour
+        log("\n    New Stuffs : " + str(len(list(ready_set)))+
+            "\n Todays Stuffs : "+ str(len(list(stale_set)))+
+            "\n\n Sleep Now (-_-)Zzz... \n")
+        sleep(20) # 3600 Seconds = Hour
             
 
 if __name__ == "__main__":
