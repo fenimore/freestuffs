@@ -16,9 +16,9 @@
 """
 #TODO: Fix titles before posting
 
-import re, sys, os, time, urllib.error
+import re, sys, os, time, urllib.error, urllib.request
 from datetime import datetime
-from time import gmtime, strftime
+from time import gmtime, strftime, sleep
 
 import tweepy
 import stuff as Stuff
@@ -26,9 +26,14 @@ from shortenurl import make_tiny
 from secrets import *
 
 # ====== Individual bot configuration ==========================
-bot_username = 'Free'
+bot_username = 'FreeStuffNY'
 logfile_username = bot_username + ".log"
 # ==============================================================
+
+# Some variables, why not
+NO_IMAGE = 'http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
+FILE = 'freestuff-bot/tmp/tmp-filename.jpg'
+
 
 
 def check_length(tweet, post):
@@ -36,7 +41,11 @@ def check_length(tweet, post):
     if len(tweet) < 145: # tweet is good
         return tweet
     else:
+        log("Tweet too long")
         tweet = post["loc"] + "\n" + post["title"] + " " + post["url"] 
+        if len(tweet) > 144: # tweet is still not good
+            tweet = post["title"] + " " + post["url"]
+            return tweet
         return tweet
 
 def create_tweet(stuff):
@@ -44,9 +53,8 @@ def create_tweet(stuff):
             "loc" : stuff['location'], 
             "url" : make_tiny(stuff['url'])} 
     # create the tweet
-    _text = " "+ post["loc"] + "\n#FreeStuff " + post["title"] +" " + post["url"]          
+    _text = " "+ post["loc"] + "\n" + post["title"] +" " + post["url"]          
     _text = check_length(_text, post)
-    log(_text)
     return _text
     
 def log(message):
@@ -54,78 +62,67 @@ def log(message):
     path = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
     with open(os.path.join(path, logfile_username), 'a+') as f:
         t = strftime("%d %b %Y %H:%M:%S", gmtime())
+        print("\n" + t + " " + message) # print it tooo...
         f.write("\n" + t + " " + message)
     
 def tweet(new_stuffs_set):
-    # Tweepy set Up
+    isImage = False 
+    """ Tweepy set Up """
     auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
     auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
     api = tweepy.API(auth)
+    """ Unpack Tweets and Tweet """
     stuffs = map(dict, new_stuffs_set)
-    print(len(new_stuffs_set))
+    print(str(len(new_stuffs_set)) + " new stuffs")
     if len(list(new_stuffs_set)) is not 0: # if there exists new items
-        for stuff in stuffs: # TODO: https://pyformat.info/
-            # WRITE LISTING
+        for stuff in stuffs:
             tweet = create_tweet(stuff)
-            print("\nwrote listing")
+            print(stuff['image'])
+            if stuff['image'] is not NO_IMAGE:
+                isImage = True # There is an Image for this picture!
+                urllib.request.urlretrieve(stuff['image'], FILE)
             try:
-                #api.update_status(tweet)
-                print("should I be doing this:?")
-                log("\n\nPosting\n" + str(datetime.now()) 
-                + "\n" + str(len(list(new_stuffs_set))) 
-                + " new item(s) printed. \n")
-                print("Posting " + str(datetime.now()))
-                print(tweet)
+                if isImage:
+                    api.update_with_media(FILE, status=tweet)
+                else: 
+                    api.update_status(tweet)
+                log("\n\nPosting\n" + str(len(list(new_stuffs_set))) 
+                + " new item(s). \n")
             except tweepy.error.TweepError as e: # Woops
-                print("\ntrouble with connection")
                 log(e.message)
     else:
-        print("No new Stuffs\n\n\n")    
-        log("\n\nScan returned nothing new\n" +
-         str(datetime.now()) + "\nZero posted. ")
+        log("\n\nScan returned nothing new\n\nZero posted. ")
 
 # main loop
 def mainLoop(_location):
     stale_set = set() # the B set is what has already been 
-    print("\n\nInitiating\n\n")
+    log("\n\nInitiating\n\n")
     """ Tweet Loop, put in Main = __name__ or something"""
     while True:
         stuffs = [] # a list of dicts
-        for stuff in Stuff.gather_stuff(_location, 15): # convert stuff
+        for stuff in Stuff.gather_stuff(_location,15): # convert stuff
             stuff_dict = {'title':stuff.thing,      # object into dict
                           'location':stuff.location, 
                           'url':stuff.url, 'image':stuff.image}
             stuffs.append(stuff_dict)
         fresh_set = set() # A set, Fresh out the oven
-        for s in fresh_set:
-            print(str(s))
-        print("\nand now for printing the fresh set\n")
         for stuff in stuffs:
             tup = tuple(sorted(stuff.items()))
             fresh_set.add(tup)
-        for s in fresh_set:
-            print(str(s))
-        print("\nand now for printing the ready set\n")
         ready_set = fresh_set - stale_set # Get the difference
-        for s in ready_set:
-            print(str(s))
         stale_set = fresh_set
-        print("\nand now for printing the stale set\n")
-        for s in stale_set:
-            print(str(s))
-        tweet(ready_set) 
-        print("\n New Stuffs: " , len(list(ready_set)))
-        print("\n Todays Stuffs: ", len(list(stale_set)))
-        # Finished Post
-        print("\n\nSleep Now")
-        time.sleep(4) # 3600 Seconds = Hour
+        # Stop it from flooding twitter when I boot up
+        if len(list(ready_set)) is not 15:
+            tweet(ready_set) 
+        log("\n New Stuffs: " + str(len(list(ready_set)))+
+            "\n Todays Stuffs: "+ str(len(list(stale_set)))+
+            "\n\nSleep Now")
+        sleep(4) # 3600 Seconds = Hour
             
 
 if __name__ == "__main__":
     # Log
     process_log = open(logfile_username,'a+')
-
-    
     mainLoop("newyork")
     
     

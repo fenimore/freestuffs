@@ -31,7 +31,7 @@ def setup_page(user_place):
     free_url = 'http://' + user_place +'.craigslist.com/search/zip'
     try:
         free_page = requests.get(free_url)
-        soup = BeautifulSoup(free_page.text)
+        soup = BeautifulSoup(free_page.text, "html.parser")
     except:
         soup = "something when wrong" # Something informative
     return soup
@@ -63,7 +63,7 @@ def get_things(soup):
 """Refine the Location for two word cities """
 def refine_city_name(location):
     if location == 'newyork': # does this have to capitalized
-        loc = '#FreeNY'
+        loc = '#FreeStuffNY'
     elif location == 'washingtondc':
         loc = 'Washington D.C.'
     elif location == 'sanfrancisco':
