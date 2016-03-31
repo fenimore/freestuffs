@@ -75,24 +75,18 @@ def tweet(new_stuffs_set):
     if len(list(new_stuffs_set)) is not 0: # if there exists new items
         for stuff in stuffs:
             tweet = create_tweet(stuff)
-            print(stuff['image'])
-            print(NO_IMAGE)
             if str(stuff['image']) == NO_IMAGE:
                 isImage = False # 
-                print(str(isImage)+ " There is no image")
             else:
                 isImage = True
-                print(str(isImage)+ " There is indeed an image")
                 urllib.request.urlretrieve(stuff['image'], FILE)
             try:
                 if isImage:
-                    log("\n\n Posting\n " + tweet + "\n")
-                    print(str(isImage) + " upload to media")
-                    #api.update_with_media(FILE, status=tweet)
+                    log("\n\n Posting with Media \n " + tweet + "\n ----\n")
+                    api.update_with_media(FILE, status=tweet)
                 else: 
-                    #api.update_status(tweet)
-                    log("\n\n Posting\n " + tweet + "\n")
-                    print(str(isImage)+ " no media")
+                    api.update_status(tweet)
+                    log("\n\n Posting\n " + tweet + "\n ----\n")
             except tweepy.error.TweepError as e: # Woops
                 log(e.message)
     else:
