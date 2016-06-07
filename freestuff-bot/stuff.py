@@ -71,6 +71,17 @@ class Stuff(object):
         """Print stuff summary."""
         return "what: %s \n where: %s \n link: %s \n image: %s" % (self.thing, self.location, self.url, self.image)
 
+    def refine_city_name(self, city_name):
+        """Refine location of two word cities."""
+        if city_name == 'newyork': # does this have to capitalized?
+            loc = '#FreeStuffNY' # For tweeting
+        elif city_name == 'washingtondc':
+            loc = 'Washington D.C.'
+        elif city_name == 'sanfrancisco':
+            loc = 'San Francisco, USA'
+        else:
+            return loc
+
     def get_coordinates(self):
     """Get longitude and Latitidue
     
