@@ -23,13 +23,14 @@ Horay! New York is the pilot project.
 <li>geopy</li>
 <li>folium</li>
 <li>BeautifulSoup4</li>
+<li>tweepy (for twitterbot)</li>
 </ul>
 
 ### So much todo (planned features & broken features):
 <ul>
   <li>Woah, daemon sync in the background: https://github.com/serverdensity/python-daemon</li>
   <li>Add contact info? [This is harder than it seems...]</li>
-  <li>Package it?</li>
+  <li>Package it, add commandline script</li>
   <li>Continue to refine location methods/folium tricksss</li>
   <li>put <code>python -m http.server</code> in the init... Is this possible? Or as a map feature?</li>
 </ul>

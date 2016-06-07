@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Chart where free things are.
 
-The reverse Geolocator is at nominatim.openstreetmap.org
+The reverse Geolocator is at nominatim.openstreetmap.org.
 
 Example usage:
     from stuffify import Stuffify
@@ -37,7 +37,7 @@ class Mappify:
     Attributes:
         - treasure_map -- an OSM folium map object
     """
-    def __init__(self, freestuffs, address=None, is_testing=False, is_flask=False):
+    def __init__(self, freestuffs, address=None, is_testing=False, is_flask=False, zoom=13):
         """Post freestuffs on map.
         
         Make sure python -m http.server is running the directory.
@@ -45,7 +45,13 @@ class Mappify:
         do not cover newer markers.
         
         Keyword arguments:
+            - freestuffs -- a collection of stuff objects generated with
+                            Stuffify
             - address -- for an optional map marker of the user address.
+            - is_testing -- use to test module from commandline
+            - is_flask -- automatically create map for treasure-map
+            - zoom -- the map default zoom level
+            
         Attributes:
             - name -- freestuff marker blurb
         """
@@ -53,7 +59,7 @@ class Mappify:
         start_coord = self.set_city_center(user_location)
         center_lat = start_coord[0]
         center_lon = start_coord[1] 
-        map_osm = folium.Map([center_lat, center_lon], zoom_start=13) 
+        map_osm = folium.Map([center_lat, center_lon], zoom_start=zoom) 
         radi = 500 
         for freestuff in freestuffs:
             place = freestuff.location  # thing location
@@ -62,7 +68,8 @@ class Mappify:
             image = freestuff.image     # thing image url
             color = self.sort_stuff(thing)   # Map marker's color
             name = """
-                    <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+                    <link rel='stylesheet' type='text/css' 
+                    href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
                     <img src='%s' height='auto' width='160px' />
                     <h3>%s</h3>
                     <h4>%s</h4>

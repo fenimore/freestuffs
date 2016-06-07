@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 """Twitter Bot for posting craigslist postings of Free Stuff
     
+Currently set up for New York.
+
 Example usage:
     python tweetstuffs.py
     
 Attributes:
     - NO_IMAGE -- link for when there is no image found
     - FILE -- path to tmp file
+    - PATH -- current directory
     - C_KEY, C_SECRET, A_TOKEN, A_TOKEN_SECRET -- twitter api tokens
     
 @author: Fenimore Love
@@ -31,12 +34,14 @@ from shortenurl import make_tiny
 from secrets import *
 
 # ====== Individual bot configuration ==========================
-bot_username = 'FreeStuffNY'
+bot_username = 'freestuff-NY'
 logfile_username = bot_username + ".log"
 # ==============================================================
 
 PATH = os.getcwd()
 if not os.path.exists(PATH + '/tmp/'):
+    os.makedirs(directory)
+if not os.path.exists(PATH + '/log/'):
     os.makedirs(directory)
 NO_IMAGE = 'http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
 FILE = PATH + '/tmp/tmp-filename.jpg'
@@ -116,7 +121,7 @@ if __name__ == "__main__":
     on start up.
     """
     process_log = open(logfile_username,'a+')
-    _location = 'newyork'
+    _location = 'newyork' # TODO: Change to brooklyn?
     stale_set = set() # the B set is what has already been 
     log("\n\nInitiating\n\n")
     while True:
