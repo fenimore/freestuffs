@@ -21,7 +21,7 @@ from datetime import datetime
 from time import gmtime, strftime, sleep
 
 import tweepy
-import stuff as Stuff
+from stuffify import Stuffify
 from shortenurl import make_tiny
 from secrets import *
 
@@ -66,17 +66,17 @@ def log(message):
         f.write("\n" + t + " " + message)
     
 def tweet(new_stuffs_set):
-    """ Tweepy set Up """
+    """Tweet new free stuff."""
     auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
     auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
     api = tweepy.API(auth)
-    """ Unpack Tweets and Tweet """
+    # Unpack set of sorted tuples back into dicts
     stuffs = map(dict, new_stuffs_set)
     if len(list(new_stuffs_set)) is not 0: # if there exists new items
         for stuff in stuffs:
             tweet = create_tweet(stuff)
             if str(stuff['image']) == NO_IMAGE:
-                isImage = False # 
+                isImage = False 
             else:
                 isImage = True
                 urllib.request.urlretrieve(stuff['image'], FILE)
@@ -88,19 +88,28 @@ def tweet(new_stuffs_set):
                     api.update_status(tweet)
                     log("\n\n Posting without media\n "
                          + tweet + "\n ----\n")
-            except tweepy.error.TweepError as e: # Woops
+            except tweepy.error.TweepError as e:
                 log(e.message)
     else:
         print("\n ----\n")
 
-# main loop
-def mainLoop(_location):
-    stale_set = set() # the B set is what has already been 
+
+if __name__ == "__main__":
+    """Tweet newly posted Free stuff objects.
+    
+    Using sets of the tupled-sorted-dict-stuffs to compare
+    old scrapes and new. No need calling for precise, as 
+    twitter doesn't need the coordinates. If the set has 15
+    items, doesn't post, in order to stop flooding twitter
+    on start up.
+    """
+    process_log = open(logfile_username,'a+')
+    _location = 'newyork'
+        stale_set = set() # the B set is what has already been 
     log("\n\nInitiating\n\n")
-    """ Tweet Loop, put in Main = __name__ or something"""
     while True:
         stuffs = [] # a list of dicts
-        for stuff in Stuff.gather_stuff(_location, 15): # convert stuff
+        for stuff in Stuffify(_location, 15).get_freestuffs(): # convert stuff
             stuff_dict = {'title':stuff.thing,      # object into dict
                           'location':stuff.location, 
                           'url':stuff.url, 'image':stuff.image}
@@ -109,23 +118,15 @@ def mainLoop(_location):
         for stuff in stuffs:
             tup = tuple(sorted(stuff.items()))
             fresh_set.add(tup)
-        """ Evaluates if there have been new posts: """
+        """Evaluate if there have been new posts"""
         ready_set = fresh_set - stale_set # Get the difference
         stale_set = fresh_set
-        # Stop it from flooding twitter when I boot up
         if len(list(ready_set)) is not 15:
             tweet(ready_set) 
         log("\n    New Stuffs : " + str(len(list(ready_set)))+
             "\n Todays Stuffs : "+ str(len(list(stale_set)))+
             "\n\n Sleep Now (-_-)Zzz... \n")
-        sleep(20) # 3600 Seconds = Hour
-            
-
-if __name__ == "__main__":
-    # Log
-    process_log = open(logfile_username,'a+')
-    mainLoop("newyork")
-    
+        sleep(3600) # 3600 Seconds = Hour
     
     
     

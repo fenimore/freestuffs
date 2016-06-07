@@ -23,7 +23,7 @@ import stuffify
     
     Example usage:
     from stuffify import Stuffify
-    freestuffs = Stuffify('montreal', 5, precise=True)
+    freestuffs = Stuffify('montreal', 5, precise=True).get_freestuffs()
     freestuffs[0].thing
     freestuffs[0].coordinates
 """
