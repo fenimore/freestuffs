@@ -44,8 +44,8 @@ class Stuffify:
         """Scrape Craigslist for a list of stuff.
         
         Keyword arguments:
-            - place
-            - _quantity
+            - place -- the city to search, in Craigslist friendly format
+            - _quantity -- how many stuffs to gather
             - precise -- A boolean to explicitly use geolocator
                          and crawl individual posting URL
         """
@@ -70,9 +70,11 @@ class Stuffify:
             for stuff in self.freestuffs:
                 stuff.find_coordinates()
     
+    
     def get_freestuffs(self):
         """Get a list of freestuffs"""
         return self.freestuffs
+        
         
     def setup_place():
         """Take cl input of user location."""
@@ -109,8 +111,8 @@ class Stuffify:
            duplicate location names in world. Yikes.
         
            Keyword arguments:
-               - user_place -- 
-               - soup - bs4 object of a Craiglist freestuffs page
+               - user_place -- the city, in Craigslist format 
+               - soup -- bs4 object of a Craiglist freestuffs page
         """
         free_locations = []
         user_location = self.refine_city_name(user_place)
@@ -160,9 +162,9 @@ class Stuffify:
         return free_images
         
     def refine_city_name(self, user_place):
-        """Refine location of two word cities."""
+        """Refine location for two-word cities."""
         if user_place == 'newyork': # does this have to capitalized?
-            loc = '#FreeStuffNY' # For tweeting
+            loc = 'New York' # For tweeting
         elif user_place == 'washingtondc':
             loc = 'Washington D.C.'
         elif user_place == 'sanfrancisco':
