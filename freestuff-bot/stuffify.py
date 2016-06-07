@@ -16,21 +16,25 @@ import requests, re, folium, webbrowser
 from bs4 import BeautifulSoup
 from unidecode import unidecode
 
-# Setup the Location from User Input
-# Basically just for kicks
 def setup_place():
+    """Take cl input of user location."""
     user_place = input("What major city are you near? (or, 'help') ")
     if user_place == "help":
-        print("craigslist serves many major cities, and the peripheral neighborhoods, try something like 'montreal' or 'newyork'\n It's gotta be one word (no spaces) or funny characters, visit the craigslist.org site for your cities 'name'.\nAlso, the mappify module currently only works with montreal")
+        print("craigslist serves many major cities, \
+        and the peripheral neighborhoods, try something\
+         like 'montreal' or 'newyork'\n It's gotta be \
+         one word (no spaces) or funny characters, visit\
+          the craigslist.org site for your cities 'name'.\
+          \nAlso, the mappify module currently only works with montreal")
         user_place = input("What major city are you near? ")
     return user_place 
 
 """ Setup up the Soup """ 
 # This has to Change for Europe, it's all jumbled there.
 def setup_page(user_place):
-    free_url = 'http://' + user_place +'.craigslist.com/search/zip'
+    _url = 'http://' + user_place +'.craigslist.com/search/zip'
     try:
-        free_page = requests.get(free_url)
+        free_page = requests.get(_url)
         soup = BeautifulSoup(free_page.text, "html.parser")
     except:
         soup = "something when wrong" # Something informative
