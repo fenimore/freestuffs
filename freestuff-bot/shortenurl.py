@@ -1,5 +1,7 @@
+#!/usr/bin/env python
 """
 Voila some beautiful code which did not write...
+Twitter's recent change makes this script excessive
 http://pythontips.com/2013/08/03/a-url-shortener-in-python/
 
 """

@@ -1,29 +1,30 @@
-###########################################################################
-# Copyright (C) 2015 Fenimore Love
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-#
-#
-###
+#!/usr/bin/env python
+"""This module is a Craigslist scraper.
+
+Example usage:
+    from stuffify import Stuffify
+    freestuffs = Stuffify('montreal', 5, precise=True)
+    freestuffs[0].thing
+    freestuffs[0].coordinates
+      
+@author: Fenimore Love
+@license: MIT
+@date: 2015-2016
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+"""
 import requests, re
 from bs4 import BeautifulSoup
 from unidecode import unidecode
 from stuff import Stuff
 
-"""This module scrapes Craigslist.
 
-    Example usage:
-    from stuffify import Stuffify
-    freestuffs = Stuffify('montreal', 5, precise=True)
-    freestuffs[0].thing
-    freestuffs[0].coordinates
-"""
 class Stuffify:
     """A freestuff Craigslist scraper.
     

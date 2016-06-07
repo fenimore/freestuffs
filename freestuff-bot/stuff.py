@@ -1,32 +1,30 @@
-###########################################################################
-# Copyright (C) 2015 Fenimore Love 
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-#
-#
-###
-import requests, re
-from geopy.geocoders import Nominatim
-from bs4 import BeautifulSoup
-import stuffify
-
-"""
-    This module houses the ever important Stuff class.
+#!/usr/bin/env python
+"""This module houses the ever important Stuff class.
     
-    Use stuffify in order to gather a list of stuffs.
+Use stuffify in order to gather a list of stuffs.
     
-    Example usage:
+Example usage:
     from stuffify import Stuffify
     freestuffs = Stuffify('montreal', 5, precise=True).get_freestuffs()
     freestuffs[0].thing
     freestuffs[0].coordinates
+    
+@author: Fenimore Love
+@license: MIT
+@date: 2015-2016
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 """
+import requests, re
+from geopy.geocoders import Nominatim
+from bs4 import BeautifulSoup
+
 
 class Stuff(object):
     """A freestuff Craigslist object.

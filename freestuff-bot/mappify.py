@@ -1,22 +1,4 @@
-###########################################################################
-# Copyright (C) 2015 Fenimore Love
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-#
-#
-###
-import os
-from geopy.geocoders import Nominatim
-from bs4 import BeautifulSoup
-import requests, re, folium, webbrowser
-from folium.element import IFrame
-
+#!/usr/bin/env python
 """Chart where free things are.
 
 The reverse Geolocator is at nominatim.openstreetmap.org
@@ -25,8 +7,26 @@ Example usage:
     from stuffify import Stuffify
     freestuffs = Stuffify('montreal', 5, precise=True).get_freestuffs()
     map = Mappify(freestuffs, is_testing=True)
+    
+@author: Fenimore Love
+@license: MIT
+@date: 2015-2016
 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 """
+import os, re
+from geopy.geocoders import Nominatim
+from bs4 import BeautifulSoup
+import requests, folium, webbrowser
+from folium.element import IFrame
+
+
 class Mappify:
     """Post folium map of freestuffs.
 
@@ -102,6 +102,8 @@ class Mappify:
         Must have python -m http.server running in directory
         """
         path = os.getcwd()
+        if not os.path.exists(path + '/webmap/'):
+            os.makedirs(directory)
         self.treasure_map.create_map(path= path + '/webmap/findit.html')
         print("BEWARNED, this map is likely incorrect,\nCraigslist denizens care not for computer-precision")
         webbrowser.open_new_tab("localhost:8000/webmap/findit.html") # Open the map in a tab

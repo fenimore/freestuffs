@@ -8,9 +8,9 @@ config = {
     'author': 'Fenimore Love',
     'url': 'https://github.com/polypmer/freestuff-bot',
     'download_url': 'https://github.com/polypmer/freestuff-bot',
-    'author_email': 'fenimore@polypmer.org',
-    'version': '0.2',
-    'install_requires': ['nose', 'folium','geopy','beautifulsoup4', 'requests'],
+    'author_email': 'exorable.ludos@gmail.com',
+    'version': '1.0',
+    'install_requires': ['nose', 'folium','geopy','beautifulsoup4', 'requests', 'tweepy'],
     'packages': ['freestuff-bot'],
     'scripts': [],
     'name': 'freestuff-bot'

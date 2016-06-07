@@ -1,26 +1,31 @@
 #!/usr/bin/env python
-"""
-    Twitter Bot for posting craigslist postings of Free Stuff
-    Python 3
-    MIT License
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
+"""Twitter Bot for posting craigslist postings of Free Stuff
     
-    Fenimore Love
+Example usage:
+    python tweetstuffs.py
+    
+Attributes:
+    - NO_IMAGE -- link for when there is no image found
+    - FILE -- path to tmp file
+    - C_KEY, C_SECRET, A_TOKEN, A_TOKEN_SECRET -- twitter api tokens
+    
+@author: Fenimore Love
+@license: MIT
+@date: 2015-2016
 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 """
-#TODO: Fix titles before posting
-
 import re, sys, os, time, urllib.error, urllib.request
 from datetime import datetime
 from time import gmtime, strftime, sleep
-
 import tweepy
+
 from stuffify import Stuffify
 from shortenurl import make_tiny
 from secrets import *
@@ -30,7 +35,7 @@ bot_username = 'FreeStuffNY'
 logfile_username = bot_username + ".log"
 # ==============================================================
 
-# Some variables, why not
+
 NO_IMAGE = 'http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
 FILE = 'freestuff-bot/tmp/tmp-filename.jpg'
 
