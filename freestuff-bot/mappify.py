@@ -121,9 +121,9 @@ class Mappify:
     def create_flask_map(self):
         """Create html map in flask server."""
         folium_figure = self.treasure_map.get_root()
-        folium_figure.header._children['bootstrap'] = folium.element.CssLink('/static/css/style.css')
-        folium_figure.header._children['Woops'] = folium.element.CssLink('/static/css/map.css') # Why woops?
-        self.treasure_map.save('treasuremap/templates/raw_map.html') # TODO: use join
+        folium_figure.header._children['bootstrap'] = folium.element.CssLink('static', 'css', 'style.css') #'/static/css/style.css'
+        folium_figure.header._children['Woops'] = folium.element.CssLink('static', 'css', 'map.css') # Why woops?
+        self.treasure_map.save(os.path.join('treasuremap', 'templates', 'raw_map.html')) # TODO: use join
         
         
     def create_map(self, map_path, css_path=None):
