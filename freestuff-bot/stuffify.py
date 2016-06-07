@@ -61,7 +61,7 @@ class Stuffify:
                            for x in range(0, self.quantity)] 
         if precise:
             for stuff in self.freestuffs:
-                stuff.coordinates = stuff.find_coordinates()
+                stuff.find_coordinates()
     
     def get_freestuffs(self):
         """Get a list of freestuffs"""

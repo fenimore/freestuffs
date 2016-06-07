@@ -41,7 +41,8 @@ class Stuff(object):
         - user_location -- passed explicitly, requires clean up
         - coordinates -- array of longitude and latitude
     """
-		
+    #  coordinates = []
+    
     def __init__(self, thing, url, location, image, user_location):
         """Construct stuff object.
         
@@ -84,6 +85,7 @@ class Stuff(object):
         Returns an array, first latitude and then
         longitude.
         """
+        self.coordinates = []
         geolocator = Nominatim()
         follow_this = self.url
         follow_page = requests.get(follow_this)
@@ -108,4 +110,5 @@ class Stuff(object):
                 except:
                     lat = 0 #38.9047 # This is DC
                     lon = 0 #-77.0164
-        self.coordinates = [lat, lon]
+        self.coordinates.append(lat)
+        self.coordinates.append(lon)
