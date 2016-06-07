@@ -37,7 +37,8 @@ class Mappify:
     Attributes:
         - treasure_map -- an OSM folium map object
     """
-    def __init__(self, freestuffs, address=None, is_testing=False, is_flask=False, zoom=13):
+    def __init__(self, freestuffs, address=None, zoom=13, 
+                 is_testing=False, is_flask=False):
         """Post freestuffs on map.
         
         Make sure python -m http.server is running the directory.
@@ -78,9 +79,10 @@ class Mappify:
             # TODO: Contigency Plan for 0, 0?
             lat = freestuff.coordinates[0] # Latitude
             lon = freestuff.coordinates[1] # Longitude
-            popup = folium.Popup(IFrame(name, width=200, height=300), max_width=3000)
+            popup = folium.Popup(IFrame(name, width=200, height=300),
+                                 max_width=3000)
             folium.CircleMarker([lat, lon], radius=radi, popup=popup,
-                fill_color=color, fill_opacity=0.2).add_to(map_osm)
+                                fill_color=color, fill_opacity=0.2).add_to(map_osm)
             radi -= 10 # Diminishing order
         if address != None:
             geolocator = Nominatim()
@@ -92,8 +94,8 @@ class Mappify:
                 add_lon = 0
             pop_up = address + str(add_lat) + str(add_lon)
             folium.Marker(location=[add_lat, add_lon],popup=address,
-                icon=folium.Icon(color='red',icon='home')).add_to(map_osm)
-
+                          icon=folium.Icon(color='red',icon='home')
+                          ).add_to(map_osm)
         self.treasure_map = map_osm
         if is_testing:
             self.create_test_map()
@@ -109,19 +111,19 @@ class Mappify:
         Must have python -m http.server running in directory
         """
         path = os.getcwd()
-        if not os.path.exists(path + '/webmap/'):
+        if not os.path.exists(os.path.join(path, 'webmap')):
             os.makedirs(directory)
-        self.treasure_map.create_map(path= path + '/webmap/findit.html')
-        print("BEWARNED, this map is likely incorrect,\nCraigslist denizens care not for computer-precision")
-        webbrowser.open_new_tab("localhost:8000/webmap/findit.html") # Open the map in a tab
+        self.treasure_map.save(os.path.join(path, 'webmap', 'findit.html')) # depecrated, change to save
+        print("BEWARNED, this map is likely incorrect:\nCraigslist denizens care not for computer-precision")
+        # webbrowser.open_new_tab("localhost:8000/webmap/findit.html") # Open the map in a tab
         
         
     def create_flask_map(self):
         """Create html map in flask server."""
         folium_figure = self.treasure_map.get_root()
         folium_figure.header._children['bootstrap'] = folium.element.CssLink('/static/css/style.css')
-        folium_figure.header._children['Woops'] = folium.element.CssLink('/static/css/map.css')
-        self.treasure_map.create_map(path='treasuremap/templates/raw_map.html')
+        folium_figure.header._children['Woops'] = folium.element.CssLink('/static/css/map.css') # Why woops?
+        self.treasure_map.save('treasuremap/templates/raw_map.html') # TODO: use join
         
         
     def create_map(self, map_path, css_path=None):
@@ -135,7 +137,7 @@ class Mappify:
         if css_path is not None:
             folium_figure = self.treasure_map.get_root() # So that Leaflet Style Doesn't conflict with custom Bootstrap
             folium_figure.header._children['Woops'] = folium.element.CssLink(css_path)
-        self.treasure_map.create_map(path=map_path)
+        self.treasure_map.save(map_path)
         
         
     def set_city_center(self, location):
