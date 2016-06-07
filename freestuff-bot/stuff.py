@@ -37,9 +37,7 @@ class Stuff(object):
         - image -- passed explicitly
         - user_location -- passed explicitly, requires clean up
         - coordinates -- array of longitude and latitude
-    """
-    #  coordinates = []
-    
+    """    
     def __init__(self, thing, url, location, image, user_location):
         """Construct stuff object.
         
@@ -59,20 +57,11 @@ class Stuff(object):
         self.image = image
         self.user_location = user_location
 
+
     def __str__(self):
         """Print stuff summary."""
         return "what: %s \n where: %s \n link: %s \n image: %s" % (self.thing, self.location, self.url, self.image)
 
-    def refine_city_name(self, user_place):
-        """Refine location of two word cities."""
-        if user_place == 'newyork': # does this have to capitalized?
-            loc = '#FreeStuffNY' # For tweeting
-        elif user_place == 'washingtondc':
-            loc = 'Washington D.C.'
-        elif user_place == 'sanfrancisco':
-            loc = 'San Francisco, USA'
-        else:
-            return loc
 
     def find_coordinates(self):
         """Get and set longitude and Latitude

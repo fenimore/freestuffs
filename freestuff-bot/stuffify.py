@@ -113,16 +113,15 @@ class Stuffify:
                - soup - bs4 object of a Craiglist freestuffs page
         """
         free_locations = []
-        # location = Stuff.refine_city_name(user_place=user_place)
-        location = user_place
+        user_location = self.refine_city_name(user_place)
         for span in _soup.find_all("span", class_="pnr"):
             loc_node = str(span.find('small')) 
             if loc_node == "None": # Some places have no where
-                _loc = location + ", NY" # +", Somewhere"
+                _loc = user_location + ", NY" # +", Somewhere"
             else:
                 _loc = loc_node.strip('<small ()</small>')
                 _loc = unidecode(_loc)# Unicode!
-                _loc = _loc + ", " + location 
+                _loc = _loc + ", " + user_location 
             free_locations.append(_loc)
         return free_locations
         
@@ -159,3 +158,15 @@ class Stuffify:
                 _img = "http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg" # No-image image
             free_images.append(_img)
         return free_images
+        
+    def refine_city_name(self, user_place):
+        """Refine location of two word cities."""
+        if user_place == 'newyork': # does this have to capitalized?
+            loc = '#FreeStuffNY' # For tweeting
+        elif user_place == 'washingtondc':
+            loc = 'Washington D.C.'
+        elif user_place == 'sanfrancisco':
+            loc = 'San Francisco, USA'
+        else:
+            loc = user_place
+        return loc
