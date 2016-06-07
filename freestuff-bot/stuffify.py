@@ -120,7 +120,7 @@ class Stuffify:
         for span in _soup.find_all("span", class_="pnr"):
             loc_node = str(span.find('small')) 
             if loc_node == "None": # Some places have no where
-                _loc = user_location + ", NY" # +", Somewhere"
+                _loc = user_location + ", Somewhere" # +", Somewhere"
             else:
                 _loc = loc_node.strip('<small ()</small>')
                 _loc = unidecode(_loc)# Unicode!

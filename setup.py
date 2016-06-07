@@ -9,7 +9,7 @@ config = {
     'url': 'https://github.com/polypmer/freestuff-bot',
     'download_url': 'https://github.com/polypmer/freestuff-bot',
     'author_email': 'exorable.ludos@gmail.com',
-    'version': '1.0',
+    'version': '0.1',
     'install_requires': ['nose', 'folium','geopy','beautifulsoup4', 'requests', 'tweepy'],
     'packages': ['freestuff-bot'],
     'scripts': [],

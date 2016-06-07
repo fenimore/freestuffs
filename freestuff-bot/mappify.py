@@ -67,7 +67,7 @@ class Mappify:
             thing = freestuff.thing     # thing title
             url = freestuff.url         # thing URL
             image = freestuff.image     # thing image url
-            color = self.sort_stuff(thing)   # Map marker's color
+            color = self.sort_stuff(freestuff.thing)   # Map marker's color
             name = """
                     <link rel='stylesheet' type='text/css' 
                     href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
@@ -168,10 +168,9 @@ class Mappify:
 
     def sort_stuff(self, stuff): # This doesn't work...
         """Rendering the markers in pretty colors."""
-        color = ""
-        furniture_pattern = "(wood|shelf|table|chair|scrap)"
-        electronics_pattern = "(tv|sony|écran|speakers)" #search NOT match
-        find_pattern = "(book|games|cool)"
+        furniture_pattern = "(wood|shelf|table|chair|scrap|desk)"
+        electronics_pattern = "(tv|sony|écran|speakers|wire|electronic|saw)" #search NOT match
+        find_pattern = "(book|games|cool|guide|box)"
         if re.search(furniture_pattern, stuff, re.I):
             color = "#FF0000" #red ##### THIS should set variable and return at
         elif re.search(electronics_pattern, stuff, re.I): #the end all
@@ -180,5 +179,5 @@ class Mappify:
             color = "#000000" #black
         else:
             color = "white" #white
-        color = "#ffff00"
+        # color = "#ffff00"
         return color

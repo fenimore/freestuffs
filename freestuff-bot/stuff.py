@@ -75,15 +75,15 @@ class Stuff(object):
         follow_page = requests.get(follow_this)
         follow_soup = BeautifulSoup(follow_page.text, "html.parser")
         location = follow_soup.find("div", class_="viewposting")
-        if location is not None:
+        if location is not None: # Get from Page
             lat = location['data-latitude']
             lon = location['data-longitude']
         else:
-            try:
+            try: # Get from posted location
                 lat = geolocator.geocode(self.location).latitude
                 lon = geolocator.geocode(self.location).longitude
             except:
-                try:
+                try: # Get from user locatoin
                     lat = geolocator.geocode(self.user_location).latitude
                     lon = geolocator.geocode(self.user_location).longitude
                 except:

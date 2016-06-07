@@ -3,6 +3,6 @@
 from stuffify import Stuffify
 from mappify import Mappify
 
-stuffs = Stuffify('montreal', 3, precise=True).get_freestuffs()
+stuffs = Stuffify('montreal', 5, precise=True).get_freestuffs()
 Mappify(stuffs, is_testing=True)
 
