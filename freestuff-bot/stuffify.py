@@ -12,8 +12,7 @@
 #TODO: Do I have to include empty list declaration? Or maybe I should
 ###
 
-import requests, re, folium, webbrowser
-from geopy.geocoders import Nominatim
+import requests, re
 from bs4 import BeautifulSoup
 from unidecode import unidecode
 from stuff import Stuff
