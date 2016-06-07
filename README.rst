@@ -8,8 +8,8 @@ This is a bot which scrapes free stuff from craigslist. It's written in python 3
 * Using Mappify, one can post the freestuffs, and geolocalize them, onto a leaflet/folium map.
 * With tweetstuffs and shortenurl, one can post free stuffs onto Craigslist (shortenurl is not needed for twitter anymore).
 
-The "Twitter" Branch is for posting freestuffs onto twitter. 
-############################################################
+Includes script for posting stuffs on Twitter
+#############################################
 Horay! New York is the pilot project.
 
 Example Usage::
