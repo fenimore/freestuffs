@@ -1,307 +1,249 @@
-<!DOCTYPE html>
-<head>
-   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
-   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
 
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!DOCTYPE html>
+        <head>
+            
+        
+            <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        
+            
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+        
+        
+        
+            
+        
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        
+        
+        
+            
+        
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        
+        
+        
+            
+        
+            <script src="https://rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js"></script>
+        
+        
+        
+            
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
+        
+        
+        
+            
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+        
+        
+        
+            
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+        
+        
+        
+            
+        
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+        
+        
+        
+            
+        
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+        
+        
+        
+            
+        
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+        
+        
+        
+            
+        
+            <link rel="stylesheet" href="https://rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css" />
+        
+        
+        
+            
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+        
+        
+        
+            
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+        
+        
+        
+            
+        
+            <link rel="stylesheet" href="https://raw.githubusercontent.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css" />
+        
+        
+        
+            
+            <style>
 
-   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                }
 
-   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+            #map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+            
+        
+            
+            <style> #map_ae4335cc32a643968b613def9f526248 {
+                position : relative;
+                width : 100.0%;
+                height: 100.0%;
+                left: 0.0%;
+                top: 0.0%;
+                }
+            </style>
+        
+        
+        
+        </head>
+        <body>
+            
+        
+            
+            <div class="folium-map" id="map_ae4335cc32a643968b613def9f526248" ></div>
+        
+        
+        
+        </body>
+        <script>
+            
+        
+            
 
-   <link rel="stylesheet" href="//rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css">
-   <script src="//rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js"></script>
+            var southWest = L.latLng(-90, -180);
+            var northEast = L.latLng(90, 180);
+            var bounds = L.latLngBounds(southWest, northEast);
 
+            var map_ae4335cc32a643968b613def9f526248 = L.map('map_ae4335cc32a643968b613def9f526248', {
+                                           center:[45.5088,-73.5878],
+                                           zoom: 13,
+                                           maxBounds: bounds,
+                                           layers: [],
+                                           crs: L.CRS.EPSG3857
+                                         });
+            
+        
+        
+            
+            var tile_layer_8db29a5f297a45589e9752e40a9311ec = L.tileLayer(
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                {
+                    maxZoom: 18,
+                    minZoom: 1,
+                    attribution: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+                    detectRetina: false
+                    }
+                ).addTo(map_ae4335cc32a643968b613def9f526248);
 
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css">
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css">
-   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
-   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+        
+        
+            
 
-   <link rel="stylesheet" href="//birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css">
+            var circle_marker_d0719e3092cb4359b8e367386ac63b74 = L.circle(
+                [45.520154,-73.611269],
+                500,
+                {
+                    color: 'black',
+                    fillColor: '#ffff00',
+                    fillOpacity: 0.2
+                    }
+                )
+                .addTo(map_ae4335cc32a643968b613def9f526248);
+            
+        
+            
+            var popup_eba1837549ee41b3a7c636be0c3c3eec = L.popup({maxWidth: '3000'});
 
-   
-   
-   
-   
+            
+                var i_frame_dd9ec7c7f8164910b45a635c751b3a7b = $('<iframe src="data:text/html;base64,CiAgICAgICAgCiAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgIDxsaW5rIHJlbD0nc3R5bGVzaGVldCcgdHlwZT0ndGV4dC9jc3MnIGhyZWY9J2h0dHBzOi8vbWF4Y2RuLmJvb3RzdHJhcGNkbi5jb20vYm9vdHN0cmFwLzMuMy42L2Nzcy9ib290c3RyYXAubWluLmNzcyc+CiAgICAgICAgICAgICAgICAgICAgPGltZyBzcmM9J2h0dHBzOi8vaW1hZ2VzLmNyYWlnc2xpc3Qub3JnLzAxNDE0XzN3UjA2NUJaQ05zXzMwMHgzMDAuanBnJyBoZWlnaHQ9J2F1dG8nIHdpZHRoPScxNjBweCcgLz4KICAgICAgICAgICAgICAgICAgICA8aDM+TGVhdGhlciBzb2ZhLCBUViBzdGFuZCwgQm9vayBjYXNlcyBhbGwgaW4gZ29vZCBjb25kaXRpb248L2gzPgogICAgICAgICAgICAgICAgICAgIDxoND5Nb250cmUsIG1vbnRyZWFsPC9oND4KICAgICAgICAgICAgICAgICAgICA8YSBocmVmPSdodHRwOi8vbW9udHJlYWwuY3JhaWdzbGlzdC5jYS96aXAvNTYyMzE4Njc3Ni5odG1sJyB0YXJnZXQ9J19ibGFuayc+VmlldyBQb3N0aW5nIGluIE5ldyBUYWI8L2E+CiAgICAgICAgICAgICAgICAgICAKICAgICAgICAKICAgICAgICA=" width="200" height="300"></iframe>')[0];
+                popup_eba1837549ee41b3a7c636be0c3c3eec.setContent(i_frame_dd9ec7c7f8164910b45a635c751b3a7b);
+            
 
-   <style>
+            circle_marker_d0719e3092cb4359b8e367386ac63b74.bindPopup(popup_eba1837549ee41b3a7c636be0c3c3eec);
 
-      html, body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+            
+        
+        
+            
 
-      #map {
-        position:absolute;
-        top:0;
-        bottom:0;
-        right:0;
-        left:0;
-      }
+            var circle_marker_1b50161fa4e8486a820734a74b2a8d80 = L.circle(
+                [45.501865,-73.583422],
+                490,
+                {
+                    color: 'black',
+                    fillColor: '#ffff00',
+                    fillOpacity: 0.2
+                    }
+                )
+                .addTo(map_ae4335cc32a643968b613def9f526248);
+            
+        
+            
+            var popup_d414936f96164e1bbaeb8c3351f8a81c = L.popup({maxWidth: '3000'});
 
-   </style>
-</head>
+            
+                var i_frame_9f60660f8ecb4070ba0f24335ba69535 = $('<iframe src="data:text/html;base64,CiAgICAgICAgCiAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgIDxsaW5rIHJlbD0nc3R5bGVzaGVldCcgdHlwZT0ndGV4dC9jc3MnIGhyZWY9J2h0dHBzOi8vbWF4Y2RuLmJvb3RzdHJhcGNkbi5jb20vYm9vdHN0cmFwLzMuMy42L2Nzcy9ib290c3RyYXAubWluLmNzcyc+CiAgICAgICAgICAgICAgICAgICAgPGltZyBzcmM9J2h0dHBzOi8vaW1hZ2VzLmNyYWlnc2xpc3Qub3JnLzAwNjA2X2lqenBTdjh2VVhfMzAweDMwMC5qcGcnIGhlaWdodD0nYXV0bycgd2lkdGg9JzE2MHB4JyAvPgogICAgICAgICAgICAgICAgICAgIDxoMz5GcmVlIE9yYW5nZSBWaW50YWdlIEFybWNoYWlyPC9oMz4KICAgICAgICAgICAgICAgICAgICA8aDQ+bW9udHJlYWwsIE5ZPC9oND4KICAgICAgICAgICAgICAgICAgICA8YSBocmVmPSdodHRwOi8vbW9udHJlYWwuY3JhaWdzbGlzdC5jYS96aXAvNTYyMzAwNDE5Ni5odG1sJyB0YXJnZXQ9J19ibGFuayc+VmlldyBQb3N0aW5nIGluIE5ldyBUYWI8L2E+CiAgICAgICAgICAgICAgICAgICAKICAgICAgICAKICAgICAgICA=" width="200" height="300"></iframe>')[0];
+                popup_d414936f96164e1bbaeb8c3351f8a81c.setContent(i_frame_9f60660f8ecb4070ba0f24335ba69535);
+            
 
-<body>
+            circle_marker_1b50161fa4e8486a820734a74b2a8d80.bindPopup(popup_d414936f96164e1bbaeb8c3351f8a81c);
 
-   <div class="folium-map" id="folium_948a05a822394564bcd1710ba1e4bbba" style="width: 960px; height: 500px"></div>
+            
+        
+        
+            
 
-   <script>
+            var circle_marker_feaeb6eed7ed42d583a2d7db3671b936 = L.circle(
+                [45.5087928,-73.5539819],
+                480,
+                {
+                    color: 'black',
+                    fillColor: '#ffff00',
+                    fillOpacity: 0.2
+                    }
+                )
+                .addTo(map_ae4335cc32a643968b613def9f526248);
+            
+        
+            
+            var popup_ca6e212649f7463ab06088007c462b26 = L.popup({maxWidth: '3000'});
 
-      
+            
+                var i_frame_cc94ab4b7a7946ef978fced1296fc401 = $('<iframe src="data:text/html;base64,CiAgICAgICAgCiAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgIDxsaW5rIHJlbD0nc3R5bGVzaGVldCcgdHlwZT0ndGV4dC9jc3MnIGhyZWY9J2h0dHBzOi8vbWF4Y2RuLmJvb3RzdHJhcGNkbi5jb20vYm9vdHN0cmFwLzMuMy42L2Nzcy9ib290c3RyYXAubWluLmNzcyc+CiAgICAgICAgICAgICAgICAgICAgPGltZyBzcmM9J2h0dHBzOi8vaW1hZ2VzLmNyYWlnc2xpc3Qub3JnLzAwUTBRX2R0dlRJRTBnZHZnXzMwMHgzMDAuanBnJyBoZWlnaHQ9J2F1dG8nIHdpZHRoPScxNjBweCcgLz4KICAgICAgICAgICAgICAgICAgICA8aDM+QmFuYW5hIFRyZWUgQ3V0dGluZzwvaDM+CiAgICAgICAgICAgICAgICAgICAgPGg0PkNvdGUgU3QgTHVjLCBtb250cmVhbDwvaDQ+CiAgICAgICAgICAgICAgICAgICAgPGEgaHJlZj0naHR0cDovL21vbnRyZWFsLmNyYWlnc2xpc3QuY2EvemlwLzU2MjI4MDEzMzcuaHRtbCcgdGFyZ2V0PSdfYmxhbmsnPlZpZXcgUG9zdGluZyBpbiBOZXcgVGFiPC9hPgogICAgICAgICAgICAgICAgICAgCiAgICAgICAgCiAgICAgICAg" width="200" height="300"></iframe>')[0];
+                popup_ca6e212649f7463ab06088007c462b26.setContent(i_frame_cc94ab4b7a7946ef978fced1296fc401);
+            
 
-      var base_tile = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 18,
-          minZoom: 1,
-          attribution: 'Map data (c) <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-      });
+            circle_marker_feaeb6eed7ed42d583a2d7db3671b936.bindPopup(popup_ca6e212649f7463ab06088007c462b26);
 
-      var baseLayer = {
-        "Base Layer": base_tile
-      };
-
-      /*
-      addition of the wms layers
-      */
-
-      
-
-      /*
-      addition of the tile layers
-      */
-      
-
-      /*
-      list of layers to be added
-      */
-      var layer_list = {
-      
-      };
-
-      /*
-      Bounding box.
-      */
-      var southWest = L.latLng(-90, -180),
-          northEast = L.latLng(90, 180),
-          bounds = L.latLngBounds(southWest, northEast);
-
-      /*
-      Creates the map and adds the selected layers
-      */
-      var map = L.map('folium_948a05a822394564bcd1710ba1e4bbba', {
-                                       center:[43.98, -74.72],
-                                       zoom: 13,
-                                       maxBounds: bounds,
-                                       layers: [base_tile]
-                                     });
-
-      L.control.layers(baseLayer, layer_list).addTo(map);
-
-      //cluster group
-      var clusteredmarkers = L.markerClusterGroup();
-      //section for adding clustered markers
-      
-      //add the clustered markers to the group anyway
-      map.addLayer(clusteredmarkers);
-
-      
-
-      
-      var circle_1 = L.circle([43.665333, -79.417789], 500, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_1.bindPopup("\n                <img src='https://images.craigslist.org/00W0W_cZD4ViA0Zhj_300x300.jpg' height='auto' width='160px' />\n                <h3>FREE: IKEA TV Cabinet</h3>\n                <h4>Toronto, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044859121.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_1._popup.options.maxWidth = 300;
-      map.addLayer(circle_1)
-      
-      var circle_2 = L.circle([43.717418, -79.437966], 490, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_2.bindPopup("\n                <img src='https://images.craigslist.org/00x0x_g7vS0sGTcbT_300x300.jpg' height='auto' width='160px' />\n                <h3>Free office furniture</h3>\n                <h4>toronto, Somewhere</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044847260.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_2._popup.options.maxWidth = 300;
-      map.addLayer(circle_2)
-      
-      var circle_3 = L.circle([-33.0118775, 151.5964662], 480, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_3.bindPopup("\n                <img src='https://images.craigslist.org/00x0x_iqLY1omJul0_300x300.jpg' height='auto' width='160px' />\n                <h3>Night Table</h3>\n                <h4>Toronto, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044778390.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_3._popup.options.maxWidth = 300;
-      map.addLayer(circle_3)
-      
-      var circle_4 = L.circle([43.646697, -79.395531], 470, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_4.bindPopup("\n                <img src='https://images.craigslist.org/00N0N_aJ2JzFeYsZu_300x300.jpg' height='auto' width='160px' />\n                <h3>Free leather couch</h3>\n                <h4>Toronto, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044755176.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_4._popup.options.maxWidth = 300;
-      map.addLayer(circle_4)
-      
-      var circle_5 = L.circle([43.6895799, -79.3060695], 460, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_5.bindPopup("\n                <img src='https://images.craigslist.org/01717_3bEeRlpYEMF_300x300.jpg' height='auto' width='160px' />\n                <h3>Free Love seat</h3>\n                <h4>Newmarket, toronto</h4>\n                <a href='http://toronto.craigslist.ca/yrk/zip/5044728606.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_5._popup.options.maxWidth = 300;
-      map.addLayer(circle_5)
-      
-      var circle_6 = L.circle([43.690637, -79.326396], 450, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_6.bindPopup("\n                <img src='https://images.craigslist.org/00i0i_7qFnkgIei1T_300x300.jpg' height='auto' width='160px' />\n                <h3>Free Wood</h3>\n                <h4>East York, ON, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5033584374.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_6._popup.options.maxWidth = 300;
-      map.addLayer(circle_6)
-      
-      var circle_7 = L.circle([43.649856, -79.391205], 440, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_7.bindPopup("\n                <img src='https://images.craigslist.org/00x0x_9Fm3L5aZ9cb_300x300.jpg' height='auto' width='160px' />\n                <h3>Filing Cabinets</h3>\n                <h4>260 Queen Street West, 3rd Floor, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044694118.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_7._popup.options.maxWidth = 300;
-      map.addLayer(circle_7)
-      
-      var circle_8 = L.circle([43.660796, -79.431687], 430, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_8.bindPopup("\n                <img src='http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg' height='auto' width='160px' />\n                <h3>FREE APPLEWOOD FIREWOOD - WHOLE DRY TREE</h3>\n                <h4>TORONTO, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044664141.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_8._popup.options.maxWidth = 300;
-      map.addLayer(circle_8)
-      
-      var circle_9 = L.circle([43.590742, -79.532389], 420, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_9.bindPopup("\n                <img src='https://images.craigslist.org/00X0X_1700CsFakxS_300x300.jpg' height='auto' width='160px' />\n                <h3>IKEA Desk</h3>\n                <h4>toronto, Somewhere</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044638238.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_9._popup.options.maxWidth = 300;
-      map.addLayer(circle_9)
-      
-      var circle_10 = L.circle([43.875065, -79.309733], 410, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_10.bindPopup("\n                <img src='https://images.craigslist.org/00K0K_dwzyBF6h3OO_300x300.jpg' height='auto' width='160px' />\n                <h3>Free printer (ink jet)</h3>\n                <h4>Markh, toronto</h4>\n                <a href='http://toronto.craigslist.ca/yrk/zip/5044635612.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_10._popup.options.maxWidth = 300;
-      map.addLayer(circle_10)
-      
-      var circle_11 = L.circle([43.590742, -79.532389], 400, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_11.bindPopup("\n                <img src='https://images.craigslist.org/00p0p_45H1xKly0sf_300x300.jpg' height='auto' width='160px' />\n                <h3>IKEA Queen Bed Frame</h3>\n                <h4>toronto, Somewhere</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044631657.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_11._popup.options.maxWidth = 300;
-      map.addLayer(circle_11)
-      
-      var circle_12 = L.circle([43.654096, -79.371012], 390, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_12.bindPopup("\n                <img src='https://images.craigslist.org/01313_fejK3yjkTMD_300x300.jpg' height='auto' width='160px' />\n                <h3>FREE ARTS AND CRAFTS GUITAR STAND</h3>\n                <h4>toronto downtown, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5006051043.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_12._popup.options.maxWidth = 300;
-      map.addLayer(circle_12)
-      
-      var circle_13 = L.circle([43.726533, -79.412218], 380, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_13.bindPopup("\n                <img src='https://images.craigslist.org/00f0f_1G65pEJe4b5_300x300.jpg' height='auto' width='160px' />\n                <h3>FREE TV</h3>\n                <h4>toronto, Somewhere</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044419527.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_13._popup.options.maxWidth = 300;
-      map.addLayer(circle_13)
-      
-      var circle_14 = L.circle([43.655115, -79.380219], 370, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_14.bindPopup("\n                <img src='https://images.craigslist.org/00i0i_fPluu4v41HR_300x300.jpg' height='auto' width='160px' />\n                <h3>FREE drafting table w/ built-in light disk</h3>\n                <h4>downtown, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044385094.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_14._popup.options.maxWidth = 300;
-      map.addLayer(circle_14)
-      
-      var circle_15 = L.circle([43.765830, -79.442214], 360, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_15.bindPopup("\n                <img src='https://images.craigslist.org/00L0L_7W1McfrlYlM_300x300.jpg' height='auto' width='160px' />\n                <h3>Free - medela pump</h3>\n                <h4>toronto, Somewhere</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044336428.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_15._popup.options.maxWidth = 300;
-      map.addLayer(circle_15)
-      
-      var circle_16 = L.circle([43.689785, -79.435895], 350, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_16.bindPopup("\n                <img src='http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg' height='auto' width='160px' />\n                <h3>Curb alert</h3>\n                <h4>7 moir avenue, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044310124.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_16._popup.options.maxWidth = 300;
-      map.addLayer(circle_16)
-      
-      var circle_17 = L.circle([43.6529206, -79.3849008], 340, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_17.bindPopup("\n                <img src='http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg' height='auto' width='160px' />\n                <h3>CURB ALERT ~ free couch</h3>\n                <h4>Pearson Ave off Roncesvalle, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044262618.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_17._popup.options.maxWidth = 300;
-      map.addLayer(circle_17)
-      
-      var circle_18 = L.circle([43.648909, -79.475363], 330, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_18.bindPopup("\n                <img src='http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg' height='auto' width='160px' />\n                <h3>Piano -- Upright</h3>\n                <h4>toronto, Somewhere</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044244143.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_18._popup.options.maxWidth = 300;
-      map.addLayer(circle_18)
-      
-      var circle_19 = L.circle([43.648909, -79.475363], 320, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_19.bindPopup("\n                <img src='http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg' height='auto' width='160px' />\n                <h3>French doors with glass</h3>\n                <h4>Bloor West Village, toronto</h4>\n                <a href='http://toronto.craigslist.ca/tor/zip/5044241814.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_19._popup.options.maxWidth = 300;
-      map.addLayer(circle_19)
-      
-      var circle_20 = L.circle([43.730432, -79.703071], 310, {
-                            color: '#000000',
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.2
-                            });
-      circle_20.bindPopup("\n                <img src='https://images.craigslist.org/00t0t_a4nXm7CIwlM_300x300.jpg' height='auto' width='160px' />\n                <h3>Free Asphalt Tiles</h3>\n                <h4>Bramale, toronto</h4>\n                <a href='http://toronto.craigslist.ca/bra/zip/5044191684.html' target='_blank'>View Posting in New Tab</a>\n               ");
-      circle_20._popup.options.maxWidth = 300;
-      map.addLayer(circle_20)
-      
-
-      
-
-      
-
-      
-
-      
-
-   </script>
-
-</body>
+            
+        
+        
+        
+        </script>
+        

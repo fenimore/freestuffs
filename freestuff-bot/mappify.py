@@ -11,145 +11,163 @@
 #
 #
 ###
-
 import os
 from geopy.geocoders import Nominatim
 from bs4 import BeautifulSoup
 import requests, re, folium, webbrowser
-import stuff
 from folium.element import IFrame
 
-# TODO: Only Supporting Montreal, NY and Toronto
-# Why Toronot even?
-# For cities other than Montreal
-# Reverse Geolocator is at nominatim.openstreetmap.org
-# Is there a different way of sending this stuff onto
-# A javscript map thang? I have the coordinates
-# There must be other ways.
+"""Chart where free things are.
 
-"""Getter for Longitude and Latitude"""
-def get_coordinates(freestuff):
-    geolocator = Nominatim()
-    follow_this = freestuff.url
-    follow_page = requests.get(follow_this)
-    follow_soup = BeautifulSoup(follow_page.text)
-    location = follow_soup.find("div", class_="viewposting")
-    if location is not None:
-        lat = location['data-latitude']
-        lon = location['data-longitude']
-    else:
-        try:
-            lat = geolocator.geocode(freestuff.location).latitude
-            lon = geolocator.geocode(freestuff.location).longitude
-        except:
-            try:
-                lat = geolocator.geocode(freestuff.user_location).latitude
-                lon = geolocator.geocode(freestuff.user_location).longitude
-            except:
-                lat = 38.9047 # This is DC
-                lon = -77.0164
-    return [lat, lon]
+The reverse Geolocator is at nominatim.openstreetmap.org
 
-"""Setter for Starting Longitude Latitude"""
-def set_city_center(location):
-    geolocator = Nominatim()
-    if re.match("montreal", location, re.I):
-        coord = [45.5088, -73.5878] # Montreal Center
-    elif re.match("newyork", location, re.I):
-        coord = [40.7127, -74.0058] # New York Center
-    elif re.match("toronto", location, re.I):
-        coord = [43.7, -79.4000] # Toronto? Center TODO:
-    elif re.match("washingtondc", location, re.I):
-        coord = [38.9047, -77.0164]
-    elif re.match("vancouver", location, re.I):
-        coord = [49.2827, -123.1207]
-    elif re.match("sanfrancisco", location, re.I):
-        coord = [37.773972, -122.431297]
-    else:
-        try:
-            findit = geolocator.geocode(location) # Use Geolocator
-            lat = findit.latitude                 # to get the long
-            lon = findit.longitude                # and lat of the stuff
-            coord = [lat, lon]
-        except:
-            coord = [0,0] # This is a bit silly
-    return coord
+Example usage:
+    from stuffify import Stuffify
+    freestuffs = Stuffify('montreal', 5, precise=True).get_freestuffs()
+    map = Mappify(freestuffs, is_testing=True)
 
-"""Rendering the Map pretty Colors""" # TODO: Read about if statements 
-def sort_stuff(stuff): # This doesn't work...
-    color = ""
-    furniture_pattern = "(wood|shelf|table|chair|scrap)"
-    electronics_pattern = "(tv|sony|écran|speakers)" #search NOT match
-    find_pattern = "(book|games|cool)"
-    if re.search(furniture_pattern, stuff, re.I):
-        color = "#FF0000" #red ##### THIS should set variable and return at
-    if re.search(electronics_pattern, stuff, re.I): #the end all
-        color = "#3186cc" #blue at once
-    if re.search(find_pattern, stuff, re.I):
-        color = "#000000" #black
-    else:
-        color = "white" #white
-    color = "#ffff00"
-    return color
+"""
+class Mappify:
+    """Post folium map of freestuffs.
+
+    After constructing Mappify map object, call
+    create_map and pass in map_path in order to create 
+    the HTML map.
+    
+    Attributes:
+        - treasure_map -- an OSM folium map object
+    """
+    def __init__(self, freestuffs, address=None, is_testing=False, is_flask=False):
+        """Post freestuffs on map.
         
-"""
-    Pass stuffs into an HTML page
-    Post listings in map; LOOKS more complicated than it is
-    Everytime this script runs, findit.html gets a new map
-    Make sure python -m http.server is running in the directory
-"""
-def post_map(freestuffs, address=None): # Pass in freestuffs list
-    # TODO: This part sucks
-    user_location = freestuffs[0].user_location
-    start_coord = set_city_center(user_location)
-    center_lat = start_coord[0]
-    center_lon = start_coord[1]
-    ######## 
-    map_osm = folium.Map([center_lat, center_lon], zoom_start=13) 
-    # Look into Folium for real, so this is a Folium
-    # Object filled with map markers
-    radi = 500 # Having it start big and get small corrects overlaps
-    for freestuff in freestuffs:
-        # Loop through the Stuff and Post it
-        place = freestuff.location  # thing location
-        thing = freestuff.thing     # thing Title
-        url = freestuff.url         # thing URL
-        image = freestuff.image     # It Works! (images)
-        color = sort_stuff(thing)   # Map marker's color
-        # Name is Map Posting
-        name = """
-                <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-                <img src='%s' height='auto' width='160px' />
-                <h3>%s</h3>
-                <h4>%s</h4>
-                <a href='%s' target='_blank'>View Posting in New Tab</a>
-               """ % (image, thing, place, url)
-        coordinates = get_coordinates(freestuff) # Get Coordinates Function is Above
-        # TODO: Contigency Plan for 0, 0?
-        lat = coordinates[0] # It returns an array 0 = Latitude
-        lon = coordinates[1] # and 1 = Longitude
-        # This is the Map business with many options
-        popup = folium.Popup(IFrame(name, width=200, height=300), max_width=3000)
-        folium.CircleMarker([lat, lon], radius=radi, popup=p,
-            fill_color=color, fill_opacity=0.2).add_to(map_osm)
-        radi -= 10 # decrease the radius to be sure not to cover up newer postings
-    if address != None:
-        geolocator = Nominatim()
-        try:
-            add_lat = geolocator.geocode(address).latitude
-            add_lon = geolocator.geocode(address).longitude
-        except:
-            add_lat = 0
-            add_lon = 0
-        pop_up = address + str(add_lat) + str(add_lon)
-        folium.Marker(location=[add_lat, add_lon],popup=address,
-            icon=folium.Icon(color='red',icon='home')).add_to(map_osm)
-    # So that Leaflet Style Doesn't conflict with custom Bootstrap
-    folium_figure = map_osm.get_root()
-    folium_figure.header._children['bootstrap'] = folium.element.CssLink('/static/css/style.css')
-    folium_figure.header._children['Woops'] = folium.element.CssLink('/static/css/map.css')
-    path = os.getcwd() # For testing!
-    map_osm.create_map(path= path + 'webmap/findit.html') # needs a small server
+        Make sure python -m http.server is running the directory.
+        The circle markers diminish in size, so that they
+        do not cover newer markers.
+        
+        Keyword arguments:
+            - address -- for an optional map marker of the user address.
+        Attributes:
+            - name -- freestuff marker blurb
+        """
+        user_location = freestuffs[0].user_location
+        start_coord = self.set_city_center(user_location)
+        center_lat = start_coord[0]
+        center_lon = start_coord[1] 
+        map_osm = folium.Map([center_lat, center_lon], zoom_start=13) 
+        radi = 500 
+        for freestuff in freestuffs:
+            place = freestuff.location  # thing location
+            thing = freestuff.thing     # thing title
+            url = freestuff.url         # thing URL
+            image = freestuff.image     # thing image url
+            color = self.sort_stuff(thing)   # Map marker's color
+            name = """
+                    <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+                    <img src='%s' height='auto' width='160px' />
+                    <h3>%s</h3>
+                    <h4>%s</h4>
+                    <a href='%s' target='_blank'>View Posting in New Tab</a>
+                   """ % (image, thing, place, url)
+            # TODO: Contigency Plan for 0, 0?
+            lat = freestuff.coordinates[0] # Latitude
+            lon = freestuff.coordinates[1] # Longitude
+            popup = folium.Popup(IFrame(name, width=200, height=300), max_width=3000)
+            folium.CircleMarker([lat, lon], radius=radi, popup=popup,
+                fill_color=color, fill_opacity=0.2).add_to(map_osm)
+            radi -= 10 # Diminishing order
+        if address != None:
+            geolocator = Nominatim()
+            try:
+                add_lat = geolocator.geocode(address).latitude
+                add_lon = geolocator.geocode(address).longitude
+            except:
+                add_lat = 0
+                add_lon = 0
+            pop_up = address + str(add_lat) + str(add_lon)
+            folium.Marker(location=[add_lat, add_lon],popup=address,
+                icon=folium.Icon(color='red',icon='home')).add_to(map_osm)
 
-    print("BEWARNED, this map is likely incorrect,\nCraigslist denizens care not for computer-precision")
-    webbrowser.open_new_tab("localhost:8000/webmap/findit.html") # Open the map in a tab
+        self.treasure_map = map_osm
+        if is_testing:
+            self.create_test_map()
+        elif is_flask:
+            self.create_flask_map()
+        else:
+            print("call create_map(_path) and pass in path to create map")
+        
+    
+    def create_test_map(self):
+        """Create html map in local webmap directory.
+        
+        Must have python -m http.server running in directory
+        """
+        path = os.getcwd()
+        self.treasure_map.create_map(path= path + '/webmap/findit.html')
+        print("BEWARNED, this map is likely incorrect,\nCraigslist denizens care not for computer-precision")
+        webbrowser.open_new_tab("localhost:8000/webmap/findit.html") # Open the map in a tab
+        
+        
+    def create_flask_map(self):
+        """Create html map in flask server."""
+        folium_figure = self.treasure_map.get_root()
+        folium_figure.header._children['bootstrap'] = folium.element.CssLink('/static/css/style.css')
+        folium_figure.header._children['Woops'] = folium.element.CssLink('/static/css/map.css')
+        self.treasure_map.create_map(path='treasuremap/templates/raw_map.html')
+        
+        
+    def create_map(self, map_path, css_path=None):
+        """Create html map in _path.
+        
+        Keyword arguments:
+            - map_path -- the path to create_map in
+            - css_path -- the path to override css 
+                          (defaults to bootstrap via folium)
+        """
+        if css_path is not None:
+            folium_figure = self.treasure_map.get_root() # So that Leaflet Style Doesn't conflict with custom Bootstrap
+            folium_figure.header._children['Woops'] = folium.element.CssLink(css_path)
+        self.treasure_map.create_map(path=map_path)
+        
+        
+    def set_city_center(self, location):
+        """Setter for center longitude latitude."""
+        geolocator = Nominatim()
+        if re.match("montreal", location, re.I):
+            coord = [45.5088, -73.5878] 
+        elif re.match("newyork", location, re.I):
+            coord = [40.7127, -74.0058] 
+        elif re.match("toronto", location, re.I):
+            coord = [43.7, -79.4000] 
+        elif re.match("washingtondc", location, re.I):
+            coord = [38.9047, -77.0164]
+        elif re.match("vancouver", location, re.I):
+            coord = [49.2827, -123.1207]
+        elif re.match("sanfrancisco", location, re.I):
+            coord = [37.773972, -122.431297]
+        else:
+            try:
+                findit = geolocator.geocode(location) # Last resort
+                lat = findit.latitude                 
+                lon = findit.longitude                
+                coord = [lat, lon]
+            except:
+                coord = [0,0] # This is a bit silly, nulle island
+        return coord
+
+
+    def sort_stuff(self, stuff): # This doesn't work...
+        """Rendering the markers in pretty colors."""
+        color = ""
+        furniture_pattern = "(wood|shelf|table|chair|scrap)"
+        electronics_pattern = "(tv|sony|écran|speakers)" #search NOT match
+        find_pattern = "(book|games|cool)"
+        if re.search(furniture_pattern, stuff, re.I):
+            color = "#FF0000" #red ##### THIS should set variable and return at
+        elif re.search(electronics_pattern, stuff, re.I): #the end all
+            color = "#3186cc" #blue at once
+        elif re.search(find_pattern, stuff, re.I):
+            color = "#000000" #black
+        else:
+            color = "white" #white
+        color = "#ffff00"
+        return color
