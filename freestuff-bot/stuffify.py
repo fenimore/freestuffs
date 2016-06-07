@@ -9,14 +9,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-#TODO: Do I have to include empty list declaration? Or maybe I should
+#
 ###
-
 import requests, re
 from bs4 import BeautifulSoup
 from unidecode import unidecode
 from stuff import Stuff
 
+"""This module scrapes Craigslist.
+
+    Example usage:
+    from stuffify import Stuffify
+    freestuffs = Stuffify('montreal', 5, precise=True)
+    freestuffs[0].thing
+    freestuffs[0].coordinates
+"""
 class Stuffify:
     """A freestuff Craigslist scraper.
     

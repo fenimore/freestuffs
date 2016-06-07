@@ -11,25 +11,22 @@
 #
 #
 ###
-
-"""
-    This module houses the ever important Class Definition
-    and the gather_stuff method which calls stuffify
-    and returns a list of stuffs
-    
-    Example use, using ipython:
-    
-    import stuff
-    import mappify
-    
-    stuffs = stuff.gather_stuff("montreal")
-    mappify.post_map(stuffs)
-"""
-
 import requests, re
 from geopy.geocoders import Nominatim
 from bs4 import BeautifulSoup
-import stuffify, mappify # Internal Modules
+import stuffify
+
+"""
+    This module houses the ever important Stuff class.
+    
+    Use stuffify in order to gather a list of stuffs.
+    
+    Example usage:
+    from stuffify import Stuffify
+    freestuffs = Stuffify('montreal', 5, precise=True)
+    freestuffs[0].thing
+    freestuffs[0].coordinates
+"""
 
 class Stuff(object):
     """A freestuff Craigslist object.
