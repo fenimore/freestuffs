@@ -26,7 +26,7 @@
     mappify.post_map(stuffs)
 """
 
-import requests, re, folium, webbrowser
+import requests, re
 from geopy.geocoders import Nominatim
 from bs4 import BeautifulSoup
 import stuffify, mappify # Internal Modules
@@ -109,35 +109,3 @@ class Stuff(object):
                     lat = 0 #38.9047 # This is DC
                     lon = 0 #-77.0164
         self.coordinates = [lat, lon]
-        
-def gather_stuff(place, quantity, precise=False):
-    """Scrape Craigslist for stuff
-    
-    
-    Keyword arguements:
-        - place
-        - quantity
-        - precise -- A boolean to explicitly use geolocator
-                     and crawl individual posting URL
-    """
-    soup = stuffify.setup_page(place)  
-    _quantity = int(quantity)
-    locs = stuffify.get_locations(place, soup) # locations, needs user place for fine tuning
-    urls = stuffify.get_urls(soup)      
-    things = stuffify.get_things(soup) # titles 
-    images = stuffify.get_images(soup)  # I can't believe this works..
-    """Constructor Combobulator"""
-    freestuffs = [Stuff(things[x], urls[x], locs[x], images[x], place) for x in range(0,quantity)] 
-    if precise:
-        for stuff in freestuffs:
-            stuff.coordinates = stuff.find_coordinates()            
-    return freestuffs
-
-def test_montreal(): # for quick testing with ipython
-    stuffs = gather_stuff("montreal", 10)
-    mappify.post_map(stuffs)
-def test_newyork(): # for quick testing with ipython
-    stuffs = gather_stuff("newyork", 10)
-    mappify.post_map(stuffs)
-
-
