@@ -86,7 +86,8 @@ def tweet(new_stuffs_set):
                     api.update_with_media(FILE, status=tweet)
                 else: 
                     api.update_status(tweet)
-                    log("\n\n Posting\n " + tweet + "\n ----\n")
+                    log("\n\n Posting without media\n "
+                         + tweet + "\n ----\n")
             except tweepy.error.TweepError as e: # Woops
                 log(e.message)
     else:
