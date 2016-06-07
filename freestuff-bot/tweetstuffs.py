@@ -35,25 +35,11 @@ bot_username = 'FreeStuffNY'
 logfile_username = bot_username + ".log"
 # ==============================================================
 
-
+PATH = os.getcwd()
+if not os.path.exists(PATH + '/tmp/'):
+    os.makedirs(directory)
 NO_IMAGE = 'http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
-FILE = 'freestuff-bot/tmp/tmp-filename.jpg'
-
-
-def check_length(tweet, post):
-    """Check if tweet is proper length
-    
-    TODO: Twitter has recently changed how it counts characters.
-    """
-    if len(tweet) < 145: # tweet is good
-        return tweet
-    else:
-        log("Tweet too long")
-        tweet = post["loc"] + "\n" + post["title"] + " " + post["url"] 
-        if len(tweet) > 144: # tweet is still not good 
-            tweet = post["title"] + " " + post["url"]
-            return tweet
-        return tweet
+FILE = PATH + '/tmp/tmp-filename.jpg'
 
 
 def create_tweet(stuff):
@@ -64,15 +50,6 @@ def create_tweet(stuff):
     _text = post["loc"] + "\n" + post["title"] +" " + post["url"]          
     _text = check_length(_text, post)
     return _text
-
-
-def log(message):
-    """Log message to logfile."""
-    path = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    with open(os.path.join(path, logfile_username), 'a+') as f:
-        t = strftime("%d %b %Y %H:%M:%S", gmtime())
-        print("\n" + t + " " + message) # print it tooo...
-        f.write("\n" + t + " " + message)
 
 
 def tweet(new_stuffs_set):
@@ -104,6 +81,31 @@ def tweet(new_stuffs_set):
         print("\n ----\n")
 
 
+def check_length(tweet, post):
+    """Check if tweet is proper length.
+    
+    TODO: Twitter has recently changed how it counts characters.
+    """
+    if len(tweet) < 145: # tweet is good
+        return tweet
+    else:
+        log("Tweet too long")
+        tweet = post["loc"] + "\n" + post["title"] + " " + post["url"] 
+        if len(tweet) > 144: # tweet is still not good 
+            tweet = post["title"] + " " + post["url"]
+            return tweet
+        return tweet
+
+
+def log(message):
+    """Log message to logfile."""
+    path = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    with open(os.path.join(path, logfile_username), 'a+') as f:
+        t = strftime("%d %b %Y %H:%M:%S", gmtime())
+        print("\n" + t + " " + message) # print it tooo...
+        f.write("\n" + t + " " + message)
+
+
 if __name__ == "__main__":
     """Tweet newly posted Free stuff objects.
     
@@ -115,7 +117,7 @@ if __name__ == "__main__":
     """
     process_log = open(logfile_username,'a+')
     _location = 'newyork'
-        stale_set = set() # the B set is what has already been 
+    stale_set = set() # the B set is what has already been 
     log("\n\nInitiating\n\n")
     while True:
         stuffs = [] # a list of dicts
@@ -136,18 +138,4 @@ if __name__ == "__main__":
         log("\n    New Stuffs : " + str(len(list(ready_set)))+
             "\n Todays Stuffs : "+ str(len(list(stale_set)))+
             "\n\n Sleep Now (-_-)Zzz... \n")
-        sleep(3600) # 3600 Seconds = Hour
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        sleep(20) # 3600 Seconds = Hour
