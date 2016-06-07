@@ -13,7 +13,7 @@ Horay! New York is the pilot project.
 ### To run freestuff-bot and use the mappify module, first run <code>python -m http.server</code>
 ### Example:
 * <code>stuffs = Stuffify("montreal", 10, precise=True).get_freestuffs()</code>
-* <code>mappify.post_map(stuffs)</code> 
+* <code>Mappify(stuffs, is_testing=True)</code>
 
 <b>The findit.html file is an example of the map output.</b> It can be nicely embedded in a Jinja2 app. See my  [treasure-map](https://github.com/polypmer/treasure-map).
 
