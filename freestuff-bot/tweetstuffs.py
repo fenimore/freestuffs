@@ -35,28 +35,32 @@ NO_IMAGE = 'http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_availabl
 FILE = 'freestuff-bot/tmp/tmp-filename.jpg'
 
 
-
 def check_length(tweet, post):
-    # if length is more than 144 char
+    """Check if tweet is proper length
+    
+    TODO: Twitter has recently changed how it counts characters.
+    """
     if len(tweet) < 145: # tweet is good
         return tweet
     else:
         log("Tweet too long")
         tweet = post["loc"] + "\n" + post["title"] + " " + post["url"] 
-        if len(tweet) > 144: # tweet is still not good
+        if len(tweet) > 144: # tweet is still not good 
             tweet = post["title"] + " " + post["url"]
             return tweet
         return tweet
 
+
 def create_tweet(stuff):
+    """Create string for tweet with stuff."""
     post = {"title": stuff['title'], 
             "loc" : stuff['location'], 
             "url" : make_tiny(stuff['url'])} 
-    # create the tweet
     _text = post["loc"] + "\n" + post["title"] +" " + post["url"]          
     _text = check_length(_text, post)
     return _text
-    
+
+
 def log(message):
     """Log message to logfile."""
     path = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -64,7 +68,8 @@ def log(message):
         t = strftime("%d %b %Y %H:%M:%S", gmtime())
         print("\n" + t + " " + message) # print it tooo...
         f.write("\n" + t + " " + message)
-    
+
+
 def tweet(new_stuffs_set):
     """Tweet new free stuff."""
     auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
