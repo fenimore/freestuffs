@@ -13,9 +13,10 @@
 ###
 
 import requests, re, folium, webbrowser
+from geopy.geocoders import Nominatim
 from bs4 import BeautifulSoup
 from unidecode import unidecode
-from stuff import Stuff, refine_city_name
+from stuff import Stuff
 
 class Stuffify:
     """A freestuff Craigslist scraper.
@@ -51,15 +52,21 @@ class Stuffify:
         except:
             _soup = "something when wrong" # Something informative
         self.soup = _soup  
-        self.quantity = int(self._quantity)
+        self.quantity = int(_quantity)
         self.locs = self.get_locations(place, self.soup) # locations, needs user place for fine tuning
         self.urls = self.get_urls(self.soup)      
         self.things = self.get_things(self.soup) # titles 
         self.images = self.get_images(self.soup)  # I can't believe this works..
-        self.freestuffs = [Stuff(things[x], urls[x], locs[x], images[x], place) for x in range(0,quantity)] 
+        self.freestuffs = [Stuff(self.things[x], self.urls[x], self.locs[x], 
+                           self.images[x], place) 
+                           for x in range(0, self.quantity)] 
         if precise:
             for stuff in self.freestuffs:
-                stuff.coordinates = stuff.get_coordinates()
+                stuff.coordinates = stuff.find_coordinates()
+    
+    def get_freestuffs(self):
+        """Get a list of freestuffs"""
+        return self.freestuffs
         
     def setup_place():
         """Take cl input of user location."""
@@ -75,7 +82,7 @@ class Stuffify:
         return user_place   
         
         
-    def get_things(_soup):
+    def get_things(self, _soup):
         """Scrape titles.
         
             Keyword arguments:
@@ -87,7 +94,7 @@ class Stuffify:
             free_things.append(_thing)
         return free_things
 
-    def get_locations(user_place, _soup):
+    def get_locations(self, user_place, _soup):
         """Scape locations.
         
            Returns a list of locations, more or less
@@ -100,7 +107,8 @@ class Stuffify:
                - soup - bs4 object of a Craiglist freestuffs page
         """
         free_locations = []
-        location = refine_city_name(user_place)
+        # location = Stuff.refine_city_name(user_place=user_place)
+        location = user_place
         for span in _soup.find_all("span", class_="pnr"):
             loc_node = str(span.find('small')) 
             if loc_node == "None": # Some places have no where
@@ -113,7 +121,7 @@ class Stuffify:
         return free_locations
         
         
-    def get_urls(_soup):
+    def get_urls(self, _soup):
         """Scrape stuff urls.
         
         Keyword arguments:
@@ -126,7 +134,7 @@ class Stuffify:
         return free_urls
 
 
-    def get_images(_soup):
+    def get_images(self, _soup):
         """Scrape images.
         
         Uses wikpedia No-image image if no image is found.

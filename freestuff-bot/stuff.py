@@ -27,6 +27,7 @@
 """
 
 import requests, re, folium, webbrowser
+from geopy.geocoders import Nominatim
 from bs4 import BeautifulSoup
 import stuffify, mappify # Internal Modules
 
@@ -40,12 +41,6 @@ class Stuff(object):
         - user_location -- passed explicitly, requires clean up
         - coordinates -- array of longitude and latitude
     """
-    #thing = "" # title
-    #url = ""
-    #location = ""
-    #image = ""
-    #user_location = ""
-    #coordinates = []
 		
     def __init__(self, thing, url, location, image, user_location):
         """Construct stuff object.
@@ -65,43 +60,47 @@ class Stuff(object):
         self.location = location
         self.image = image
         self.user_location = user_location
-        self.coordinates = []
 
     def __str__(self):
         """Print stuff summary."""
         return "what: %s \n where: %s \n link: %s \n image: %s" % (self.thing, self.location, self.url, self.image)
 
-    def refine_city_name(self, city_name):
+    def refine_city_name(self, user_place):
         """Refine location of two word cities."""
-        if city_name == 'newyork': # does this have to capitalized?
+        if user_place == 'newyork': # does this have to capitalized?
             loc = '#FreeStuffNY' # For tweeting
-        elif city_name == 'washingtondc':
+        elif user_place == 'washingtondc':
             loc = 'Washington D.C.'
-        elif city_name == 'sanfrancisco':
+        elif user_place == 'sanfrancisco':
             loc = 'San Francisco, USA'
         else:
             return loc
 
-    def get_coordinates(self):
-    """Get longitude and Latitidue
-    
-    Scrape individual posting page, if no
-    coordinates are found, cascade precision.
-    Returns an array, first latitude and then
-    longitude.
-    """
+    def find_coordinates(self):
+        """Get and set longitude and Latitude
+        
+        Scrape individual posting page, if no
+        coordinates are found, cascade precision.
+        Returns an array, first latitude and then
+        longitude.
+        """
         geolocator = Nominatim()
         follow_this = self.url
         follow_page = requests.get(follow_this)
-        follow_soup = BeautifulSoup(follow_page.text)
+        print(self.url)
+        follow_soup = BeautifulSoup(follow_page.text, "html.parser")
         location = follow_soup.find("div", class_="viewposting")
+        print(location)
         if location is not None:
+            print('not none')
             lat = location['data-latitude']
             lon = location['data-longitude']
         else:
+            print('none')
             try:
                 lat = geolocator.geocode(self.location).latitude
                 lon = geolocator.geocode(self.location).longitude
+                print(int(lat))
             except:
                 try:
                     lat = geolocator.geocode(self.user_location).latitude
@@ -109,7 +108,7 @@ class Stuff(object):
                 except:
                     lat = 0 #38.9047 # This is DC
                     lon = 0 #-77.0164
-        return [lat, lon]
+        self.coordinates = [lat, lon]
         
 def gather_stuff(place, quantity, precise=False):
     """Scrape Craigslist for stuff
@@ -131,7 +130,7 @@ def gather_stuff(place, quantity, precise=False):
     freestuffs = [Stuff(things[x], urls[x], locs[x], images[x], place) for x in range(0,quantity)] 
     if precise:
         for stuff in freestuffs:
-            stuff.coordinates = stuff.get_coordinates()            
+            stuff.coordinates = stuff.find_coordinates()            
     return freestuffs
 
 def test_montreal(): # for quick testing with ipython
