@@ -75,20 +75,15 @@ class Stuff(object):
         geolocator = Nominatim()
         follow_this = self.url
         follow_page = requests.get(follow_this)
-        print(self.url)
         follow_soup = BeautifulSoup(follow_page.text, "html.parser")
         location = follow_soup.find("div", class_="viewposting")
-        print(location)
         if location is not None:
-            print('not none')
             lat = location['data-latitude']
             lon = location['data-longitude']
         else:
-            print('none')
             try:
                 lat = geolocator.geocode(self.location).latitude
                 lon = geolocator.geocode(self.location).longitude
-                print(int(lat))
             except:
                 try:
                     lat = geolocator.geocode(self.user_location).latitude
