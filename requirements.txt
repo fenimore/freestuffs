@@ -1,11 +1,14 @@
+
 beautifulsoup4==4.4.1
 blessings==1.6
 bpython==0.15
 bs4==0.0.1
 curtsies==0.2.6
 folium==0.2.0
+-e git+https://github.com/polypmer/freestuff-bot.git@47441d48583db8005d4396cadf1b715bf14aeee7#egg=freefric
 geopy==1.11.0
 greenlet==0.4.9
+Jinja2==2.8
 MarkupSafe==0.23
 oauthlib==1.0.3
 Pygments==2.1.3

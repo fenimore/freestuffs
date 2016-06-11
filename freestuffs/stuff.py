@@ -60,16 +60,18 @@ class Stuff(object):
 
     def __str__(self):
         """Print stuff summary."""
-        return "what: %s \n where: %s \n link: %s \n image: %s" % (self.thing, self.location, self.url, self.image)
+        return "what: %s \n where: %s \n link: %s \n image: %s" \
+                % (self.thing, self.location, self.url, self.image)
 
 
     def find_coordinates(self):
         """Get and set longitude and Latitude
         
         Scrape individual posting page, if no
-        coordinates are found, cascade precision.
-        Returns an array, first latitude and then
-        longitude.
+        coordinates are found, cascade precision
+        (try location, try user_location, or set
+        to zero).  Returns an array, first 
+        latitude and then longitude.
         """
         self.coordinates = []
         geolocator = Nominatim()
