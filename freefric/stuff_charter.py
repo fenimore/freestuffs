@@ -4,9 +4,9 @@
 The reverse Geolocator is at nominatim.openstreetmap.org.
 
 Example usage:
-    from stuffify import Stuffify
-    freestuffs = Stuffify('montreal', 5, precise=True).get_freestuffs()
-    map = Mappify(freestuffs, is_testing=True)
+    from stuff_scraper import StuffScraper
+    freestuffs = StuffScraper('montreal', 5, precise=True).stuffs
+    osm_map = Mappify(freestuffs).treasure_map
     
 @author: Fenimore Love
 @license: MIT
@@ -27,7 +27,7 @@ import requests, folium, webbrowser
 from folium.element import IFrame
 
 
-class Mappify:
+class StuffCharter:
     """Post folium map of freestuffs.
 
     After constructing Mappify map object, call
@@ -36,38 +36,45 @@ class Mappify:
     
     Attributes:
         - treasure_map -- an OSM folium map object
-    """
-    def __init__(self, freestuffs, address=None, zoom=13, 
-                 is_testing=False, is_flask=False):
-        """Post freestuffs on map.
+        - stuffs -- list of free stuff
+        - user_location -- the user's location
+        - start_coordinates -- the origin coordinates for city
+        - zoom -- default map zoom
         
-        Make sure python -m http.server is running the directory.
-        The circle markers diminish in size, so that they
-        do not cover newer markers.
+    Keyword arguments:
+        - stuffs -- a collection of stuff objects 
+                        generated with StuffScraper
+        - address -- for an optional map marker of the user address.
+        - is_testing -- use to test module from commandline
+        - is_flask -- automatically create map for treasure-map
+        - zoom -- the map default zoom level 
+    """
+    def __init__(self, stuffs, address=None, zoom=13, 
+                 do_create_map=True, 
+                 is_testing=False, is_flask=False):
+        self.user_location = stuffs[0].user_location
+        self.start_coordinates = self.set_city_center(self.user_location)
+        self.zoom = zoom
+        self.stuffs = stuffs
+        self.radius = 500
+        self.address = address 
+        if do_create_map:
+            self.create_map(is_testing, is_flask)
+        
+    def create_map(self, is_testing=False, is_flask=False):
+        """Create a folium Map object, treasure_map.
         
         Keyword arguments:
-            - freestuffs -- a collection of stuff objects generated with
-                            Stuffify
-            - address -- for an optional map marker of the user address.
-            - is_testing -- use to test module from commandline
-            - is_flask -- automatically create map for treasure-map
-            - zoom -- the map default zoom level
-            
-        Attributes:
-            - name -- freestuff marker blurb
+            - is_testing -- creates a map in webmap directory
+            - is_flask -- creates a flask map
         """
-        user_location = freestuffs[0].user_location
-        start_coord = self.set_city_center(user_location)
-        center_lat = start_coord[0]
-        center_lon = start_coord[1] 
-        map_osm = folium.Map([center_lat, center_lon], zoom_start=zoom) 
-        radi = 500 
-        for freestuff in freestuffs:
-            place = freestuff.location  # thing location
-            thing = freestuff.thing     # thing title
-            url = freestuff.url         # thing URL
-            image = freestuff.image     # thing image url
-            color = self.sort_stuff(freestuff.thing)   # Map marker's color
+        map_osm = folium.Map([self.start_coordinates[0], self.start_coordinates[1]], zoom_start=self.zoom) 
+        for stuff in self.stuffs:
+            place = stuff.location  
+            thing = stuff.thing  # thing title
+            url = stuff.url
+            image = stuff.image
+            color = self.sort_stuff(stuff.thing)   # Map marker's color
             name = """
                     <link rel='stylesheet' type='text/css' 
                     href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
@@ -77,48 +84,36 @@ class Mappify:
                     <a href='%s' target='_blank'>View Posting in New Tab</a>
                    """ % (image, thing, place, url)
             # TODO: Contigency Plan for 0, 0?
-            lat = freestuff.coordinates[0] # Latitude
-            lon = freestuff.coordinates[1] # Longitude
+            lat = stuff.coordinates[0] # Latitude
+            lon = stuff.coordinates[1] # Longitude
             popup = folium.Popup(IFrame(name, width=200, height=300),
                                  max_width=3000)
-            folium.CircleMarker([lat, lon], radius=radi, popup=popup,
+            folium.CircleMarker([lat, lon], radius=self.radius, popup=popup,
                                 fill_color=color, fill_opacity=0.2).add_to(map_osm)
-            radi -= 10 # Diminishing order
-        if address != None:
-            geolocator = Nominatim()
-            try:
-                add_lat = geolocator.geocode(address).latitude
-                add_lon = geolocator.geocode(address).longitude
-            except:
-                add_lat = 0
-                add_lon = 0
-            pop_up = address + str(add_lat) + str(add_lon)
-            folium.Marker(location=[add_lat, add_lon],popup=address,
-                          icon=folium.Icon(color='red',icon='home')
-                          ).add_to(map_osm)
+            self.radius -= 10 # Diminishing order
         self.treasure_map = map_osm
+        self.add_address(self.address)
         if is_testing:
-            self.create_test_map()
+            self.save_test_map()
         elif is_flask:
-            self.create_flask_map()
+            self.save_flask_map()
         else:
-            print("call create_map(_path) and pass in path to create map")
-        
+            print("call save_map(path) generate html map")
     
-    def create_test_map(self):
+    def save_test_map(self):
         """Create html map in local webmap directory.
         
-        Must have python -m http.server running in directory
+        Should have python -m http.server running in directory
         """
         path = os.getcwd()
         if not os.path.exists(os.path.join(path, 'webmap')):
-            os.makedirs(directory)
+            os.makedirs(os.path.join(path, 'webmap'))
         self.treasure_map.save(os.path.join(path, 'webmap', 'findit.html')) # depecrated, change to save
         print("BEWARNED, this map is likely incorrect:\nCraigslist denizens care not for computer-precision")
         # webbrowser.open_new_tab("localhost:8000/webmap/findit.html") # Open the map in a tab
         
         
-    def create_flask_map(self):
+    def save_flask_map(self):
         """Create html map in flask server."""
         folium_figure = self.treasure_map.get_root()
         folium_figure.header._children['bootstrap'] = folium.element.CssLink('static', 'css', 'style.css') #'/static/css/style.css'
@@ -126,7 +121,7 @@ class Mappify:
         self.treasure_map.save(os.path.join('treasuremap', 'templates', 'raw_map.html')) # TODO: use join
         
         
-    def create_map(self, map_path, css_path=None):
+    def save_map(self, map_path, css_path=None): # make **argv
         """Create html map in _path.
         
         Keyword arguments:
@@ -138,7 +133,7 @@ class Mappify:
             folium_figure = self.treasure_map.get_root() # So that Leaflet Style Doesn't conflict with custom Bootstrap
             folium_figure.header._children['Woops'] = folium.element.CssLink(css_path)
         self.treasure_map.save(map_path)
-        
+
         
     def set_city_center(self, location):
         """Setter for center longitude latitude."""
@@ -164,6 +159,21 @@ class Mappify:
             except:
                 coord = [0,0] # This is a bit silly, nulle island
         return coord
+
+    def add_address(self, address):
+        """Add address to folium map"""
+        if self.address != None:
+            geolocator = Nominatim()
+            try:
+                add_lat = geolocator.geocode(self.address).latitude
+                add_lon = geolocator.geocode(self.address).longitude
+            except:
+                add_lat = 0
+                add_lon = 0
+            pop_up = self.address + str(add_lat) + str(add_lon)
+            folium.Marker(location=[add_lat, add_lon],popup=self.address,
+                          icon=folium.Icon(color='red',icon='home')
+                          ).add_to(self.treasure_map)        
 
 
     def sort_stuff(self, stuff): # This doesn't work...

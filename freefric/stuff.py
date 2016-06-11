@@ -4,10 +4,11 @@
 Use stuffify in order to gather a list of stuffs.
     
 Example usage:
-    from stuffify import Stuffify
-    freestuffs = Stuffify('montreal', 5, precise=True).get_freestuffs()
-    freestuffs[0].thing
-    freestuffs[0].coordinates
+    from stuff_scraper import StuffScraper
+    stuffs = StuffScraper('montreal', 5).stuffs
+    stuffs[0].thing  # Title
+    stuffs[0].find_coordinates() # or pass precise=True in constructor
+    stuffs[0].coordinates
     
 @author: Fenimore Love
 @license: MIT
@@ -29,26 +30,27 @@ from bs4 import BeautifulSoup
 class Stuff(object):
     """A freestuff Craigslist object.
     
+    Fill this object with the information from
+    a craigslist page. (There is no price attribute,
+    because it is designed for invaluable things).
+    The precise coordinates are not initially set,
+    because they require significantly more requests.
+    See class method get_coordinates().
+    
     Attributes:
         - thing -- title of object passed explicitly
         - url -- constructed from url, implicit
         - image -- passed explicitly
         - user_location -- passed explicitly, requires clean up
         - coordinates -- array of longitude and latitude
+    Keyword arguements:
+        - thing
+        - url
+        - location
+        - image
+        - user_location -- must conform to valid craiglist url
     """    
     def __init__(self, thing, url, location, image, user_location):
-        """Construct stuff object.
-        
-        Fill this object with the information from
-        a craigslist page. (There is no price attribute,
-        because it is designed for invaluable things).
-        The precise coordinates are not initially set,
-        because they require significantly more requests.
-        See class method get_coordinates().
-        
-        Keyword arguements:
-            - user_location -- use to construct url
-        """
         self.thing = thing
         self.url = 'http://' + user_location + '.craigslist.ca' + url
         self.location = location

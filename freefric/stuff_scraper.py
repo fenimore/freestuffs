@@ -2,10 +2,10 @@
 """This module is a Craigslist scraper.
 
 Example usage:
-    from stuffify import Stuffify
-    freestuffs = Stuffify('montreal', 5, precise=True)
-    freestuffs[0].thing
-    freestuffs[0].coordinates
+    > from stuff_scraper import StuffScraper
+    > freestuffs = Stuffify('montreal', 5, precise=True).freestuffs
+    > freestuffs[0].thing # Print title
+    > freestuffs[0].coordinates # Print coordinates
       
 @author: Fenimore Love
 @license: MIT
@@ -22,24 +22,32 @@ THE SOFTWARE.
 import requests, re
 from bs4 import BeautifulSoup
 from unidecode import unidecode
-from stuff import Stuff
+
+from freefric.stuff import Stuff
 
 
-class Stuffify:
+class StuffScraper:
     """A freestuff Craigslist scraper.
     
     Compile parrellel lists of stuff attributes
     in order to store a freestuffs list, with an
     option for including stuff coordinates.
     
+    Example Usage:
+        
+    
     Attributes:
-        - freestuffs -- a list of stuff objects
-        - soup
-        - quantity -- constructed from url, implicit
-        - locations -- passed explicitly
-        - urls -- passed explicitly, requires clean up
-        - things -- 
-        - images -- 
+        - stuffs -- a list of stuff objects
+        - soup -- bs4 soup of Craiglist page
+        - place -- the city to search, in Craigslist friendly format
+        - locs, things, images, urls -- stuff attributes lists
+        - quantity -- how many stuffs gathered
+
+    Keyword arguments:
+        - _quantity -- how many stuffs to gather
+        - precise -- A boolean to explicitly use geolocator
+                     and crawl individual posting URL
+        - use_cl -- user input for place
     """
     def __init__(self, place, _quantity, precise=False, use_cl=False):
         """Scrape Craigslist for a list of stuff.
@@ -49,6 +57,7 @@ class Stuffify:
             - _quantity -- how many stuffs to gather
             - precise -- A boolean to explicitly use geolocator
                          and crawl individual posting URL
+            - use_cl -- ask for place from user input
         """
         if use_cl:
             place = self.setup_place()
@@ -64,17 +73,13 @@ class Stuffify:
         self.urls = self.get_urls(self.soup)      
         self.things = self.get_things(self.soup) # titles 
         self.images = self.get_images(self.soup)  # I can't believe this works..
-        self.freestuffs = [Stuff(self.things[x], self.urls[x], self.locs[x], 
+        self.stuffs = [Stuff(self.things[x], self.urls[x], self.locs[x], 
                            self.images[x], place) 
                            for x in range(0, self.quantity)] 
         if precise:
-            for stuff in self.freestuffs:
+            for stuff in self.stuffs:
                 stuff.find_coordinates()
-    
-    
-    def get_freestuffs(self):
-        """Get a list of freestuffs"""
-        return self.freestuffs
+        # TODO: Print how long this takes...
         
         
     def setup_place():
