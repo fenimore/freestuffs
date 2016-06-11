@@ -32,7 +32,6 @@ sys.path.insert(0, os.path.abspath('/home/fen/access/Python/Projects/freestuff-b
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.githubpages',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

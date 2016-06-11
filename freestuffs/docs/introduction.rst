@@ -5,7 +5,7 @@ Introduction
 Free Stuffs!
 ------------
 
-This is a python 3.x package which scrapes free stuff from Craigslist.
+This is a python 3.x package which scrapes free stuff from Craigslist. Read
 
 * Using StuffScraper one can gather a list of free stuffs. 
 * Using StuffCharter, one can create an HTML map of the free stuffs.
