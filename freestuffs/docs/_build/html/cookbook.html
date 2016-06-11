@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cookbook &mdash; freestuffs 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="freestuffs 0.1 documentation" href="index.html" />
+    <link rel="next" title="Support" href="support.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="cookbook">
+<h1>Cookbook<a class="headerlink" href="#cookbook" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="stuffs">
+<h2>Stuffs<a class="headerlink" href="#stuffs" title="Permalink to this headline">¶</a></h2>
+<p>The stuff class corresponds to a <a class="reference external" href="https://www.craigslist.org">Craiglist</a>
+free stuff posting. It&#8217;s basic characteristics include title and location.
+Notably, there is no price attribute. If the posting has no image, the
+<a class="reference external" href="https://www.wikipedia.org">Wikipedia</a> no-image image is used in it&#8217;s place.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stuffs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">what: free shelves</span>
+<span class="go"> where: Workman St, montreal</span>
+<span class="go"> link: http://montreal.craigslist.ca/zip/5629811181.html</span>
+<span class="go"> image: https://images.craigslist.org/00r0r_4p06sM5Hn4O_300x300.jpg</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scape-stuffs">
+<h2>Scape Stuffs<a class="headerlink" href="#scape-stuffs" title="Permalink to this headline">¶</a></h2>
+<p>The StuffScraper class will scrape Craiglist for
+free stuff. The two required args are the city name and
+the quantity of stuff to scrape. The city name <strong>must</strong>
+conform to the Craiglist url name. Cities like New York,
+are then &#8216;newyork&#8217;.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span> <span class="c1"># precise=False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stuffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">thing</span><span class="p">)</span>  <span class="c1"># Title</span>
+<span class="go">Meubles / furniture</span>
+</pre></div>
+</div>
+<p>In order for the scraper to automatically
+scrape for latitude and longitude coordinates, pass in the
+parameter precise=True into the constructor.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">precise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stuffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">coordinates</span><span class="p">)</span>
+<span class="go">[&#39;45.617854&#39;, &#39;-73.633931&#39;]</span>
+</pre></div>
+</div>
+<p>Otherwise, one can call <code class="code docutils literal"><span class="pre">stuffs[0].find_coordinates()</span></code> in order to set (and scrape) the stuff coordinates one by one.</p>
+<p>Pass in <code class="code docutils literal"><span class="pre">use_cl=true</span></code> in order to ask for user input and override
+the location entered in the __init__.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;ill decide later&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">use_cl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="go">What major city are you near? (or, &#39;help&#39;) newyork</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stuffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+<span class="go">East Harle, New York</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="chart-stuffs">
+<h2>Chart Stuffs<a class="headerlink" href="#chart-stuffs" title="Permalink to this headline">¶</a></h2>
+<p>The StuffCharter class will produce a folium Map object populated
+with free stuff from the StuffScraper. The StuffCharter object is
+a wrapper around the folium.Map.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_charter</span> <span class="k">import</span> <span class="n">StuffCharter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">precise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span> <span class="o">=</span> <span class="n">StuffCharter</span><span class="p">(</span><span class="n">stuffs</span><span class="p">)</span>
+<span class="go">call save_map(path) generate html map</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="nb">map</span><span class="o">.</span><span class="n">treasure_map</span><span class="p">)</span>
+<span class="go">&lt;class &#39;folium.folium.Map&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Call <code class="code docutils literal"><span class="pre">save_map(HTML_PATH,</span> <span class="pre">CSS_PATH)</span></code> in order to save an HTML
+map from the folium.Map object. (equivelant to calling <code class="code docutils literal"><span class="pre">folium.Map.save(path)</span></code>)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span><span class="o">.</span><span class="n">save_map</span><span class="p">(</span><span class="s1">&#39;webmap&#39;</span><span class="p">,</span> <span class="s1">&#39;static/style.css&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function creates a directory if it is not found in the path. Call instead
+<code class="code docutils literal"><span class="pre">save_test_map()</span></code> to generate an HTML map in the current directory.</p>
+<p>Optionally pass in an <code class="code docutils literal"><span class="pre">address</span></code> or <code class="code docutils literal"><span class="pre">zoom</span></code> level into its construction.
+Otherwise if <code class="code docutils literal"><span class="pre">do_create_map</span></code> is <code class="code docutils literal"><span class="pre">False</span></code>, these attributes can be
+modified manually.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_charter</span> <span class="k">import</span> <span class="n">StuffCharter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">precise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span> <span class="o">=</span> <span class="n">StuffCharter</span><span class="p">(</span><span class="n">stuffs</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">do_create_map</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># default 13</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span><span class="o">.</span><span class="n">create_map</span><span class="p">()</span>
+<span class="go">call save_map(path) generate html map</span>
+</pre></div>
+</div>
+<p>And you can add an address (not zoom) after the map has been created:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span><span class="o">.</span><span class="n">add_address</span><span class="p">(</span><span class="s1">&#39;5989 Rue du Parc, Montreal, Quebec&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stuffs_chart</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+<span class="go">5989 Rue du Parc, Montreal, Quebec</span>
+</pre></div>
+</div>
+<p>And why stop at one address maker(the <code class="code docutils literal"><span class="pre">address</span></code> attribute will
+always be the last address added):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span><span class="o">.</span><span class="n">add_address</span><span class="p">(</span><span class="s1">&#39;5989 Rue du Parc, Montreal, Quebec&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span><span class="o">.</span><span class="n">add_address</span><span class="p">(</span><span class="s1">&#39;604 Rue Saint Joseph, Montreal, Quebec&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stuffs_chart</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+<span class="go">604 Rue Saint Joseph, Montreal, Quebec</span>
+</pre></div>
+</div>
+<p>The fastest way to get a map up and running, is to pass <code class="code docutils literal"><span class="pre">is_testing=True</span></code>
+into the constructor:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_charter</span> <span class="k">import</span> <span class="n">StuffCharter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">precise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span> <span class="o">=</span> <span class="n">StuffCharter</span><span class="p">(</span><span class="n">stuffs</span><span class="p">,</span> <span class="n">is_testing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">BEWARNED, this map is likely inaccurate:</span>
+<span class="go">Craigslist denizens care not for computer-precision</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Cookbook</a><ul>
+<li><a class="reference internal" href="#stuffs">Stuffs</a></li>
+<li><a class="reference internal" href="#scape-stuffs">Scape Stuffs</a></li>
+<li><a class="reference internal" href="#chart-stuffs">Chart Stuffs</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="introduction.html" title="previous chapter">Introduction</a></li>
+      <li>Next: <a href="support.html" title="next chapter">Support</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/cookbook.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Fenimore Love.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/cookbook.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

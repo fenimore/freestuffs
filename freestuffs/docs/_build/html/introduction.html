@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; freestuffs 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="freestuffs 0.1 documentation" href="index.html" />
+    <link rel="next" title="Cookbook" href="cookbook.html" />
+    <link rel="prev" title="Welcome to freestuffs’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="free-stuffs">
+<h2>Free Stuffs!<a class="headerlink" href="#free-stuffs" title="Permalink to this headline">¶</a></h2>
+<p>This is a python 3.x package which scrapes free stuff from Craigslist.</p>
+<ul class="simple">
+<li>Using StuffScraper one can gather a list of free stuffs.</li>
+<li>Using StuffCharter, one can create an HTML map of the free stuffs.</li>
+</ul>
+<p>This library can be used to create a simple web application, such as the
+<a class="reference external" href="https://github.com/polypmer/treasure-map">Treasure map</a>, or a simple
+<a class="reference external" href="https://github.com/polypmer/freestuff-bot">Twitter bot</a></p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Install using pip, requires python 3 and these dependences:</p>
+<ul class="simple">
+<li>requests</li>
+<li>geopy</li>
+<li>folium</li>
+<li>BeautifulSoup4</li>
+</ul>
+<p>Install:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">freestuffs</span>
+</pre></div>
+</div>
+<p>Or, with virtualenvwrapper installed:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkvirtualenv freestuffs
+pip install freestuffs
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="stuffs">
+<h3>Stuffs<a class="headerlink" href="#stuffs" title="Permalink to this headline">¶</a></h3>
+<p>The stuff class corresponds to a <a class="reference external" href="https://www.craigslist.org">Craiglist</a>
+free stuff posting. It&#8217;s basic characteristics include title and location.
+Notably, there is no price attribute. If the posting has no image, the
+<a class="reference external" href="https://www.wikipedia.org">Wikipedia</a> no-image image is used in it&#8217;s place.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stuffs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">what: free shelves</span>
+<span class="go"> where: Workman St, montreal</span>
+<span class="go"> link: http://montreal.craigslist.ca/zip/5629811181.html</span>
+<span class="go"> image: https://images.craigslist.org/00r0r_4p06sM5Hn4O_300x300.jpg</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scape-stuffs">
+<h3>Scape Stuffs<a class="headerlink" href="#scape-stuffs" title="Permalink to this headline">¶</a></h3>
+<p>The StuffScraper class will scrape Craiglist for
+free stuff.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span> <span class="c1"># precise=False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stuffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">thing</span><span class="p">)</span>  <span class="c1"># Title</span>
+<span class="go">Meubles / furniture</span>
+</pre></div>
+</div>
+<p>In order for the scraper to automatically
+scrape for latitude and longitude coordinates, pass in the
+parameter precise=True into the constructor.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">precise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stuffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">coordinates</span><span class="p">)</span>
+<span class="go">[&#39;45.617854&#39;, &#39;-73.633931&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="chart-stuffs">
+<h3>Chart Stuffs<a class="headerlink" href="#chart-stuffs" title="Permalink to this headline">¶</a></h3>
+<p>The StuffCharter class will produce a folium Map object populated
+with free stuff from the StuffScraper.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_charter</span> <span class="k">import</span> <span class="n">StuffCharter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">precise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span> <span class="o">=</span> <span class="n">StuffCharter</span><span class="p">(</span><span class="n">stuffs</span><span class="p">)</span>
+<span class="go">call save_map(path) generate html map</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="nb">map</span><span class="o">.</span><span class="n">treasure_map</span><span class="p">)</span>
+<span class="go">&lt;class &#39;folium.folium.Map&#39;&gt;</span>
+</pre></div>
+</div>
+<p>The StuffCharter object is a wrapper around the folium.Map.
+Call <code class="code docutils literal"><span class="pre">save_map(HTML_PATH,</span> <span class="pre">CSS_PATH)</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs_chart</span><span class="o">.</span><span class="n">save_map</span><span class="p">(</span><span class="s1">&#39;webmap&#39;</span><span class="p">,</span> <span class="s1">&#39;static/style.css&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function creates a directory if it is not found in the path. Call instead
+<code class="code docutils literal"><span class="pre">save_test_map()</span></code> to generate an HTML map in the current directory.</p>
+</div>
+</div>
+<div class="section" id="support">
+<h2>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to get support is to open an issue on <a class="reference external" href="http://github.com/polypmer/freestuff-bot/issues">Github</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#free-stuffs">Free Stuffs!</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li><a class="reference internal" href="#stuffs">Stuffs</a></li>
+<li><a class="reference internal" href="#scape-stuffs">Scape Stuffs</a></li>
+<li><a class="reference internal" href="#chart-stuffs">Chart Stuffs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#support">Support</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to freestuffs&#8217;s documentation!</a></li>
+      <li>Next: <a href="cookbook.html" title="next chapter">Cookbook</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/introduction.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Fenimore Love.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/introduction.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

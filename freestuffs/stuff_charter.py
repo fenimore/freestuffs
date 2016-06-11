@@ -1,24 +1,20 @@
 #!/usr/bin/env python
 """Chart where free things are.
 
-The reverse Geolocator is at nominatim.openstreetmap.org.
+The StuffCharter class is a wrapper around the folium 
+openstreetmap python object, which in turn generates a 
+leaflet map.
 
 Example usage:
-    from stuff_scraper import StuffScraper
-    freestuffs = StuffScraper('montreal', 5, precise=True).stuffs
-    osm_map = Mappify(freestuffs).treasure_map
-    
-@author: Fenimore Love
-@license: MIT
-@date: 2015-2016
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+    >>> from stuff_scraper import StuffScraper
+    >>> from stuff_charter import StuffCharter
+    >>> stuffs = StuffScraper('montreal', 5, precise=True).stuffs
+    >>> treasure_map = StuffCharter(stuffs)
+    call save_map(path) generate html map
+    >>> treasure_map.save_test_map() # saves map in current dir
+    BEWARNED, this map is likely inaccurate:
+    Craigslist denizens care not for computer-precision
 """
 import os, re
 from geopy.geocoders import Nominatim
@@ -42,9 +38,10 @@ class StuffCharter:
         - zoom -- default map zoom
         
     Keyword arguments:
-        - stuffs -- a collection of stuff objects 
-                        generated with StuffScraper
+        - stuffs -- a list of stuff objects
         - address -- for an optional map marker of the user address.
+        - do_create_map -- set to False to override modify attributes
+                           before create_map.
         - is_testing -- use to test module from commandline
         - is_flask -- automatically create map for treasure-map
         - zoom -- the map default zoom level 
@@ -53,7 +50,7 @@ class StuffCharter:
                  do_create_map=True, 
                  is_testing=False, is_flask=False):
         self.user_location = stuffs[0].user_location
-        self.start_coordinates = self.set_city_center(self.user_location)
+        self.start_coordinates = self.find_city_center(self.user_location)
         self.zoom = zoom
         self.stuffs = stuffs
         self.radius = 500
@@ -63,6 +60,10 @@ class StuffCharter:
         
     def create_map(self, is_testing=False, is_flask=False):
         """Create a folium Map object, treasure_map.
+        
+        treasure_map can be used to save an html leaflet map.
+        This method is called automatically on __init__ unless
+        do_create_map is set to False.
         
         Keyword arguments:
             - is_testing -- creates a map in webmap directory
@@ -107,7 +108,7 @@ class StuffCharter:
         """
         path = os.getcwd()
         self.treasure_map.save(os.path.join(path, 'treasure_map.html')) 
-        print("BEWARNED, this map is likely incorrect:\nCraigslist denizens care not for computer-precision")
+        print("BEWARNED, this map is likely inaccurate:\nCraigslist denizens care not for computer-precision")
         # webbrowser.open_new_tab("localhost:8000/webmap/findit.html") # Open the map in a tab
         
         
@@ -120,7 +121,7 @@ class StuffCharter:
         
         
     def save_map(self, map_path, css_path=None): # make **argv
-        """Create html map in _path.
+        """Create html map in map_path.
         
         Keyword arguments:
             - map_path -- the path to create_map in
@@ -131,13 +132,13 @@ class StuffCharter:
         if not os.path.exists(os.path.join(path, map_path)):
             os.makedirs(os.path.join(path, map_path))
         if css_path is not None:
-            folium_figure = self.treasure_map.get_root() # So that Leaflet Style Doesn't conflict with custom Bootstrap
+            folium_figure = self.treasure_map.get_root() # Leaflet Style conflicts with custom Bootstrap
             folium_figure.header._children['Woops'] = folium.element.CssLink(css_path)
         self.treasure_map.save(map_path)
 
         
-    def set_city_center(self, location):
-        """Setter for center longitude latitude."""
+    def find_city_center(self, location):
+        """Return city center longitude latitude."""
         geolocator = Nominatim()
         if re.match("montreal", location, re.I):
             coord = [45.5088, -73.5878] 
@@ -161,9 +162,10 @@ class StuffCharter:
                 coord = [0,0] # This is a bit silly, nulle island
         return coord
 
-    def add_address(self, address):
+    def add_address(self, _address):
         """Add address to folium map"""
-        if self.address != None:
+        self.address = _address
+        if _address != None:
             geolocator = Nominatim()
             try:
                 add_lat = geolocator.geocode(self.address).latitude
@@ -177,13 +179,25 @@ class StuffCharter:
                           ).add_to(self.treasure_map)        
 
 
-    def sort_stuff(self, stuff): # This doesn't work...
-        """Rendering the markers in pretty colors."""
-        furniture_pattern = "(wood|shelf|table|chair|scrap|desk)"
-        electronics_pattern = "(tv|sony|écran|speakers|wire|electronic|saw)" #search NOT match
+    def sort_stuff(self, stuff): 
+        """Return a color according to regex search.
+        
+        1. Furniture pattern, red 
+        2. Electronics pattern, blue
+        3. Miscellaneous pattern, black 
+        4. no match, white
+        
+        sort_stuff will return  with the first pattern found in 
+        that order.
+        
+        TODO:
+            - Set and patterns as modifiable attributes.
+        """
+        furniture_pattern = "(wood|shelf|shelves|table|chair|scrap|desk)"
+        electronics_pattern = "(tv|sony|écran|speakers|wire|electronic|saw|headphones|arduino)" #search NOT match
         find_pattern = "(book|games|cool|guide|box)"
         if re.search(furniture_pattern, stuff, re.I):
-            color = "#FF0000" #red ##### THIS should set variable and return at
+            color = "#FF0000" #red #  TODO: set as Variable
         elif re.search(electronics_pattern, stuff, re.I): #the end all
             color = "#3186cc" #blue at once
         elif re.search(find_pattern, stuff, re.I):

@@ -1,40 +1,26 @@
 #!/usr/bin/env python
 """This module is a Craigslist scraper.
 
-Example usage:
-    > from stuff_scraper import StuffScraper
-    > freestuffs = Stuffify('montreal', 5, precise=True).freestuffs
-    > freestuffs[0].thing # Print title
-    > freestuffs[0].coordinates # Print coordinates
-      
-@author: Fenimore Love
-@license: MIT
-@date: 2015-2016
+Example usage::
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+    >>> from stuff_scraper import StuffScraper
+    >>> stuffs = StuffScraper('montreal', 5).stuffs
+    >>> print(stuffs[0].thing) # Print title
+    Meubles / furniture
 """
 import requests, re
 from bs4 import BeautifulSoup
 from unidecode import unidecode
 
-from freefric.stuff import Stuff
+from freestuffs.stuff import Stuff
 
 
 class StuffScraper:
-    """A freestuff Craigslist scraper.
+    """The freestuffs Craigslist scraper.
     
     Compile parrellel lists of stuff attributes
     in order to store a freestuffs list, with an
     option for including stuff coordinates.
-    
-    Example Usage:
-        
     
     Attributes:
         - stuffs -- a list of stuff objects
@@ -82,7 +68,7 @@ class StuffScraper:
         # TODO: Print how long this takes...
         
         
-    def setup_place():
+    def setup_place(self):
         """Take cl input of user location."""
         user_place = input("What major city are you near? (or, 'help') ")
         if user_place == "help":

@@ -1,26 +1,19 @@
 #!/usr/bin/env python
-"""This module houses the ever important Stuff class.
+"""This houses the Stuff class.
     
-Use stuffify in order to gather a list of stuffs.
+Use stuff_scraper in order to gather a list of
+stuffs. For testing, the reverse Geolocator is at 
+nominatim.openstreetmap.org.
     
-Example usage:
-    from stuff_scraper import StuffScraper
-    stuffs = StuffScraper('montreal', 5).stuffs
-    stuffs[0].thing  # Title
-    stuffs[0].find_coordinates() # or pass precise=True in constructor
-    stuffs[0].coordinates
-    
-@author: Fenimore Love
-@license: MIT
-@date: 2015-2016
+Example usage::
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+    >>> from stuff_scraper import StuffScraper
+    >>> stuffs = StuffScraper('montreal', 5).stuffs
+    >>> print(stuffs[0].thing)  # Title
+    Meubles / furniture
+    >>> stuffs[0].find_coordinates() # pass precise=True in constructor
+    >>> print(stuffs[0].coordinates) # to automatically fetch coordinates
+    ['45.617854', '-73.633931']
 """
 import requests, re
 from geopy.geocoders import Nominatim
@@ -44,10 +37,10 @@ class Stuff(object):
         - user_location -- passed explicitly, requires clean up
         - coordinates -- array of longitude and latitude
     Keyword arguements:
-        - thing
-        - url
-        - location
-        - image
+        - thing -- 
+        - url -- 
+        - location -- 
+        - image -- 
         - user_location -- must conform to valid craiglist url
     """    
     def __init__(self, thing, url, location, image, user_location):
