@@ -101,14 +101,12 @@ class StuffCharter:
             print("call save_map(path) generate html map")
     
     def save_test_map(self):
-        """Create html map in local webmap directory.
+        """Create html map in current directory.
         
         Should have python -m http.server running in directory
         """
         path = os.getcwd()
-        if not os.path.exists(os.path.join(path, 'webmap')):
-            os.makedirs(os.path.join(path, 'webmap'))
-        self.treasure_map.save(os.path.join(path, 'webmap', 'findit.html')) # depecrated, change to save
+        self.treasure_map.save(os.path.join(path, 'treasure_map.html')) 
         print("BEWARNED, this map is likely incorrect:\nCraigslist denizens care not for computer-precision")
         # webbrowser.open_new_tab("localhost:8000/webmap/findit.html") # Open the map in a tab
         
@@ -118,7 +116,7 @@ class StuffCharter:
         folium_figure = self.treasure_map.get_root()
         folium_figure.header._children['bootstrap'] = folium.element.CssLink('static', 'css', 'style.css') #'/static/css/style.css'
         folium_figure.header._children['Woops'] = folium.element.CssLink('static', 'css', 'map.css') # Why woops?
-        self.treasure_map.save(os.path.join('treasuremap', 'templates', 'raw_map.html')) # TODO: use join
+        self.treasure_map.save(os.path.join('treasuremap', 'templates', 'raw_map.html')) 
         
         
     def save_map(self, map_path, css_path=None): # make **argv
@@ -129,6 +127,9 @@ class StuffCharter:
             - css_path -- the path to override css 
                           (defaults to bootstrap via folium)
         """
+        path = os.getcwd()
+        if not os.path.exists(os.path.join(path, map_path)):
+            os.makedirs(os.path.join(path, map_path))
         if css_path is not None:
             folium_figure = self.treasure_map.get_root() # So that Leaflet Style Doesn't conflict with custom Bootstrap
             folium_figure.header._children['Woops'] = folium.element.CssLink(css_path)
