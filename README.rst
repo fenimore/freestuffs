@@ -1,11 +1,13 @@
 ============
-Introduction
+Read Me
 ============
 
 Free Stuffs!
 ------------
 
-This is a python 3.x package which scrapes free stuff from Craigslist.
+This is a python 3.x package which scrapes free stuff from Craigslist. 
+freestuffs is under the MIT license. Check out the `source code <https://github.com/polypmer/freestuff-bot>`
+and the `docs <http://freestuffs.readthedocs.io/en/latest/>`.
 
 * Using StuffScraper one can gather a list of free stuffs. 
 * Using StuffCharter, one can create an HTML map of the free stuffs.
