@@ -17,6 +17,6 @@ setup(
     url='https://github.com/polypmer/freestuff-bot',
     packages=['freestuffs',],
     include_package_data=True,
-    install_requirements=['nose', 'folium','geopy','beautifulsoup4', 'requests', 'tweepy'],
+    install_requirements=['nose', 'folium','geopy','beautifulsoup4', 'requests', 'unidecode'],
     long_description=read('README.rst'),
 )

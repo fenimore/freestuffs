@@ -6,8 +6,8 @@ Free Stuffs!
 ------------
 
 This is a python 3.x package which scrapes free stuff from Craigslist. 
-freestuffs is under the MIT license. Check out the `source code <https://github.com/polypmer/freestuff-bot>`
-and the `docs <http://freestuffs.readthedocs.io/en/latest/>`.
+freestuffs is under the MIT license. Check out the `source code <https://github.com/polypmer/freestuff-bot>`_
+and the `docs <http://freestuffs.readthedocs.io/en/latest>`_.
 
 * Using StuffScraper one can gather a list of free stuffs. 
 * Using StuffCharter, one can create an HTML map of the free stuffs.
@@ -25,6 +25,7 @@ Install using pip, requires python 3 and these dependences:
 * geopy
 * folium
 * BeautifulSoup4
+* unidecode
 
 Install::
 
@@ -107,6 +108,25 @@ Call :code:`save_map(HTML_PATH, CSS_PATH)`
     
 This function creates a directory if it is not found in the path. Call instead
 :code:`save_test_map()` to generate an HTML map in the current directory.
+
+Chart Legend
+------------
+
+Diminishing Order
++++++++++++++++++
+
+- The smaller the posting, the older it is.
+- The darker the border, the higher the amount of overlap.
+
+Triage
+++++++
+
+The triage checks for regex search in this order:
+ 
+#. Red are furniture "(wood|shelf|shelves|table|chair|scrap|desk)".
+#. Blue are electronics "(tv|sony|écran|speakers|wire|electronic|saw|headphones|arduino)". 
+#. Black are the "desired" stuffs "(book|games|cool|guide|box)". 
+#. White is default (no regex search matches).
 
 
 Support

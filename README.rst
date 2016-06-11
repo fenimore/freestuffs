@@ -25,6 +25,7 @@ Install using pip, requires python 3 and these dependences:
 * geopy
 * folium
 * BeautifulSoup4
+* unidecode
 
 Install::
 
