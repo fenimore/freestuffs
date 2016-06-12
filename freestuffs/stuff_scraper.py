@@ -90,7 +90,7 @@ class StuffScraper:
         """
         free_things = []
         for node in _soup.find_all("a", class_="hdrlnk"):
-            _thing = node.get_text() # Get content from within the Node
+            _thing = node.get_text()
             free_things.append(_thing)
         return free_things
 
@@ -128,7 +128,7 @@ class StuffScraper:
         """
         free_urls = []
         for row in _soup.find_all("a", class_="i"):
-            _url = row['href'] # Gets the attr from href
+            _url = row['href'] 
             free_urls.append(_url)
         return free_urls
 
