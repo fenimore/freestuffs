@@ -232,6 +232,15 @@ always be the last address added):</p>
 <span class="go">604 Rue Saint Joseph, Montreal, Quebec</span>
 </pre></div>
 </div>
+<p>Override the css by adding links to the folium object header:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">folium</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">osm_map</span> <span class="o">=</span> <span class="n">stuffs_chart</span><span class="o">.</span><span class="n">treasure_map</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">folium_figure</span> <span class="o">=</span> <span class="n">osm_map</span><span class="o">.</span><span class="n">get_root</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">folium_figure</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">_children</span><span class="p">[</span><span class="s1">&#39;bootstrap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">folium</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">CssLink</span><span class="p">(</span><span class="s1">&#39;/static/css/style.css&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To use the treasure_map as a template in a python web app, the leaflet bootstrap css
+might conflict with the user defined styles. Before saving the map, add a CssLink.</p>
 <p>The fastest way to get a map up and running, is to pass <code class="code docutils literal"><span class="pre">is_testing=True</span></code>
 into the constructor:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">freestuffs.stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
