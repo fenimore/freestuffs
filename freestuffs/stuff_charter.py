@@ -17,11 +17,13 @@ Example usage:
     Craigslist denizens care not for computer-precision
 """
 import os, re
+
 from geopy.geocoders import Nominatim
 from bs4 import BeautifulSoup
 import requests, folium, webbrowser
 from folium.element import IFrame
 
+from config import *
 
 class StuffCharter:
     """Post folium map of freestuffs.
@@ -193,16 +195,13 @@ class StuffCharter:
         TODO:
             - Set and patterns as modifiable attributes.
         """
-        furniture_pattern = "(wood|shelf|shelves|table|chair|scrap|desk)"
-        electronics_pattern = "(tv|sony|écran|speakers|wire|electronic|saw|headphones|arduino)" #search NOT match
-        find_pattern = "(book|games|cool|guide|box)"
-        if re.search(furniture_pattern, stuff, re.I):
-            color = "#FF0000" #red #  TODO: set as Variable
-        elif re.search(electronics_pattern, stuff, re.I): #the end all
-            color = "#3186cc" #blue at once
-        elif re.search(find_pattern, stuff, re.I):
-            color = "#000000" #black
+        if re.search(PATTERN_1, stuff, re.I):
+            color = COLOR_1 #red #  TODO: set as Variable
+        elif re.search(PATTERN_2, stuff, re.I): #the end all
+            color = COLOR_2 #blue at once
+        elif re.search(PATTERN_3, stuff, re.I):
+            color = COLOR_3 #black
         else:
-            color = "white" #white
+            color = COLOR_DEFAULT #white
         # color = "#ffff00"
         return color
