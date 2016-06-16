@@ -114,7 +114,17 @@ always be the last address added)::
     >>> stuffs_chart.add_address('604 Rue Saint Joseph, Montreal, Quebec')
     >>> print(stuffs_chart.address) 
     604 Rue Saint Joseph, Montreal, Quebec
-        
+
+Override the css by adding links to the folium object header::
+
+    >>> import folium
+    >>> osm_map = stuffs_chart.treasure_map
+    >>> folium_figure = osm_map.get_root()
+    >>> folium_figure.header._children['bootstrap'] = folium.element.CssLink('/static/css/style.css')   
+    
+To use the treasure_map as a template in a python web app, the leaflet bootstrap css 
+might conflict with the user defined styles. Before saving the map, add a CssLink.
+
 The fastest way to get a map up and running, is to pass :code:`is_testing=True`
 into the constructor::
 
