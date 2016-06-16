@@ -1,6 +1,12 @@
 """Craiglist friendly city names.
 
+Run this script inorder to print out a dict of
+Craiglist city names, for use in creating a valid url.
 
+Attributes:
+    - CITIES -- A dict of cities, with the human-friendly
+                name as the key
+                and url friendly name as the value.
 """
 from bs4 import BeautifulSoup
 import requests

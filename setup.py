@@ -10,11 +10,11 @@ def read(fname):
     
 setup(
     name='freestuffs',
-    description='Treasure Finder',
+    description='Find free stuff near you!',
     version='0.1',
     author='Fenimore Love',
     license='MIT',
-    url='https://github.com/polypmer/freestuff-bot',
+    url='https://github.com/polypmer/freestuffs',
     packages=['freestuffs',],
     include_package_data=True,
     install_requirements=['nose', 'folium','geopy','beautifulsoup4', 'requests', 'unidecode'],
