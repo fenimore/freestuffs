@@ -12,14 +12,14 @@ and the `docs <http://freestuffs.readthedocs.io/en/latest>`_.
 * Using StuffScraper one can gather a list of free stuffs. 
 * Using StuffCharter, one can create an HTML map of the free stuffs.
 
-This library can be used to create a simple web application, such as the
-`Treasure map <https://github.com/polypmer/treasure-map>`_, or a simple
-`Twitter bot <https://github.com/polypmer/freestuff-bot>`_
+This package can be used to create a web application, such as the
+`Treasure map <http://treasure.plyp.org>`_ (`source <https://github.com/polypmer/treasure-map>`_), or a
+`Twitter bot <https://twitter.com/Freeebot>`_ (`source <https://github.com/polypmer/freestuff-bot>`_).
 
 Installation
 ------------
 
-Install using pip, requires python 3 and these dependences:
+Install using pip, requires Python 3 and these dependences:
 
 * requests
 * geopy
@@ -27,16 +27,11 @@ Install using pip, requires python 3 and these dependences:
 * BeautifulSoup4
 * unidecode
 
-Install::
-
-    pip install freestuffs
-
-Or, with virtualenvwrapper installed:
-
+Install:
 .. code-block:: bash
 
-    mkvirtualenv freestuffs
     pip install freestuffs
+
 
 Getting Started
 ---------------
@@ -123,9 +118,9 @@ Triage
 
 The triage checks for regex search in this order:
  
-#. Red are furniture "(wood|shelf|shelves|table|chair|scrap|desk)".
-#. Blue are electronics "(tv|sony|écran|speakers|wire|electronic|saw|headphones|arduino)". 
-#. Black are the "desired" stuffs "(book|games|cool|guide|box)". 
+#. Red are furniture "(wood, shelf, shelves, table, chair, scrap, desk)".
+#. Blue are electronics "(tv, sony, écran, speakers, wire, electronic, saw, headphones, arduino)". 
+#. Black are the "desired" stuffs "(book, games, cool, guide, box)". 
 #. White is default (no regex search matches).
 
 

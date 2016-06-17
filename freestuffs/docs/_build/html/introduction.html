@@ -152,13 +152,13 @@ and the <a class="reference external" href="http://freestuffs.readthedocs.io/en/
 <li>Using StuffScraper one can gather a list of free stuffs.</li>
 <li>Using StuffCharter, one can create an HTML map of the free stuffs.</li>
 </ul>
-<p>This library can be used to create a simple web application, such as the
-<a class="reference external" href="https://github.com/polypmer/treasure-map">Treasure map</a>, or a simple
-<a class="reference external" href="https://github.com/polypmer/freestuff-bot">Twitter bot</a></p>
+<p>This package can be used to create a web application, such as the
+<a class="reference external" href="http://treasure.plyp.org">Treasure map</a> (<a class="reference external" href="https://github.com/polypmer/treasure-map">source</a>), or a
+<a class="reference external" href="https://twitter.com/Freeebot">Twitter bot</a> (<a class="reference external" href="https://github.com/polypmer/freestuff-bot">source</a>).</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>Install using pip, requires python 3 and these dependences:</p>
+<p>Install using pip, requires Python 3 and these dependences:</p>
 <ul class="simple">
 <li>requests</li>
 <li>geopy</li>
@@ -166,15 +166,10 @@ and the <a class="reference external" href="http://freestuffs.readthedocs.io/en/
 <li>BeautifulSoup4</li>
 <li>unidecode</li>
 </ul>
-<p>Install:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">freestuffs</span>
-</pre></div>
-</div>
-<p>Or, with virtualenvwrapper installed:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>mkvirtualenv freestuffs
-pip install freestuffs
-</pre></div>
-</div>
+<p>Install:
+.. code-block:: bash</p>
+<blockquote>
+<div>pip install freestuffs</div></blockquote>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
@@ -244,9 +239,9 @@ Call <code class="code docutils literal"><span class="pre">save_map(HTML_PATH,</
 </ul>
 <p>The triage checks for regex search in this order:</p>
 <ol class="arabic simple">
-<li>Red are furniture &#8220;(wood|shelf|shelves|table|chair|scrap|desk)&#8221;.</li>
-<li>Blue are electronics &#8220;(tv|sony|écran|speakers|wire|electronic|saw|headphones|arduino)&#8221;.</li>
-<li>Black are the &#8220;desired&#8221; stuffs &#8220;(book|games|cool|guide|box)&#8221;.</li>
+<li>Red are furniture &#8220;(wood, shelf, shelves, table, chair, scrap, desk)&#8221;.</li>
+<li>Blue are electronics &#8220;(tv, sony, écran, speakers, wire, electronic, saw, headphones, arduino)&#8221;.</li>
+<li>Black are the &#8220;desired&#8221; stuffs &#8220;(book, games, cool, guide, box)&#8221;.</li>
 <li>White is default (no regex search matches).</li>
 </ol>
 </div>
