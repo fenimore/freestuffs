@@ -2,6 +2,7 @@
 Introduction
 ============
 
+
 Free Stuffs!
 ------------
 
@@ -14,7 +15,7 @@ and the `docs <http://freestuffs.readthedocs.io/en/latest>`_.
 
 This package can be used to create a web application, such as the
 `Treasure map <http://treasure.plyp.org>`_ (`source <https://github.com/polypmer/treasure-map>`_), or a
-`Twitter bot <https://twitter.com/Freeebot>`_ (`source <https://github.com/polypmer/freestuff-bot>`_).
+`Twitter bot <https://twitter.com/Freeebot>`_ (`script <https://github.com/polypmer/freestuff-bot>`_).
 
 Installation
 ------------
@@ -104,10 +105,8 @@ Call :code:`save_map(HTML_PATH, CSS_PATH)`
 This function creates a directory if it is not found in the path. Call instead
 :code:`save_test_map()` to generate an HTML map in the current directory.
 
-Chart Legend
-------------
 
-Diminishing Order
+Legend
 +++++++++++++++++
 
 - The smaller the posting, the older it is.
@@ -122,7 +121,6 @@ The triage checks for regex search in this order:
 #. Blue are electronics "(tv, sony, écran, speakers, wire, electronic, saw, headphones, arduino)". 
 #. Black are the "desired" stuffs "(book, games, cool, guide, box)". 
 #. White is default (no regex search matches).
-
 
 Support
 -------
