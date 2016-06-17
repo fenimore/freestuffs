@@ -6,7 +6,7 @@ Introduction
 Free Stuffs!
 ------------
 
-This is a python 3.x package which scrapes free stuff from Craigslist. 
+This is a Python 3.x package which scrapes free stuff from Craigslist. 
 freestuffs is under the MIT license. Check out the `source code <https://github.com/polypmer/freestuff-bot>`_
 and the `docs <http://freestuffs.readthedocs.io/en/latest>`_.
 
@@ -14,8 +14,12 @@ and the `docs <http://freestuffs.readthedocs.io/en/latest>`_.
 * Using StuffCharter, one can create an HTML map of the free stuffs.
 
 This package can be used to create a web application, such as the
-`Treasure map <http://treasure.plyp.org>`_ (`source <https://github.com/polypmer/treasure-map>`_), or a
-`Twitter bot <https://twitter.com/Freeebot>`_ (`script <https://github.com/polypmer/freestuff-bot>`_).
+Treasure-map_ (source_), or for use on Twitter_.
+
+.. _Github: https://github.com/polypmer/freestuffs
+.. _Twitter: https://twitter.com/Freeebot
+.. _source: https://github.com/polypmer/treasure-map
+.. _Treasure-map: http://treasure.plyp.org
 
 Installation
 ------------

@@ -6,17 +6,21 @@
 Welcome to freestuffs's documentation!
 ======================================
 
-This is a python 3.x package which scrapes free stuff from Craigslist. 
-freestuffs is under the MIT license. Check out the `source code <https://github.com/polypmer/freestuff-bot>`_.
+This is a Python 3.x package which scrapes free stuff from Craigslist. 
+freestuffs is under the MIT license. Hosted on Github_.
 
 This package can be used to create a web application, such as the
-`Treasure map <http://treasure.plyp.org>`_ (`source <https://github.com/polypmer/treasure-map>`_), or a
-`Twitter bot <https://twitter.com/Freeebot>`_ (`source <https://github.com/polypmer/freestuff-bot>`_).
+Treasure-map_ (source_), or for use on Twitter_.
 
+.. _Github: https://github.com/polypmer/freestuffs
+.. _Twitter: https://twitter.com/Freeebot
+.. _source: https://github.com/polypmer/treasure-map
+.. _Treasure-map: http://treasure.plyp.org
+.. _
 Installation
 ------------
 
-Install using pip, it requires python 3 and these dependences:
+Install using pip, freestuffs requires Python 3 and these dependences:
 
 * requests
 * geopy
