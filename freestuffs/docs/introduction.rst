@@ -122,7 +122,7 @@ Triage
 The triage checks for regex search in this order:
  
 #. Red are furniture "(wood, shelf, shelves, table, chair, scrap, desk)".
-#. Blue are electronics "(tv, sony, écran, speakers, wire, electronic, saw, headphones, arduino)". 
+#. Blue are electronics "(tv, sony, ecran, speakers, wire, electronic, saw, headphones, arduino)". 
 #. Black are the "desired" stuffs "(book, games, cool, guide, box)". 
 #. White is default (no regex search matches).
 
