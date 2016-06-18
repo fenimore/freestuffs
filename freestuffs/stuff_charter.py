@@ -23,7 +23,6 @@ from bs4 import BeautifulSoup
 import requests, folium, webbrowser
 from folium.element import IFrame
 
-from config import *
 
 class StuffCharter:
     """Post folium map of freestuffs.
@@ -48,6 +47,7 @@ class StuffCharter:
         - is_flask -- automatically create map for treasure-map
         - zoom -- the map default zoom level 
     """
+    
     def __init__(self, stuffs, address=None, zoom=13, 
                  do_create_map=True, 
                  is_testing=False, is_flask=False):
@@ -195,6 +195,15 @@ class StuffCharter:
         TODO:
             - Set and patterns as modifiable attributes.
         """
+        PATTERN_1 = "(wood|shelf|shelves|table|chair|scrap|desk|oak|pine|armoire|dresser)"
+        PATTERN_2 = "(tv|screen|écran|speakers|wire|electronic|saw|headphones|arduino|print|television)" #search NOT match
+        PATTERN_3 = "(book|games|cool|guide|box)"
+
+        COLOR_1 = "#FF0000" #red 
+        COLOR_2 = "#3186cc" #blue
+        COLOR_3 = "#000000" #black
+        
+        COLOR_DEFAULT = "white"
         if re.search(PATTERN_1, stuff, re.I):
             color = COLOR_1 #red #  TODO: set as Variable
         elif re.search(PATTERN_2, stuff, re.I): #the end all

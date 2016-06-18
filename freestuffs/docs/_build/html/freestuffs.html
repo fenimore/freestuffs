@@ -1,52 +1,141 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>freestuffs package &mdash; freestuffs 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="freestuffs 0.1 documentation" href="index.html" />
-    <link rel="prev" title="Cookbook" href="cookbook.html" /> 
-  </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="cookbook.html" title="Cookbook"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">freestuffs 0.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>freestuffs package &mdash; freestuffs 0.1 documentation</title>
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="freestuffs 0.1 documentation" href="index.html"/>
+        <link rel="prev" title="Cookbook" href="cookbook.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> freestuffs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">freestuffs package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-freestuffs.city_list">freestuffs.city_list module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-freestuffs.stuff">freestuffs.stuff module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-freestuffs.stuff_charter">freestuffs.stuff_charter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-freestuffs.stuff_scraper">freestuffs.stuff_scraper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#freestuffs-treasure-script-module">freestuffs.treasure_script module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-freestuffs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">freestuffs</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>freestuffs package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/freestuffs.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="freestuffs-package">
 <h1>freestuffs package<a class="headerlink" href="#freestuffs-package" title="Permalink to this headline">¶</a></h1>
@@ -139,8 +228,147 @@ latitude and then longitude.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="freestuffs-stuff-charter-module">
-<h2>freestuffs.stuff_charter module<a class="headerlink" href="#freestuffs-stuff-charter-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-freestuffs.stuff_charter">
+<span id="freestuffs-stuff-charter-module"></span><h2>freestuffs.stuff_charter module<a class="headerlink" href="#module-freestuffs.stuff_charter" title="Permalink to this headline">¶</a></h2>
+<p>Chart where free things are.</p>
+<p>The StuffCharter class is a wrapper around the folium 
+openstreetmap python object, which in turn generates a 
+leaflet map.</p>
+<p>Example usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stuff_scraper</span> <span class="k">import</span> <span class="n">StuffScraper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">stuff_charter</span> <span class="k">import</span> <span class="n">StuffCharter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuffs</span> <span class="o">=</span> <span class="n">StuffScraper</span><span class="p">(</span><span class="s1">&#39;montreal&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">precise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">stuffs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treasure_map</span> <span class="o">=</span> <span class="n">StuffCharter</span><span class="p">(</span><span class="n">stuffs</span><span class="p">)</span>
+<span class="go">call save_map(path) generate html map</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">treasure_map</span><span class="o">.</span><span class="n">save_test_map</span><span class="p">()</span> <span class="c1"># saves map in current dir</span>
+<span class="go">BEWARNED, this map is likely inaccurate:</span>
+<span class="go">Craigslist denizens care not for computer-precision</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="freestuffs.stuff_charter.StuffCharter">
+<em class="property">class </em><code class="descclassname">freestuffs.stuff_charter.</code><code class="descname">StuffCharter</code><span class="sig-paren">(</span><em>stuffs</em>, <em>address=None</em>, <em>zoom=13</em>, <em>do_create_map=True</em>, <em>is_testing=False</em>, <em>is_flask=False</em><span class="sig-paren">)</span><a class="headerlink" href="#freestuffs.stuff_charter.StuffCharter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Post folium map of freestuffs.</p>
+<p>After constructing Mappify map object, call
+create_map and pass in map_path in order to create 
+the HTML map.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><ul class="first last simple">
+<li>treasure_map &#8211; an OSM folium map object</li>
+<li>stuffs &#8211; list of free stuff</li>
+<li>user_location &#8211; the user&#8217;s location</li>
+<li>start_coordinates &#8211; the origin coordinates for city</li>
+<li>zoom &#8211; default map zoom</li>
+</ul>
+</dd>
+<dt>Keyword arguments:</dt>
+<dd><ul class="first last">
+<li><p class="first">stuffs &#8211; a list of stuff objects</p>
+</li>
+<li><p class="first">address &#8211; for an optional map marker of the user address.</p>
+</li>
+<li><dl class="first docutils">
+<dt>do_create_map &#8211; set to False to override modify attributes</dt>
+<dd><p class="first last">before create_map.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">is_testing &#8211; use to test module from commandline</p>
+</li>
+<li><p class="first">is_flask &#8211; automatically create map for treasure-map</p>
+</li>
+<li><p class="first">zoom &#8211; the map default zoom level</p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="freestuffs.stuff_charter.StuffCharter.add_address">
+<code class="descname">add_address</code><span class="sig-paren">(</span><em>_address</em><span class="sig-paren">)</span><a class="headerlink" href="#freestuffs.stuff_charter.StuffCharter.add_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add address to folium map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="freestuffs.stuff_charter.StuffCharter.create_map">
+<code class="descname">create_map</code><span class="sig-paren">(</span><em>is_testing=False</em>, <em>is_flask=False</em><span class="sig-paren">)</span><a class="headerlink" href="#freestuffs.stuff_charter.StuffCharter.create_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a folium Map object, treasure_map.</p>
+<p>treasure_map can be used to save an html leaflet map.
+This method is called automatically on __init__ unless
+do_create_map is set to False.</p>
+<dl class="docutils">
+<dt>Keyword arguments:</dt>
+<dd><ul class="first last simple">
+<li>is_testing &#8211; creates a map in webmap directory</li>
+<li>is_flask &#8211; creates a flask map</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="freestuffs.stuff_charter.StuffCharter.find_city_center">
+<code class="descname">find_city_center</code><span class="sig-paren">(</span><em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#freestuffs.stuff_charter.StuffCharter.find_city_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return city center longitude latitude.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="freestuffs.stuff_charter.StuffCharter.save_flask_map">
+<code class="descname">save_flask_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#freestuffs.stuff_charter.StuffCharter.save_flask_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create html map in flask server.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="freestuffs.stuff_charter.StuffCharter.save_map">
+<code class="descname">save_map</code><span class="sig-paren">(</span><em>map_path</em>, <em>css_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#freestuffs.stuff_charter.StuffCharter.save_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create html map in map_path.</p>
+<dl class="docutils">
+<dt>Keyword arguments:</dt>
+<dd><ul class="first last">
+<li><p class="first">map_path &#8211; the path to create_map in</p>
+</li>
+<li><dl class="first docutils">
+<dt>css_path &#8211; the path to override css </dt>
+<dd><p class="first last">(defaults to bootstrap via folium)</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="freestuffs.stuff_charter.StuffCharter.save_test_map">
+<code class="descname">save_test_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#freestuffs.stuff_charter.StuffCharter.save_test_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create html map in current directory.</p>
+<p>Should have python -m http.server running in directory</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="freestuffs.stuff_charter.StuffCharter.sort_stuff">
+<code class="descname">sort_stuff</code><span class="sig-paren">(</span><em>stuff</em><span class="sig-paren">)</span><a class="headerlink" href="#freestuffs.stuff_charter.StuffCharter.sort_stuff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a color according to regex search.</p>
+<ol class="arabic simple">
+<li>Furniture pattern, red</li>
+<li>Electronics pattern, blue</li>
+<li>Miscellaneous pattern, black</li>
+<li>no match, white</li>
+</ol>
+<p>sort_stuff will return  with the first pattern found in 
+that order.</p>
+<dl class="docutils">
+<dt>TODO:</dt>
+<dd><ul class="first last simple">
+<li>Set and patterns as modifiable attributes.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-freestuffs.stuff_scraper">
 <span id="freestuffs-stuff-scraper-module"></span><h2>freestuffs.stuff_scraper module<a class="headerlink" href="#module-freestuffs.stuff_scraper" title="Permalink to this headline">¶</a></h2>
@@ -256,73 +484,75 @@ duplicate location names in world. Yikes.</p>
 <div class="section" id="freestuffs-treasure-script-module">
 <h2>freestuffs.treasure_script module<a class="headerlink" href="#freestuffs-treasure-script-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-freestuffs"></span></div>
+<div class="section" id="module-freestuffs">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-freestuffs" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 
+           </div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">freestuffs package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-freestuffs.city_list">freestuffs.city_list module</a></li>
-<li><a class="reference internal" href="#module-freestuffs.stuff">freestuffs.stuff module</a></li>
-<li><a class="reference internal" href="#freestuffs-stuff-charter-module">freestuffs.stuff_charter module</a></li>
-<li><a class="reference internal" href="#module-freestuffs.stuff_scraper">freestuffs.stuff_scraper module</a></li>
-<li><a class="reference internal" href="#freestuffs-treasure-script-module">freestuffs.treasure_script module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
-</ul>
-</li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="cookbook.html" class="btn btn-neutral" title="Cookbook" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="cookbook.html"
-                        title="previous chapter">Cookbook</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/freestuffs.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Fenimore Love MIT.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="cookbook.html" title="Cookbook"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">freestuffs 0.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Fenimore Love MIT.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.3.
-    </div>
-  </body>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

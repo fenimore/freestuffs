@@ -101,6 +101,8 @@ modified manually.
     >>> stuffs_chart.create_map()
     call save_map(path) generate html map
     
+The stuff markers are colored circles in diminishing order; the small the circle, the older the posting (this prevents inaccessible overlaps).
+
 And you can add an address (not zoom) after the map has been created::
 
     >>> stuffs_chart.add_address('5989 Rue du Parc, Montreal, Quebec')
