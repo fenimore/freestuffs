@@ -8,6 +8,10 @@ except ImportError:
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+
+requirements = open('requirements.txt').read().splitlines()
+
+
 setup(
     name='freestuffs',
     description='Find free stuff near you!',
@@ -17,6 +21,6 @@ setup(
     url='https://github.com/polypmer/freestuffs',
     packages=['freestuffs',],
     include_package_data=True,
-    install_requirements=['nose', 'folium','geopy','beautifulsoup4', 'requests', 'unidecode'],
+    install_requires=requirements,
     long_description=read('README.rst'),
 )
