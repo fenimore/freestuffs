@@ -7,11 +7,11 @@ except ImportError:
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
-    
+
 setup(
     name='freestuffs',
     description='Find free stuff near you!',
-    version='0.1',
+    version='0.1.1',
     author='Fenimore Love',
     license='MIT',
     url='https://github.com/polypmer/freestuffs',

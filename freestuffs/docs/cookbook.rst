@@ -73,7 +73,7 @@ a wrapper around the folium.Map.
     >>> from freestuffs.stuff_charter import StuffCharter
     >>> stuffs = StuffScraper('montreal', 5, precise=True).stuffs
     >>> stuffs_chart = StuffCharter(stuffs)
-    call save_map(path) generate html map
+    call save_map(path) to generate html map
     >>> type(map.treasure_map)
     <class 'folium.folium.Map'>
 
@@ -99,7 +99,7 @@ modified manually.
     >>> stuffs_chart = StuffCharter(stuffs, zoom=15, do_create_map=False)
     >>> stuffs_chart.zoom = 10 # default 13
     >>> stuffs_chart.create_map()
-    call save_map(path) generate html map
+    call save_map(path) to generate html map
     
 The stuff markers are colored circles in diminishing order; the small the circle, the older the posting (this prevents inaccessible overlaps).
 

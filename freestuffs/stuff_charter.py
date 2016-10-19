@@ -101,7 +101,7 @@ class StuffCharter:
         elif is_flask:
             self.save_flask_map()
         else:
-            print("call save_map(path) generate html map")
+            print("call save_map(path) to generate html map")
     
     def save_test_map(self):
         """Create html map in current directory.
