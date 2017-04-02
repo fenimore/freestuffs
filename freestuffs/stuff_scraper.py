@@ -17,11 +17,11 @@ from freestuffs.stuff import Stuff
 
 class StuffScraper:
     """The freestuffs Craigslist scraper.
-    
+
     Compile parrellel lists of stuff attributes
     in order to store a freestuffs list, with an
     option for including stuff coordinates.
-    
+
     Attributes:
         - stuffs -- a list of stuff objects
         - soup -- bs4 soup of Craiglist page
@@ -37,7 +37,7 @@ class StuffScraper:
     """
     def __init__(self, place, _quantity, precise=False, use_cl=False):
         """Scrape Craigslist for a list of stuff.
-        
+
         Keyword arguments:
             - place -- the city to search, in Craigslist friendly format
             - _quantity -- how many stuffs to gather
@@ -53,21 +53,21 @@ class StuffScraper:
             _soup = BeautifulSoup(free_stuff_page.text, "html.parser")
         except:
             _soup = "something when wrong" # Something informative
-        self.soup = _soup  
+        self.soup = _soup
         self.quantity = int(_quantity)
         self.locs = self.get_locations(place, self.soup) # locations, needs user place for fine tuning
-        self.urls = self.get_urls(self.soup)      
-        self.things = self.get_things(self.soup) # titles 
+        self.urls = self.get_urls(self.soup)
+        self.things = self.get_things(self.soup) # titles
         self.images = self.get_images(self.soup)  # I can't believe this works..
-        self.stuffs = [Stuff(self.things[x], self.urls[x], self.locs[x], 
-                           self.images[x], place) 
-                           for x in range(0, self.quantity)] 
+        self.stuffs = [Stuff(self.things[x], self.urls[x], self.locs[x],
+                           self.images[x], place)
+                           for x in range(0, self.quantity)]
         if precise:
             for stuff in self.stuffs:
                 stuff.find_coordinates()
         # TODO: Print how long this takes...
-        
-        
+
+
     def setup_place(self):
         """Take cl input of user location."""
         user_place = input("What major city are you near? (or, 'help') ")
@@ -79,12 +79,12 @@ class StuffScraper:
               the craigslist.org site for your cities 'name'.\
               \nAlso, the mappify module currently only works with montreal")
             user_place = input("What major city are you near? ")
-        return user_place   
-        
-        
+        return user_place
+
+
     def get_things(self, _soup):
         """Scrape titles.
-        
+
             Keyword arguments:
             - soup - bs4 object of a Craiglist freestuffs page
         """
@@ -96,48 +96,48 @@ class StuffScraper:
 
     def get_locations(self, user_place, _soup):
         """Scape locations.
-        
+
            Returns a list of locations, more or less
            precise. Concatnate user_place to string
            in order to aid geolocator in case of
            duplicate location names in world. Yikes.
-        
+
            Keyword arguments:
-               - user_place -- the city, in Craigslist format 
+               - user_place -- the city, in Craigslist format
                - soup -- bs4 object of a Craiglist freestuffs page
         """
         free_locations = []
         user_location = self.refine_city_name(user_place)
         for span in _soup.find_all("span", class_="pnr"):
-            loc_node = str(span.find('small')) 
+            loc_node = str(span.find('small'))
             if loc_node == "None": # Some places have no where
                 _loc = user_location + ", Somewhere" # +", Somewhere"
             else:
                 _loc = loc_node.strip('<small ()</small>')
                 _loc = unidecode(_loc)# Unicode!
-                _loc = _loc + ", " + user_location 
+                _loc = _loc + ", " + user_location
             free_locations.append(_loc)
         return free_locations
-        
-        
+
+
     def get_urls(self, _soup):
         """Scrape stuff urls.
-        
+
         Keyword arguments:
             - soup - bs4 object of a Craiglist freestuffs page
         """
         free_urls = []
         for row in _soup.find_all("a", class_="i"):
-            _url = row['href'] 
+            _url = row['href']
             free_urls.append(_url)
         return free_urls
 
 
     def get_images(self, _soup):
         """Scrape images.
-        
+
         Uses wikpedia No-image image if no image is found.
-        
+
         Keyword arguments:
             - soup - bs4 object of a Craiglist freestuffs page
         """
@@ -152,7 +152,7 @@ class StuffScraper:
                 _img = "http://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg" # No-image image
             free_images.append(_img)
         return free_images
-        
+
     def refine_city_name(self, user_place):
         """Refine location for two-word cities."""
         if user_place == 'newyork': # does this have to capitalized?
