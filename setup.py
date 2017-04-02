@@ -18,7 +18,7 @@ setup(
     version='0.1.1',
     author='Fenimore Love',
     license='MIT',
-    url='https://github.com/polypmer/freestuffs',
+    url='https://github.com/fenimore/freestuffs',
     packages=['freestuffs',],
     include_package_data=True,
     install_requires=requirements,
