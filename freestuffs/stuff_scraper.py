@@ -115,12 +115,11 @@ class StuffScraper:
         """
         free_locations = []
         user_location = self.refine_city_name(user_place)
-        for span in _soup.find_all("span", class_="pnr"):
-            loc_node = str(span.find('small'))
-            if loc_node == "None": # Some places have no where
+        for loc_node in _soup.find_all("span", class_="result-hood"):
+            if loc_node is None: # Some places have no where
                 _loc = user_location + ", Somewhere" # +", Somewhere"
             else:
-                _loc = loc_node.strip('<small ()</small>')
+                _loc = str(loc_node).strip('<span class="result-hood">()</span>')
                 _loc = unidecode(_loc)# Unicode!
                 _loc = _loc + ", " + user_location
             free_locations.append(_loc)
