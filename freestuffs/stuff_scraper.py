@@ -133,7 +133,7 @@ class StuffScraper:
             - soup - bs4 object of a Craiglist freestuffs page
         """
         free_urls = []
-        for row in _soup.find_all("a", class_="i"):
+        for row in _soup.find_all("a", class_="hdrlnk"):
             _url = row['href']
             free_urls.append(_url)
         return free_urls
@@ -148,7 +148,7 @@ class StuffScraper:
             - soup - bs4 object of a Craiglist freestuffs page
         """
         free_images = []
-        for row in _soup.find_all("a", class_="i"):
+        for row in _soup.find_all("a", class_="result-image"):
             try:
                 _img = str(row['data-ids']) # Take that Craig!
                 _img = _img[2:19] # eats up the first image ID
