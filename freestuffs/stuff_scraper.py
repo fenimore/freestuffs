@@ -67,6 +67,13 @@ class StuffScraper:
                 stuff.find_coordinates()
         # TODO: Print how long this takes...
 
+    def __repr__(self):
+        result = str(self.quantity)
+        result += " " + str(len(self.locs))
+        result += " " + str(len(self.things))
+        result += " " + str(len(self.images))
+        result += " " + str(len(self.urls))
+        return result
 
     def setup_place(self):
         """Take cl input of user location."""
