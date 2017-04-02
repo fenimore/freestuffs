@@ -134,6 +134,4 @@ The triage checks for regex search in this order:
 Support
 -------
 
-The easiest way to get support is to open an issue on Github_.
-
-.. _Github: http://github.com/polypmer/freestuff-bot/issues
+The easiest way to get support is to open an issue on `Github <http://github.com/polypmer/freestuff-bot/issues>`_.
