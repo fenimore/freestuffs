@@ -15,7 +15,7 @@ requirements = open('requirements.txt').read().splitlines()
 setup(
     name='freestuffs',
     description='Find free stuff near you!',
-    version='0.1.4',
+    version='0.1.6',
     author='Fenimore Love',
     license='MIT',
     url='https://github.com/fenimore/freestuffs',

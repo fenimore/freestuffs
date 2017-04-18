@@ -119,7 +119,7 @@ class StuffScraper:
             if loc_node is None: # Some places have no where
                 _loc = user_location + ", Somewhere" # +", Somewhere"
             else:
-                _loc = loc_node.text.strip('() ')
+                _loc = loc_node.text.strip(' () ')
                 _loc = unidecode(_loc) # unicode!
                 _loc = _loc + ", " + user_location
             free_locations.append(_loc)
